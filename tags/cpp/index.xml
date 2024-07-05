@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cpp on 挥剑对风尘</title>
+    <link>https://huijian142857.gitee.io/tags/cpp/</link>
+    <description>Recent content in Cpp on 挥剑对风尘</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 08 Oct 2015 09:09:00 +0000</lastBuildDate>
+    <atom:link href="https://huijian142857.gitee.io/tags/cpp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43; Primer 第五版 学习笔记 Part III</title>
+      <link>https://huijian142857.gitee.io/post/cpp_primer_part_3/</link>
+      <pubDate>Thu, 08 Oct 2015 09:09:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/cpp_primer_part_3/</guid>
+      <description>Copy Control A class controls what happens when objects of class type are copied, moved, assigned, and destroyed by defining five special member functions: copy constructor, move constructor, copy-assignment operator, move-assignment operator, destructor. The copy and move constructors define what happens when an object is initialized from another object of the same type. The copy and move assignment operators define what happens when we assign an object of a class</description>
+    </item>
+    <item>
+      <title>C&#43;&#43; Primer 第五版 学习笔记 Part I and II</title>
+      <link>https://huijian142857.gitee.io/post/cpp_primer_part_1_2/</link>
+      <pubDate>Mon, 28 Sep 2015 18:38:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/cpp_primer_part_1_2/</guid>
+      <description>基础部分 A stream is a sequence of characters read from or written to an IO device. To handle input, we use an object of type istream named cin; for output, ostream named cout. Also, cerr, clog. All the names defined by standard library are in the std namespace. The value returned from main is a status indicator. A nonzero has a meaning defined by system. The &amp;laquo;</description>
+    </item>
+    <item>
+      <title>C&#43;&#43;单例模板</title>
+      <link>https://huijian142857.gitee.io/post/cpp_single_instance_template/</link>
+      <pubDate>Tue, 13 Jan 2015 15:20:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/cpp_single_instance_template/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 #pragma once namespace MyGame { template&amp;lt;typename T&amp;gt; class Global { public: static void Create() { ASSERT(!s_instance); s_instance = new T; } static void Set(T* obj) { ASSERT(!s_instance);</description>
+    </item>
+    <item>
+      <title>C&#43;&#43;错误笔记</title>
+      <link>https://huijian142857.gitee.io/post/cpp_errors/</link>
+      <pubDate>Fri, 26 Sep 2014 19:18:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/cpp_errors/</guid>
+      <description>fatal error LNK1120: 无法解析的外部命令 需要在多个源文件中共享变量时，可以声明一个静态变量；如果静态变量声明在cpp文件中，会自动初始化，但不利于外部访问；</description>
+    </item>
+    <item>
+      <title>C&#43;&#43; 指针</title>
+      <link>https://huijian142857.gitee.io/post/cpp_pointer/</link>
+      <pubDate>Sun, 23 Dec 2012 10:21:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/cpp_pointer/</guid>
+      <description>什么是指针呢？指针就是一个变量。从过去的经验知道，如果将变量声明为某个数据类型，那么这个变量就可以存储这种数据类型。int变量可以存储整型，</description>
+    </item>
+  </channel>
+</rss>

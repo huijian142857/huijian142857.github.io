@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Unity3D 知识点 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="Unity3D 零散知识点记录 常见问题 世界空间（World）：整个虚拟世界的3d空间，在Unity3d中以米作为单位，如长100米宽100米高100米的立" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/unity3d_skill_points/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/unity3d_skill_points/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="Unity3D 知识点">
+  <meta property="og:description" content="Unity3D 零散知识点记录 常见问题 世界空间（World）：整个虚拟世界的3d空间，在Unity3d中以米作为单位，如长100米宽100米高100米的立">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-07-01T21:10:22+08:00">
+    <meta property="article:modified_time" content="2021-07-01T21:10:22+08:00">
+    <meta property="article:tag" content="Unity3d">
+
+  <meta itemprop="name" content="Unity3D 知识点">
+  <meta itemprop="description" content="Unity3D 零散知识点记录 常见问题 世界空间（World）：整个虚拟世界的3d空间，在Unity3d中以米作为单位，如长100米宽100米高100米的立">
+  <meta itemprop="datePublished" content="2021-07-01T21:10:22+08:00">
+  <meta itemprop="dateModified" content="2021-07-01T21:10:22+08:00">
+  <meta itemprop="wordCount" content="24601">
+  <meta itemprop="keywords" content="Unity3d">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Unity3D 知识点">
+  <meta name="twitter:description" content="Unity3D 零散知识点记录 常见问题 世界空间（World）：整个虚拟世界的3d空间，在Unity3d中以米作为单位，如长100米宽100米高100米的立">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Unity3D 知识点</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-07-01 </span>
+        <div class="post-category">
+            <a href="/categories/unity3d/"> unity3d </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#常见问题">常见问题</a></li>
+        <li><a href="#hash-crc-md5-sha1">Hash CRC MD5 SHA1</a></li>
+        <li><a href="#判定-vector3-或者-float-这种类型数据是否相等">判定 Vector3 或者 float 这种类型数据是否相等</a></li>
+        <li><a href="#求圆形范围内的随机点">求圆形范围内的随机点</a></li>
+        <li><a href="#timeline相关">Timeline相关</a></li>
+        <li><a href="#unity-asset-序列化">Unity Asset 序列化</a></li>
+        <li><a href="#ui合批在哪些情况下会被打断">UI合批在哪些情况下会被打断</a></li>
+        <li><a href="#ui-制作和优化">UI 制作和优化</a></li>
+        <li><a href="#贴图">贴图</a></li>
+        <li><a href="#后处理方式">后处理方式</a></li>
+        <li><a href="#gpu-skinning">GPU Skinning</a></li>
+        <li><a href="#unity-灯光和烘焙">Unity 灯光和烘焙</a></li>
+        <li><a href="#基于物理的渲染-pbr">基于物理的渲染 PBR</a></li>
+        <li><a href="#渲染管线">渲染管线</a></li>
+        <li><a href="#刚体控制角色移动">刚体控制角色移动</a></li>
+        <li><a href="#热更新补丁原理">热更新补丁原理</a></li>
+        <li><a href="#如何使用animator">如何使用Animator</a></li>
+        <li><a href="#unity中fps中角色边跑边打的动画用mecanim动画如何实现">Unity中fps中角色边跑边打的动画，用Mecanim动画如何实现？</a></li>
+        <li><a href="#游戏动画有哪几种">游戏动画有哪几种</a></li>
+        <li><a href="#骨骼蒙皮动画skinnedmesh的原理">骨骼蒙皮动画(SkinnedMesh)的原理</a></li>
+        <li><a href="#unity中是否能使用多线程协程是什么">Unity中是否能使用多线程？协程是什么？</a></li>
+        <li><a href="#material和shared-material的区别">material和shared material的区别</a></li>
+        <li><a href="#unity动态加载资源的方式">Unity动态加载资源的方式</a></li>
+        <li><a href="#unity是如何调用start方法的">Unity是如何调用Start方法的？</a></li>
+        <li><a href="#unity中脚本生命周期">Unity中脚本生命周期</a></li>
+        <li><a href="#移动摄像机的动作放在哪个系统函数中为什么放在这个函数中">移动摄像机的动作放在哪个系统函数中，为什么放在这个函数中？</a></li>
+        <li><a href="#unity中destroy和destroyimmediate的区别">Unity中Destroy和DestroyImmediate的区别</a></li>
+        <li><a href="#unity的几个重要的路径">Unity的几个重要的路径</a></li>
+        <li><a href="#animation播放函数">Animation播放函数</a></li>
+        <li><a href="#unity3d用于保存和读取数据的类">Unity3d用于保存和读取数据的类</a></li>
+        <li><a href="#ngui的核心组件">NGUI的核心组件</a></li>
+        <li><a href="#ngui粒子要求夹在中间粒子遮挡问题">NGUI粒子要求夹在中间？粒子遮挡问题</a></li>
+        <li><a href="#ngui怎么用uicheckbox实现单选和多选效果">NGUI怎么用UICheckBox实现单选和多选效果</a></li>
+        <li><a href="#ngui中uilable实现字体变色效果的2种方法">NGUI中UILable实现字体变色效果的2种方法</a></li>
+        <li><a href="#dynamic-font在unicode下为什么比static-font更好">dynamic font在unicode下为什么比static font更好？</a></li>
+        <li><a href="#纹理压缩">纹理压缩</a></li>
+        <li><a href="#vector3normalized和vector3normalize">Vector3.normalized和Vector3.normalize</a></li>
+        <li><a href="#使用www模拟http的get和post请求">使用WWW模拟Http的Get和Post请求</a></li>
+        <li><a href="#unity3d中的碰撞器和触发器的区别">unity3d中的碰撞器和触发器的区别？</a></li>
+        <li><a href="#unity中物体快速移动可能会导致一帧位移过大从而穿过物体使得碰撞器检测失效">unity中，物体快速移动，可能会导致一帧位移过大从而穿过物体，使得碰撞器检测失效</a></li>
+        <li><a href="#不用物理碰撞组件写出物体相碰的方法">不用物理碰撞组件，写出物体相碰的方法</a></li>
+        <li><a href="#批处理-batching">批处理 Batching</a></li>
+        <li><a href="#arpg世界地图中角色被障碍物遮挡时的透视效果是如何实现的">ARPG世界地图中，角色被障碍物遮挡时的透视效果是如何实现的</a></li>
+        <li><a href="#lod">LOD</a></li>
+        <li><a href="#mipmap">Mipmap</a></li>
+        <li><a href="#occlusion-culling">Occlusion culling</a></li>
+        <li><a href="#lightmap">Lightmap</a></li>
+        <li><a href="#opengl渲染管线">OpenGL渲染管线</a></li>
+        <li><a href="#unity的渲染路径">Unity的渲染路径</a></li>
+        <li><a href="#ztest和zwrite">ZTest和ZWrite</a></li>
+        <li><a href="#alphatest">AlphaTest</a></li>
+        <li><a href="#alpha-blend">Alpha Blend</a></li>
+        <li><a href="#简述找出迷宫出口的算法">简述找出迷宫出口的算法</a></li>
+        <li><a href="#向量和四元素">向量和四元素</a></li>
+        <li><a href="#向量vector3100和向量vector3001叉乘得出的向量是什么">向量Vector3(1,0,0)和向量Vector3(0,0,1)叉乘得出的向量是什么？</a></li>
+        <li><a href="#写出一个人物有限状态机的简略代码">写出一个人物有限状态机的简略代码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Unity3D 零散知识点记录</p>
+<h2 id="常见问题">常见问题</h2>
+<p>世界空间（World）：整个虚拟世界的3d空间，在Unity3d中以米作为单位，如长100米宽100米高100米的立体空间。
+屏幕空间（Screen）：屏幕2d空间，大小就是屏幕的大小，以像素作为单位，可以设定屏幕大小，0点在左上角，向右为x正向，向下为y正向。
+视口空间（Viewport）：摄像机的显示范围空间，x介于0-1，y介于0-1的2d空间，0点在左下脚，（1，1）点在右上角。世界空间坐标常常需要转换到视口空间，然后转换到屏幕空间。</p>
+<p>Unity3D的坑：在C#脚本中创建了枚举类型后，如果你已经在物体的脚本上指定了不同的枚举类型，此时你打乱枚举类型中变量次序，或者把新建类型放在最前面，那么你之前指定的类型全部乱了，必须恢复顺序。</p>
+<p>Application.LoadLevel，该函数在加载关卡时不会重置已存在的静态变量的值，需要手动重置</p>
+<p>Destroy，使用这个销毁对象的函数时，注意参数不是&quot;类的对象&quot;，应该是&quot;对象名.GameObject&quot;，否则场景中物体不会消失</p>
+<p>DontDestroyOnLoad(GameObject obj)，这个函数最好放在静态构造函数中，这样就只会执行一次；或者loading界面执行；或者用代码来创建物体并挂载脚本。</p>
+<p>WorldToScreenPoint，使用这个函数可以进行场景3D与屏幕2D的坐标转换，相反的是camera.screenToWorldPoint</p>
+<p>StartCoroutine，用于启动一个协程，与主线程一起执行，貌似多线程，实际上是CPU分时的单线程，性能不是太好。但是，它有时用起来很方便，相当于在Update里启动一个计时器函数，可以防止界面卡死。</p>
+<p>Input.GetKey(KeyCode.LeftShift) &amp;&amp; Input.GetKey(KeyCode.W)，同时按下多个键 ，常用于实现人物奔跑效果</p>
+<p>GetKey：按键按下期间返回true
+GetKeyDown：按键按下的第一帧返回true
+GetKeyUp：按键松开的第一帧返回true
+GetAxis(&ldquo;Horizontal&rdquo;)和GetAxis(&ldquo;Vertical&rdquo;)：用方向键或WSAD来模拟-1到1的平滑输入</p>
+<p>退格键：backspace；回车键：return；退出键：esc；后面是按键名，例如, Input.GetKey(&ldquo;up&rdquo;), Input.GetKey(&ldquo;esc&rdquo;)</p>
+<p>Unity3D使用GUI或者GUILayout时，如果用代码动态创建对象，可能会出现画面闪烁问题。我通常的解决办法是，看看哪些变量在其中被改变了，找到它们，尽量不要改变即可。</p>
+<p>GuiText始终会被放置在顶层，如果你不想这样显示，但又需要程序文字，建议使用3DText，把scale调小，把font size调大即可。</p>
+<p>Android盒子遥控器按键：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Up Arrow          KeyCode.UpArrow
+</span></span><span class="line"><span class="cl">Down Arrow        KeyCode.DownArrow
+</span></span><span class="line"><span class="cl">Left Arrow        KeyCode.LeftArrow
+</span></span><span class="line"><span class="cl">Right Arrow       KeyCode.DownArrow
+</span></span><span class="line"><span class="cl">Center Button     KeyCode.JoystickButton0
+</span></span><span class="line"><span class="cl">Back button       KeyCode.Escape
+</span></span><span class="line"><span class="cl">Menu Button       KeyCode.Menu
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>包含start方法的脚本才可以被禁用</p>
+<p>Unity3D中要想脚本中变量在编辑器中显示，需要满足以下要求：变量必须被public修饰，不能使用[HideInInspector]修饰，变量的类型必须继承自MonoBehaviour。如果想把某个脚本挂在GameObject上，该脚本必须继承自MonoBehaviour，否则根本看不到该脚本。</p>
+<p>Unity3D Asset Store 下载的文件保存位置 C:\Users\sh\AppData\Roaming\Unity\Asset Store。</p>
+<p>Unity3D对C#仅提供有限的支持，在Player Settings中可以看到目前为.Net 2.0 Subset。所以在编写C#脚本时，可能无法对某些C#特性提供支持，出现一些奇怪的现象。比如无法修改单实例对象，常常需要把变量改为static类型才可以修改成功。</p>
+<p>使用Android插件与外置硬件设备交互时，我遇到过数据读取的错误，这里可能需要对AndroidManifest.xml配置文件做如下修改：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;meta-data android:name=&#34;unityplayer.ForwardNativeEventsToDalvik&#34; android:value=&#34;true&#34; /&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在使用UnityPlayer.UnitySendMessage(&ldquo;gameobject&rdquo;, &ldquo;functionname&rdquo;, result)这个函数时，有一点需要注意：第三个参数result中不能包含特殊字符，否则整个字符串传递到Unity游戏中都会为空。比如，在Android开发中，我先把&quot;00&quot;这个16进制字符串转换为了char字符，然后append到了一个StringBuilder字符串中，最后传递这个字符串到Unity中，收到的值总是为空，且无论原来这个字符串是什么。</p>
+<p>android插件，如果是library工程，可以单独放一个文件夹，然后放在Plugins/Android目录下，可以有自己的AndroidManifest文件，必须包含project.properties文件；如果是普通的jar包和AndroidManifest，必须放在Android目录下或者lib目录。library工程中的so文件要想正确打包，必须先放到外面的lib目录下重新导入，再放回原工程目录。</p>
+<p>在Unity编辑器中按住 alt 键，然后点击 Hierarchy 中的物体，可以折叠或展开所有子对象。使用 &ldquo;Align With View&rdquo; 菜单可以快速调整摄像机位置。</p>
+<p>Unity的Hierarchy中，如果出现带红色物体，是因为对应的Prefab丢失了，可以在GameObject菜单中选择Break Prefab Instance来解决。</p>
+<p>当Unity创建MonoBehaviour类的对象时，会调用默认构造函数，成员变量也会被初始化，此时可能还没有进入游戏主循环，所以这个时候调用Unity的API很可能是不安全的。比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public class FieldAPICallBehaviour : MonoBehaviour
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	public GameObject foo = GameObject.Find(&#34;foo&#34;);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">public class ConstructorAPICallBehaviour : MonoBehaviour
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	ConstructorAPICallBehaviour()
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		GameObject.Find(&#34;foo&#34;);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所以Unity会抛出一个异常：
+Find is not allowed to be called from a MonoBehaviour constructor (or instance field initializer), call in in Awake or Start &hellip;</p>
+<p>不应该给 Prefab 添加脚本，否则工程内的 Prefab 会被改变。</p>
+<p>NGUI 要支持Android电视的空鼠，可以打开UICamera脚本，找到Awake函数， 把useMouse改为true，useTouch改为false。
+NGUI UITweener 要用 ResetToBeginning() 立刻还原，必须先调用一次 ResetToBeginning() 方法。
+NGUI UITexture 不刷新，可以用 enabled 先设置 false 再设置为 true 来刷新。
+NGUI 跟随3D物体的文字移动时出现飘动，需要把位置更新代码放到 LateUpdate 中。
+NGUI 需要和粒子调整层级关系，可以修改 UIPanel 的 SortOrder 值，同时调整粒子的 Renderer 中的 Order in Layer 值，只要粒子的值位于中间即可。</p>
+<p>SpriteRender 通过改变 Order In Layer 可以让高度相同的显示在上层。</p>
+<p>如果想在 AddComponent 的时候不执行 Awake，可以先 SetActive(false)，赋予一些变量后再激活即可。</p>
+<p>声音的 Load Type 类型为 Streaming 时会获得最快的加载时间，但可能不适合常驻的音频。</p>
+<p>报错：can only be called from the main thread
+解决方法：把代码放到Update中执行</p>
+<p>如果多个NPC希望使用一个相同的动画控制器，那么可以创建一个基础 Animator Controller，然后其它的NPC使用 Animator Override Controller 即可。</p>
+<p>Animator 会在初始化时收集所有动画的属性作为默认值，如果动画状态打开了 Write Defaults 选项，当播放某一个动画时，如果没有对某个属性做动画，那么会使用默认值。
+比如，当 position 没有做动画时，它会立刻变为 zero，color 属性会默认变为 default。</p>
+<p>Particle System 可以通过修改 Scaling Mode 为 Hierarchy 来直接缩放。</p>
+<p>当一个 GameObject 为 inactive 时，其子对象的本地状态即 GameObject.activeSelf 其实为 ture，但实际上子对象在屏幕上的状态 GameObject.activeInHierarchy 是false。</p>
+<p>父物体Parent的子物体为Child，如果要求Child相对于Parent的位置，可以使用函数 InverseTransformPoint，从世界坐标转为本地坐标。</p>
+<p>Unity为每个资源生成一个guid，这个guid会存在meta文件中，物体之间的引用通过guid来表示。如果删除了某个物体，那么会生成新的guid，可能会出现引用丢失的情况；如果从服务端拉取一个meta文件，并且meta中的guid已经被本地其它资源占用了，那么还是会生成新的guid。</p>
+<p>Unity中使用cache server可以把导入的资源进行缓存，这样再次导入相同资源时不会重新导入，而是直接下载。</p>
+<p>退出游戏代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">private void Quit()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">#if UNITY_EDITOR
+</span></span><span class="line"><span class="cl">	UnityEditor.EditorApplication.isPlaying = false;
+</span></span><span class="line"><span class="cl">#else
+</span></span><span class="line"><span class="cl">	Application.Quit();
+</span></span><span class="line"><span class="cl">#endif
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置脚本执行顺序 Edit -&gt; Project Settings -&gt; Script Execution Order，可以让某些脚本的 Awake Start Update 先于其它脚本执行。 注意：经测试，这个顺序对 OnDestroy 无效。</p>
+<p>日志信息添加颜色
+<code>Debug.Log (&quot;&lt;color=red&gt;[ERROR]&lt;/color&gt;This is a &lt;i&gt;very&lt;/i&gt;&lt;size=14&gt;&lt;b&gt;specific&lt;/b&gt;&lt;/size&gt; kind of log message&quot;);</code></p>
+<p>unity打包时会修改 dll 文件中的认为没用的代码，如果这些代码通过反射调用，可能会产生某些Bug。在 Assets 目录中添加 link.xml 可以排除不被裁剪的类。</p>
+<p>unity 中注意路径分割符号，一定要用 Path.GetFullPath，拼接的路径会错误</p>
+<p>GetComponentsInChildren<Transform>不仅仅返回所有子组件，也返回自身的组件，谨慎使用。</p>
+<p>清理 RenderTexture 防止残留</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">RenderTexture rt = UnityEngine.RenderTexture.active;
+</span></span><span class="line"><span class="cl">UnityEngine.RenderTexture.active = myRenderTextureToClear;
+</span></span><span class="line"><span class="cl">GL.Clear(true, true, Color.clear);
+</span></span><span class="line"><span class="cl">UnityEngine.RenderTexture.active = rt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看某些资源是否在游戏中使用到:
+用一个场景保存所有资源，比如所有 UI 的 Prefab 或者所有场景中的 Prefab，然后用菜单 Find References In Scene</p>
+<p>Unity报错：Cannot set the parent of the GameObject x while activating or deactivating the parent GameObject
+某一帧设置了父节点Active/DeActive，那么就不能在同一帧给这个父节点添加儿子节点，即SetParent会报错
+解决的办法就是不要同一帧执行这些，把直接设置SetParent改为放到下一个Update中执行</p>
+<p>人物放技能会移动的奇怪问题，原因可能有：</p>
+<ul>
+<li>放技能前会调用stop函数</li>
+<li>Animator开启了Apply Root Motion</li>
+<li>Navagent没有停下来，除了设置 isStopped=true，还要 velocity=Vector3.zero</li>
+<li>Navagent关闭 Auto Braking后角色也没有这个问题了，但这个用来让角色缓慢自然停下来的</li>
+</ul>
+<p>Animator物体被激活后会重置动画
+Animator上设置<code>KeepAnimatorControllerStateOnDisable</code>，在Debug模式可以看到
+如果需要重置动画，比如死亡动画隐藏了身体，但对象池要复用，那么可以在SetActive之前使用 <code>m_animator.WriteDefaultValues()</code> 方法
+动画在每次重置时会初始化，某些动画的初始化可能比较耗时，如果在没初始化完之前进行动画播放会出现动画表现错误
+可以用协程检测 <code>m_animator.isInitialized</code> 来判断动画是否初始化完成</p>
+<p>Unity中测试代码如果用 ContextMenu 需要在组件上鼠标右键调用函数，这个在涉及到时间判断的代码时
+会出现一些奇怪问题，最好还是在 Update 中用 Input.GetKey 用按键去测试功能</p>
+<p>Unity快速启动方式：
+Editor -&gt; Enter Play Mode
+RuntimeInitializeOnLoadMethod</p>
+<p>Unity 中一个GameObject上如果添加了多个相同的 Child 脚本，然后另一个 Parent 脚本需要一个 Child 脚本数组，
+此时若要给那个数组手动赋值，可以再开一个 Inspector 面板，然后点击某个 Child 组件并拖拽到数组指定位置即可。</p>
+<h2 id="hash-crc-md5-sha1">Hash CRC MD5 SHA1</h2>
+<p>Hash（散列）算法就是把任意长度的输入通过算法变成固定长度的输出，这个输出就是哈希（散列）值。</p>
+<p>CRC（循环冗余校验） 是 Hash算法的一个典型应用，CRC码（16位二进制数）在发送信息时计算并放在发送信息帧的尾部，接收信息时重新计算（除CRC部分）并比较得到的与原来的 CRC校验码是否相符，如果不符，表明信息传输错误。适用于探测随机的数据错误，很适合网络消息检测和文件数据读写检测，比其它算法都简单，不保证唯一性。</p>
+<p>MD5 对输入以512位分组，其输出是16个字节，一种不可逆的加密算法，原信息的一点点变化就会导致MD5的巨大变化，128位长保证了唯一性。</p>
+<p>SHA1 用于加密，产生很长的唯一字符，20个字节，几乎不会产生 Collision（不同数据得到了相同Hash值），更加安全的是 SHA2。</p>
+<p>CRC、MD5、SHA1 都是通过对数据进行计算，得到一个校验值，用来校验数据的完整性。CRC一般用作通信数据校验，也用作文件读写校验，速度比MD5和SHA1快很多，而 MD5和SHA1 用于安全领域的文件校验和数字签名。</p>
+<h2 id="判定-vector3-或者-float-这种类型数据是否相等">判定 Vector3 或者 float 这种类型数据是否相等</h2>
+<p>判定 Vector3 或者 float 这种类型数据是否相等，需要用 AlmostEquals</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public static bool AlmostEquals(this float target, float second, float floatDiff)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    return Mathf.Abs(target - second) &lt; floatDiff;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">public static bool AlmostEquals(this Vector3 target, Vector3 second, float sqrMagnitudePrecision)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    return (target - second).sqrMagnitude &lt; sqrMagnitudePrecision;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="求圆形范围内的随机点">求圆形范围内的随机点</h2>
+<p>求圆形范围内的随机点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">r = R * sqrt(random())
+</span></span><span class="line"><span class="cl">theta = random() * 2 * PI
+</span></span><span class="line"><span class="cl">x = centerX + r * cos(theta)
+</span></span><span class="line"><span class="cl">y = centerY + r * sin(theta)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>求扇形上的随机点：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">var</span> <span class="n">randAngle</span>  <span class="o">=</span> <span class="n">startAngle</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="p">(</span> <span class="n">endAngle</span> <span class="o">-</span> <span class="n">startAngle</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">randRadius</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="n">radius</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">randX</span> <span class="o">=</span> <span class="n">centerX</span> <span class="o">+</span> <span class="n">randRadius</span> <span class="o">*</span> <span class="n">Math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">randAngle</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">randY</span> <span class="o">=</span> <span class="n">centerY</span> <span class="o">+</span> <span class="n">randRadius</span> <span class="o">*</span> <span class="n">Math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">randAngle</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Unity圆形内随机点：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Random.insideUnitCircle * radius
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>某个方向扇形内随机点：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">randomAngle</span> <span class="o">=</span> <span class="n">Random</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="o">-</span><span class="n">angle</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">angle</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="ne">float</span> <span class="n">randomRadius</span> <span class="o">=</span> <span class="n">Random</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">minRadius</span><span class="p">,</span> <span class="n">maxRadius</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">rotation</span> <span class="o">=</span> <span class="n">Quaternion</span><span class="o">.</span><span class="n">AngleAxis</span><span class="p">(</span><span class="n">randomAngle</span><span class="p">,</span> <span class="ne">Vector3</span><span class="o">.</span><span class="n">up</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">finalDir</span> <span class="o">=</span> <span class="n">rotation</span> <span class="o">*</span> <span class="n">dir</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">tgtPos</span> <span class="o">=</span> <span class="n">finalDir</span> <span class="o">*</span> <span class="n">randomRadius</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="timeline相关">Timeline相关</h2>
+<p>Playable: Animator, Video, Timeline
+Track: Clip(data, PlayableAsset) + Behaviour(logic, PlayableBehaviour)
+设置好默认Animator Controller动画，避免人物播放完Anim后卡住，这样片段的 pre和post 都可以设置为 none
+Timeline 根据输入进行非线性播放，需要自定义 Track, Clip, Behaviour 三种脚本，设置 director.Time。
+Timeline 暂时时，如果还希望运行Timeline，比如播放背景音乐，可以引入一个嵌套的 Timeline。</p>
+<h2 id="unity-asset-序列化">Unity Asset 序列化</h2>
+<p>(1) Native Assets(Scene, Material, Prefab&hellip;)
+(2) Imported Assets(Script,Shader,Model&hellip;)
+(3) .meta 文件(GUID, Import Setting)
+(4) Library/metadata(序列化后的资源)，按照Asset的GUID前2位hex进行分组为文件夹</p>
+<p>Aset Pipeline:
+(1) 分配GUID
+(2) 创建.meta文件
+(3) 序列化数据保存在Library文件夹中</p>
+<p>Scene/Prefab序列化后的文本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">--- !u!4 &amp;72096232
+</span></span><span class="line"><span class="cl">m_monoBehaviour:
+</span></span><span class="line"><span class="cl">m_Enabled: 1
+</span></span><span class="line"><span class="cl">render:{fileID:49263838494482630214, guid:033ae1e252f2d5547866d0f0781fbe60, type:3}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中的 GUID 保存在 meta 文件中，分配给 Asset; FileID 分配给 Object，比如 prefab 内部的 render，保存在序列化文件中。
+根据 GUID 找到对应的 Asset, 再根据 FileID 找到这个 Asset 内部的 Object，最终找到引用的对象。
+第一行的4代表Unity中的Transform类型，后面的一串数字代表里面的FileID。
+Script Assets:
+一种特殊的文本文件，判定是否需要重新编译，序列化后的名字为 m_Script, m_Icon 等。
+AssetDatabase 检测到文件被修改后，会触发代码编译，同时进行脚本Asset序列化。
+分为两种脚本 Asset, 即 ScriptingMethodPtr 和 MonoScriptCache (MonoBehaviour，包含 Update、LateUpdate&hellip;)
+创建新的 MonoBehaviour 时会添加到Unity的 BehaviourManager 中，在运行时直接对所有的 Update 这些进行更新，没有用到反射。
+Model Assets:</p>
+<ul>
+<li>Mesh Compression，只是压缩硬盘上的文件数据</li>
+<li>Vertex Compression</li>
+<li>Optimize Mesh Data
+建议只开启后面这两项</li>
+</ul>
+<h2 id="ui合批在哪些情况下会被打断">UI合批在哪些情况下会被打断</h2>
+<p>在Hierarchy中连续的图片，并且用了相同材质的Image可以合批处理
+不同Canvas里的无法动态批处理
+缩放系数不同的无法批处理</p>
+<h2 id="ui-制作和优化">UI 制作和优化</h2>
+<p>DrawCall相关</p>
+<p>绘制顺序：按照Hierarchy顺序从上到下进行绘制，由远到近。</p>
+<p>合并规则：运行时会合批，是否相同的Atlas，分层合并。
+Mask会打断DrawCall的合并，尽量不使用。</p>
+<p>层级结构：</p>
+<ul>
+<li>对齐，把 Hierarchy 结构做成相似。如果有特别的，可以加凑数的然后改变alpha隐藏。</li>
+<li>三明治结构，同一个Atlas上的好几个图片中夹层了文字或其它图集的图片，导致drawCall上升。</li>
+<li>减少层级，减少节点数目</li>
+</ul>
+<p>Atlas分配：</p>
+<ul>
+<li>功能：通用，非通用</li>
+<li>图片：Icon，Banner,Portrait&hellip;</li>
+</ul>
+<p>OverDraw:（填充率）
+Shadered WireFrame &amp;&amp; OverDraw 用这个视图来查看；
+使用九宫格图片Image时，如果中间不需要，应该关闭Fill Center选项；
+大面积的图片，如果做了Fade Out透明，不再使用时应该DeActive或者Destroy，降低填充率；
+减少层叠，尽量不要用多个图片来拼接；
+关闭被遮挡的Camera；</p>
+<p>Mesh Rebuild:（动静分离）
+Canvas下面的所有Mesh会被合并成一个，称为一个Rebuild过程，有任何变动的元素出现都会导致Rebuild，
+解决的办法就是把会变动的部分放到一个单独的Canvas中。
+Mask,ScrollView都是会动的。</p>
+<p>Memory:
+图集大小，IOS下必须是正方形
+降低图片分辨率，或者不需要不压缩
+本身很大的图，比如512以上，不需要打包为图集Atlas，不需要Tag
+Sprite是否需要Slice
+三角形和矩形这种对称的可以切成2个来做
+RGB和RGBA图片没法合并到同一个Atlas</p>
+<h2 id="贴图">贴图</h2>
+<p>矢量图：记录元素的形状以及颜色的算法，放大后依然清晰，比如大部分字体
+位图（点阵图）：数据记录的是图片本身像素信息，放大后模糊。保存颜色有存储索引色或者直接色两种方法。</p>
+<p>BMP，头字节定义图片大小等，后面的都是图片本身的数据，不压缩，直接色
+TGA，支持RGBA通道，不压缩
+JPG，每个像素用3个字节表示，只有RGB通道表示，有损压缩，哈夫曼压缩算法，直接色
+PNG，每个像素用4个字节表示，RGBA通道，无损压缩，DEFLATE压缩算法，PNG-8用索引色，PNG-24用直接色</p>
+<p>灰度图：每个像素用8bit表示，都是介于黑色和白色之间的256种灰度中的一种</p>
+<p>内存中使用JPG/PNG压缩由于性能不好，所以需要专门的硬件图片压缩格式
+PC 上是 DXT(dx9)，BC(dx 10)，移动端是 ETC（可以存储alpha，但只能是透明或不透明）,ETC2（可以存Alpha）,PVRTC,ASTC（可选压缩率）等
+贴图压缩常用 Block Compression 的方式，以原始大小存储一些颜色，使用编码方案存储其他颜色，减少存储图像所需的内存</p>
+<p>ASTC 是最新可选压缩率的压缩算法:
+其他几种压缩方式都是对4x4的一个Tile进行压缩，而 ASTC 对Tile数量不规定，但每个Tile压缩后必须是128bit（NxM 不需要是正方形）。
+block size 从 4x4 到 12x12。规定压缩率是 0.89 bpt - 8 bpt (bit per texel)。</p>
+<p>伽马矫正：
+gamma 人眼对光线亮度的感知是非线性的，而是遵循一种幂律关系，所以需要对颜色进行（0.45次方）矫正
+普通的图片，如果作为Albedo Map，当需要在Linear空间中做时，Unity中需要勾选 sRGB（Gamma 0.45)；
+即 Linear Texture 和 sRGB Texture 在计算颜色时都先转到 gamma 1.0 的状态，在颜色计算完成后，在进行 gamma 0.45 进行转换。
+一般的ps的图 片都是做了gamma 0.45矫正的 sRGB 图片，如果在Unity中勾选了sRGB选项，会对颜色进行 pow2.2 矫正到 gamma 1.0 方便计算。</p>
+<p>贴图采样：</p>
+<p>Wrap Mode：
+当纹理坐标超出默认范围时如何处理，Repeat进行重复，Mirror进行镜像，Clamp使用边缘颜色。
+a texel （纹理元素），A pixel on a texture
+如果小尺寸贴图采样到一个大尺寸Image上，那么Image上的多个像素会对应到同一个纹理元素上，需要选择采样方式来计算像素颜色。
+每个顶点都有个UV值，用这个UV值去采样图片。</p>
+<p>Filter Mode：
+Nearest Point，采样1次，表示只要落在哪个纹理元素上，就取哪个纹理元素的颜色，所以多个像素会有相同颜色值，容易产生马赛克。
+Bilinear 双线性过滤，采样4次，取pixel对应的纹理坐标周围4个纹理元素，再取平均，以平均值作为采样值，
+只选取texel和pixel之间大小最接近的那一层Mipmap进行采样。
+Trilinear 三线性过滤，采样8次，对pixel大小与texel大小最接近的两层Mipmap level分别进行双线性过滤，再对得到的结果进行插值。
+Anisotropic 各向异性过滤，</p>
+<p>Mipmap:
+一张贴图，原图称为 Mip0 128x128，Mip1 = 64x64，Mip2 = 32x32
+数据量会增大33%</p>
+<p>Texture Streaming:
+虽然只用到一个Mipmap层级，但一般都需要CPU来加载一张texture的所有mips。
+通过 Texture Streaming可以预先决定mip level，然后把对应的 mipmap 直接给gpu。
+有一种方法，可以先加载mipmap0，加快加载速度，然后再加载对应的mipmap level。</p>
+<p>Texture Blend:
+Color Blend，两个颜色直接相乘
+Normal Blend，法线 A 和 B，out = normalize(float3(A.rg + B.rg, A.b * B.b))</p>
+<p>Texture Atlas:
+shader相同，texture不同的情况可以进行合批</p>
+<p>bandwidth 带宽：
+PCIe v4 bandwidth 是 30-40 GB/Second，从CPU内存提交到显存，但是移动端是共享内存
+贴图越少越好，越小越好
+使用压缩格式图片，显卡拿到的是压缩后的图片，然后显卡在运行时解压，这样就降低了带宽消耗
+在硬件层面，存在 texture cache (L1、L2)，如果命中了缓冲就能降低 bandwidth
+texel读取时一般按照 4x4 texel 方式读取一大块</p>
+<p>贴图Unity工具：
+导入时自动设置正确的分辨率，压缩格式，sRGB选项（在Linear空间需要设置），NormalTexture
+场景中控制带宽，检查Mipmap，检查贴图总体数量，检查texture使用的mipmap level情况，看看用到了哪几个level。</p>
+<h2 id="后处理方式">后处理方式</h2>
+<p>Legacy Image Effect: Bloom Optimized（移动端举例）
+模糊处理，降低分辨率到1/4，然后做一些颜色处理。</p>
+<p>Post Processing Stack V2: Bloom (Fast Mode)（重要参数：Diffusion）
+缩减分辨率1/4,1/8,1/16等，按迭代次数不断缩减，缩减到目标尺寸后再放大回去到1/2大小，
+最终把处理完的1/2大小的图片叠加到屏幕上，叠加过程在Uber Shader中处理。</p>
+<p>需要迭代次数较高时，用PPS这种后面处理的图片尺寸会减小，整体复杂度会减小。
+一旦后处理数量增加时，Legacy方式的每个处理都会进行单独的Pass计算，PPS的实际需要的Pass数目不会减少，但是叠加到屏幕的Pass只有一个，相对减少了。</p>
+<p>移动端直接使用PPS可能复杂度会更高，尤其是需要的后处理较少时，比如只有两三个。
+如果使用PPS，可以对Uber.shader进行修改。</p>
+<h2 id="gpu-skinning">GPU Skinning</h2>
+<p>实现百人同屏</p>
+<p>较好的思路：把骨骼动画烘焙到纹理中，然后在顶点Shader中去采样骨骼的位移。
+用浮点数纹理RGBAHalf，在OpenGL ES2.0中可能不支持。</p>
+<p>Unity中自带的GPU Skinning 不是很好用，会出现耗时高，GPU Waiting这种问题。这个选项在移动端尽量不要开启。
+因为已经是 Mesh Renderer，不是 Skinned Mesh Renderer，需要考虑：
+GPU Instancing，使用 DrawMeshInstanced 这样的API，利用 MaterialPropertyBlock向Shader传输每个角色的不同属性；
+武器挂件，利用 DrawMeshInstanced（或DrawMesh）渲染挂件；
+Animatin Blend，分部采样，然后做加权平均。</p>
+<p>降低CPU耗时，增大了GPU的压力</p>
+<h2 id="unity-灯光和烘焙">Unity 灯光和烘焙</h2>
+<p>Directional Light:
+Intensity 在线性空间下白天建议 1.5-2.0，夜光下0.4-1.0
+Indirect Multiplier，间接光强度，控制直接光照不到的地方的亮度，白天建议0.6-1，夜晚建议0.3-0.7
+Emission HDR Intencity，可以让晚上的灯管来使用</p>
+<p>Area Light
+比如窗户的边上就需要这种用于补光的</p>
+<p>Spot Light
+Point Light</p>
+<p>SkyLight:
+Procedural Skybox
+SkyBox材质的参数 Exporsure，Tint Color，Cubemap</p>
+<p>Light Probe Group
+Light probe 光照探针，提供廉价的辅助光照（球谐），用于复杂结构的小物件，树木和植被可使用，使用这个可以优化掉1/3的lightmap，加速烘焙
+Reflection Probe</p>
+<p>Linear Space - Intencity = 1.5-2.0，更接近真实的亮度效果
+Gamma Space - Intencity = 1.0</p>
+<p>灯光烘培只适用于静态的不能移动的物体
+Enlighten，支持实时光GI，成熟稳定
+Progressive，GI更接近真实，支持GPU烘焙，速度快，但是噪点控制较差</p>
+<p>Lighting 设置：
+skybox Material 赋值
+Environment Lighting 选择 Gradient，自定义其它参数颜色
+Environment Reflections 选择 Skybox，反射天空颜色，Intensity Multiplier 设置为 0.85
+Mixed Lighting 勾选 Baked GI，Lightning Mode 选择 Subtractive 这种混合光照方式，设定一个 Realtime Shadow Color
+Lightmapper 选择使用 Progressive CPU 方案，Direct Samples 32，Indirect Samples 512，Environment Samples 256 等</p>
+<p>shadow color: 阴影颜色应该基于 Ambient Color</p>
+<p>调整 Lightmap Size 和 Lightmap Resolution 可以加速烘焙，选择 Progressive GPU 也能加速烘焙</p>
+<p>移动端灯光方案：
+混合光照技术，近景使用动态阴影，远景用 shadow Mask。
+根据游戏类型设置实时阴影的距离为 5-20 米之内降低 shadow pass 的压力。</p>
+<p>Directional Light 的 Mode 设置为 Mixed，灯光设置中 Lighting Mode 选择 Subtractive，
+标记为 static 的为静态物体会参与烘焙，而动态物体会进行实时阴影计算。
+如果 Lighting Mode 选择 ShadowMask，可以解决动态物体的阴影与静态物体阴影交互的问题，但理论上说 Subtractive 性能更好。</p>
+<p>首选Linear线性空间作为开发环境，gamma适合opengl3.0之前的项目
+灯光的Indirect强度不能高过直接光的强度，在线性空间下一般小于1
+不参与烘焙的物体使用Light Probe照明
+混合光照移动端建议实时阴影距离控制在不超过20米
+使用Unity提供的procedural skybox进行烘焙，可以获得更真实的lightmap
+不轻易的调整Unity的albedo boost和 indirect intensity强度，尽可能保证 albeedo boost=1, indirect intensity=1</p>
+<h2 id="基于物理的渲染-pbr">基于物理的渲染 PBR</h2>
+<p>精确地模拟光与材质之间的交互</p>
+<p>使用统一的Shader (Standard Shader)
+材质的制作规范化，免去很多猜测的成分
+在任何灯光下，材质的外观都会显得自然</p>
+<p>入射光 -&gt; 漫反射 Diffuse，高光 Specular
+经典模型：Diffuse (Lambert)，Specular(Phong) 无法体现粗糙度，过于简化。
+PBR微表面理论：考虑微表面，不是整个表面，根据法线分布函数D决定高光如何分布；某部分光线可能不会反射出去，根据可见性函数V来判断。
+Fresnel系数F：菲涅尔效果
+PBR模型：BRDF（Bidirectional Reflectance Distribution Function），描述某个表面的反射属性
+简化公式：<code>K(diff)*L(diff) + K(spec)*VDF</code>
+输入参数：光照，视角，几何，材质(Diffuse + Specular + Roughness 影响高光分布和环境映射的模糊度 + Reflectivity 影响高光和环境映射的强度)
+输出：Color</p>
+<p>传统游戏用 Gamma 空间，但 PBR 工作流需要 Linear Space，要求OpenGL 3.0。
+如果使用 Gamma Space，在非线性空间下做线性计算，最终的效果是不正确的。</p>
+<p>HDR 光照溢出时，让高光部分仍然保留细节，本质上是允许大于1，但是最终会重新映射到0和1之间。
+HDR 必须配合 PPS 后处理，否则溢出部分只能截断到1。
+Forward Path 下需要配合后处理 Tone Mapping 脚本。
+Shader 计算 RGBA 范围不再是 [0,1]。
+Unity中需要勾选 Graphics Settings -&gt; Tier Settings -&gt; Use HDR。</p>
+<p>PBR 在移动端需要控制像素数量，中高端分级。</p>
+<h2 id="渲染管线">渲染管线</h2>
+<p>应用阶段 ：大部分在CPU上做的逻辑更新，比如做位置更新，动画更新，物理模拟等。
+一些任务可以通过 Compute Shader，交给GPU处理。
+设置管线状态，绑定管线资源。CPU提交后，GPU开始执行，顶点处理阶段开始。</p>
+<p>顶点处理阶段：拿输入的顶点，组成点，线或者三角面，处理成多边形，计算出要画什么，怎么画，画在哪。
+顶点：至少是一个位置Position，还有　颜色Color（作为标记值），法线Normal，UV（用于贴图）。Mesh是顶点的集合。
+逐顶点相关计算；输入是模型空间中顶点属性；输出是有可能被绘制的模型在裁剪空间的顶点属性。
+（1）顶点着色 Vertex Shading。设置顶点的相关数据：坐标系转换。
+以顶点位置为例，模型空间：原始空间，没有变形，在素材本身中；
+世界空间：从这里开始，所有物件在同一个空间中，位置由同一个世界坐标系决定；
+摄像机空间：摄像机在世界空间中有自己的位置和方向（右手定则）。
+（2）投影 Projection。
+将摄像机范围内的物件转换到 易于裁剪的NDC空间，易于投影到2D屏幕上的NDC空间。
+将投影区域中的物体转换到一个单位正方体内<code>(-1,-1,-1)-(1,1,1)(Normalized Device Coordinate)</code>，容易被Map到一个2D的屏幕上。
+不同的投影方式：Orthographic正交，Perspective透视（近大远小）。
+为了方便转换，用的是4个值的齐次空间坐标<code>(x,y,z,w)</code>。
+在2D投影时，将(X,Y)表示为(X&rsquo;,Y&rsquo;,W)，用w表示投影仪与被投平面的距离。<code>X*W=X',Y*W=Y'</code>。
+在3D投影时，<code>X*W=X',Y*W=Y',Z*W=Z'</code>，根据3D坐标的Z值，更改齐次坐标中的W值，Z越大，W越大。实现近大远小的效果。
+（3）裁剪Clipping。只有在视锥内或与视锥部分重合的物件的顶点信息才会被传送到光栅化阶段。
+（4）屏幕映射 Screen Mapping。输入是3D空间中通过了裁剪后的多边形。3D空间中的X，Y变化作为屏幕空间坐标，通过ViewPort决定画在哪个区域。
+Z轴坐标被映射到[0,1]内，变成了当前点的深度信息。屏幕坐标原点，因API不同，OpenGL在左下角，DX在左上角。</p>
+<p>光栅化阶段 Rasterization：对于多边形，找到所有被他们“覆盖”的像素，并将这些像素发送到下一个阶段
+将屏幕空间中的2D多边形，以及深度信息，和其它信息转移到屏幕上的像素。
+硬件抗锯齿(SSAA,MSAA)在这个阶段发生，并且对搜索算法产生影响，点、线、面用的搜索算法不同。</p>
+<p>像素处理阶段 Pixel：光栅化后的像素（Fragment）进行可见性测试，计算像素颜色，以及颜色混合等
+像素着色计算，可编程阶段， 决定进行什么样的计算；结果合并，可配置阶段，决定像素着色计算出的颜色如何使用，包括Z-test，Blending。
+输入为插值后的着色数据。输出是一个像素的颜色（如果有），存放在 color buffer 中，一块存放颜色的内存。
+程序提供一段公式 Pixel(Fragment) Shader，进行任何想要的计算，包括纹理化 Texturing，光照计算。
+合并Merging:
+通过 depth buffer 解决可见性问题，和 color buffer 一样的尺寸，对于每个像素，存放着这个像素里面最近的多边形的深度值，
+深度值在多边形被绘制成像素时就计算出来了，并且会与depth bufffer中当前像素的深度值做比较，如果depth越小，说明像素越近，
+则更新Color buffer和depth buffer，但是depth因为只能存一个值，所以只能用于不透明物体。不透明物体从前向后画，可以提高效率。
+深度测试一般在Pixel Shader阶段后才执行，但是现在很多硬件提供了Early-z，在Pixel Shader执行前就进行了计算。
+半透明物体，需要处理混合问题。决定像素着色阶段的颜色输出如何与Color Buffer中原来的颜色合并。
+Stencil buffer 作为一个模板描述，进行Stencil Test，自定义的。
+Color Buffer 中除了RGB外还有Alpha，有两个用途，用于新的当前颜色与color buffer中颜色混合Blending，用于判断当前pixel是否需要被丢弃(Alpha Test)。</p>
+<p>双缓冲Double Buffering：
+后面被写入的Color Buffer被称为 Back Buffer，当前正在显示的 Color Buffer 被称为 Front Buffer。
+两个Color Buffer，当GPU计算完成后，立即切换 Color Buffer（交换），这个过程称为 Flipping。
+注意显示器刷新率是固定的比如60Hz，不同于渲染频率(1/FPS)。显示器每间隔固定时间刷新画面。
+按照60Hz的刷新率，大概要在16ms内处理完，当不能及时处理时，双缓冲常常导致画面撕裂，上部分显示的是之前的和下部分显示的内容不同。
+垂直同步，两个buffer切换时必须等待Vsync信号，信号到来时才能切换，由于等待可能导致帧率由60帧下降为30帧。
+三缓冲Triple Buffering，当其中一个buffer被写入并且尚未写完时，还剩余一个buffer可以写入。也可以有更多的buffer。
+G-Sync(Free Sync)：显示刷新频率动态适应渲染频率。</p>
+<p>上面的所有管线，都叫做硬件管线，程序按照硬件管线进行一次完整的或者不完整的执行，叫做一个Pass。</p>
+<p>Direct3D，OpenGL，Vulkan</p>
+<h2 id="刚体控制角色移动">刚体控制角色移动</h2>
+<p>NavMesh Agent
+可智能寻路，提前烘焙运行时效率高，边界检测简单（角色走到边界会停下来）。
+不能倾斜角色，角色必须竖直向上。
+平台跳跃处理麻烦，不能跳跃，要一直贴着地面。
+需要烘焙，不直观，运行时烘焙慢。</p>
+<p>Character Controller
+直接和Collider交互，墙边会停止，在斜面上移动稳定。
+对于大体型角色不适用；和可移动物理组件交互不好；斜面上的模拟不真实。
+大型角色，可能需要从下面穿过去。</p>
+<p>RigidBody
+创建一个独立的Rigid Body模拟角色位移（和动画Animator分开，不和角色为父子关系），每帧结束后把结果同步给角色，更新放在FixedUpdate中。</p>
+<ul>
+<li>Animator.updateMode = AnimatorUpdateMode.AnimatePhysics</li>
+<li>In OnAnimatorMove() -&gt; RigidBody.MovePosition(transform.position + Animator.deltaPos)</li>
+<li>In Update() -&gt; Transform.position = RigidBody.position</li>
+</ul>
+<p>IsKinmetic 勾上，不受力影响，但可以影响（挤压和推）其它碰撞盒。</p>
+<p>重力下落，通常可以在角色底部多个点进行向下的地面射线检测，检测一定高度内是否有和场景框碰撞，效率不高。
+用刚体的话，可以用RigidBody.velocity判断下落状态，当velocity.y小于设定阈值时（一般为负数），即判断为下落状态。
+这个落地速度可以用来计算测落地伤害；可以根据水平方向的速度判断角色是否被推走。
+调整RigidBody.Drag的值可以表现浮空效果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public void AnimatorMove(Quatertion deltaRot, Vector3 deltaPos)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    if (m_reachToGround &gt; 0.0f)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        m_reachToGround = -1.0f;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    m_rigidBody.RotateTo(m_trans.localRotation * deltaRot);
+</span></span><span class="line"><span class="cl">    m_rigidBody.MoveTo(m_trans.localPosition + deltaPos);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>代码中注意区分transform.position，尽量使用rigitBody.position</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">private void Awak()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    m_rigidBody = GetComponent&lt;RigidBody&gt;();
+</span></span><span class="line"><span class="cl">    m_collider = GetComponent&lt;CapsuleCollider&gt;();
+</span></span><span class="line"><span class="cl">    m_trans = GetComponent&lt;Transform&gt;();
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">public void MoveBy(Vector3 pos)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    m_rigidBody.MovePosition(m_rigidBody.position + pos);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">public void MoveTo(Vector3 pos)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    m_rigidBody.MovePosition(pos);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">public void RotateBy(Quatertion rot)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    RigidBody.MoveRotation(m_rigidBody.rotation * rot);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>跳跃：如果动作在动画中，那么跳跃期间（动画事件）需要关闭useGravity，直到跳跃动画播放完毕。
+跳跃动画没有位移时，可以重力模拟，跳跃开始时施加一个力，当检测速度向下时可以切换到其它动作。
+原地跳跃较好。
+当使用有位移的动画跳跃时，注意向高处跳跃时提前落地，在最高点时开始射线检测是否提前落地；从高处跳跃到低处时，动画播放完后可以让刚体下坠。
+大型怪物：碰撞盒在怪物身上，isKinmetic开启；角色自身的isKinmetic关闭，角色可以被推开。
+斜面向下滑：
+设置Physical Material，地面的Friction系数。
+用刚体时可以检测水平方向velocity是否到了一定阈值，可以让角色切换到向下滑的状态。</p>
+<h2 id="热更新补丁原理">热更新补丁原理</h2>
+<p>代码注入方式的热更新补丁，基本原理其实非常简单，比如对于这个类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public class Calc
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    int Add(int a, int b)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        return a + b
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>打了hotfix标签后，会在IL层面注入代码，注入之后这个类会类似这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public class Calc
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    static Func&lt;object, int, int, int&gt; hotfix_Add = null;
+</span></span><span class="line"><span class="cl">    int Add(int a, int b)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        if (hotfix_Add != null) return hotfix_Add(this, a, b);
+</span></span><span class="line"><span class="cl">        return a + b
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果执行了hotfix调用，hotfix_Add会指向一个lua的适配函数。</p>
+<h2 id="如何使用animator">如何使用Animator</h2>
+<p>比如在第几帧播放哪个动画？如何把声音、动作串在一起？State和它的关系？</p>
+<p>Animation State是Animation State Machine的基础部分，每个Animation State包含一个独立的动画序列。当事件触发角色状态改变时，角色将切换到一个新的状态。可以在Animator窗口中新建一个State，再绑上一个Animation Clip，或者直接拖动一个Animation Clip到窗口中新建一个State。Any State是一个特别的状态，总是存在。注意，Any State不能作为一个Transition的结束点，即不能指向Any State。Animation Transitions允许状态机切换到或混合另外一个State，不仅控制State的混合时长，也控制着混合和切换条件。</p>
+<p>Animation Component 是为旧的动画系统设计的组件，新的 Mecanim 动画系统使用 Animator Component，注意Animation Window还是存在的。</p>
+<p>Transition和Blend Tree是不同的，Transition指的是在给定时间内从一个动画状态过度到另外一个，是动画状态机的一部分；Blend Tree允许多个动画平滑的混合在一起。</p>
+<p>骨络动画分为FK（正向运动学，Forward Kinematics）和IK（逆向运动学, Inverse Kinematics）两种。正向运动学就是根骨骼带动节点骨骼运动，而反向运动学就是反过来，由子节点带动父节点运动。打个比方IK制作动画，比如手够到某处，是直接拽着你的手到特定位置，那你的整个手臂会自然的跟着摆放成相应姿势，而FK则是从肩膀根部开始思考，我这肩部应该转个30度，肘部再转个20度，最后手腕转一下，就摆成这样一个造型。</p>
+<h2 id="unity中fps中角色边跑边打的动画用mecanim动画如何实现">Unity中fps中角色边跑边打的动画，用Mecanim动画如何实现？</h2>
+<p>使用Blend Tree，把打的动画和跑的动画混合在一起。</p>
+<h2 id="游戏动画有哪几种">游戏动画有哪几种</h2>
+<ul>
+<li>帧动画，每一帧都是角色特定姿势的一个快照，动画的流畅性和平滑效果都取决于帧数的多少。</li>
+<li>骨骼动画，把角色的各部分身体部件绑定到一根根互相作用连接的“骨头”上，通过控制这些骨骼的位置、旋转方向和放大缩小而生成动画。</li>
+</ul>
+<h2 id="骨骼蒙皮动画skinnedmesh的原理">骨骼蒙皮动画(SkinnedMesh)的原理</h2>
+<p>它把网格顶点(皮)绑定到一个骨骼层次上面，当骨骼层次变化之后，可以根据绑定信息计算出新的网格顶点坐标，进而驱动该网格变形；一个完整的骨骼动画一般由骨架层次、绑定网格以及一系列关键帧组成，一个关键帧对应于骨架的一个新状态，两个关键帧之间的状态可以通过插值得到；一个骨骼层次由一系列离散的关节构成，它们通过父子关系联系在一起，每个关节的方位信息(位置和朝向)是在它的父空间中定义的；一个骨骼层次一般只有一个根关节，一般只有根关节才有平移跟缩放，其他关节只有旋转。</p>
+<p>当导入有蒙皮的网格时，骨骼蒙皮渲染器(Skinned Mesh Renderer)会自动添加到导入的网格。网格渲染器(Mesh Renderer)从网格过滤器获得几何形状，并且根据物体的Transform组件的定义位置进行渲染。</p>
+<p>骨骼动画的含义，一句话，骨骼的朝向和位置，影响顶点的位置。
+骨骼动画的计算方法，一句话，顶点在骨骼空间里的坐标，不受骨骼本身变化影响。因此，我们只要先将顶点从模型空间变换到骨骼空间，在骨骼发生旋转位移后，再把骨骼空间的坐标变换回模型空间即可。</p>
+<h2 id="unity中是否能使用多线程协程是什么">Unity中是否能使用多线程？协程是什么？</h2>
+<p>可以使用多线程，但无法操作Unity里的东西。Unity的主逻辑是一个单线程，你仅能从主线程访问Unity3d的组件、对象和系统调用。
+协程，就是当你用StartCoroutine执行代码时，控制代码在特定的时机执行。
+协程是一个分部执行，遇到条件（yield return 语句）会把控制权交给外部，直到条件满足才会继续执行后面的代码。
+协程使用IEnumerator实现，而IEnumerator用于实现枚举器，包含MoveNext()、Current、Reset()方法，yield return之后的代码会在外部代码再次调用MoveNext时才会执行。
+Unity在每一帧都会去处理对象上的协程，检查协程的条件是否满足。
+MonoBehaviour.enabled=false 协程会照常运行，但gameObject.SetActive(false)后协程却全部停止，即使把gameObject激活还是不会继续执行。
+也可以使用StopCoroutine(string coroutineName)或者StopAllCoroutines()来终止协程。
+下图展示了协程的调用时间</p>
+<p><img src="/uploads/unity3d_tips/coroutine.jpg" alt=""></p>
+<h2 id="material和shared-material的区别">material和shared material的区别</h2>
+<p>要修改材质时，通常采用GetComponent<Renderer>().material.color的方法修改颜色，也可以使用sharedMaterial.color，用法都是一样的，但共享材质无论怎么改它的属性，内存中只会占用一份。如果用material，每次修改属性时，会生成一份新的material给它。</p>
+<h2 id="unity动态加载资源的方式">Unity动态加载资源的方式</h2>
+<p>(1)通过Resources模块，调用它的load函数：可以直接load并返回某个类型的Object，前提是要把这个资源放在Resource命名的文件夹下，Unity不管有没有场景引用，都会将其全部打入到安装包中。Resources.Load();
+(2)通过bundle的形式：即将资源打成 asset bundle 放在服务器或本地磁盘，然后使用WWW模块get 下来，然后从这个bundle中load某个object。</p>
+<p>Resources的方式需要把所有资源全部打入安装包，这对游戏的分包发布和版本升级是不利的，所以unity推荐的方式是不用它，都用bundle的方式替代。
+StreamingAssets文件夹，它和Resources的区别是，Resources会压缩文件，但是它不会压缩原封不动的打包进去。并且它是一个只读的文件夹。
+有些游戏为了让所有的资源全部使用assetbundle，会把一些初始的assetbundle放在StreamingAssets目录下，运行程序的时候在把这些assetbundle拷贝在Application.persistentDataPath目录下，如果这些assetbundle有更新的话，那么下载到新的assetbundle在把Application.persistentDataPath目录下原有的覆盖掉。</p>
+<p>AssetBundle文件从网络下载到内存中或从硬盘加载到内存中，让后在内存中解压，解压出来的这部分可以用来实例化，实例化会需要新的内存。Destroy释放的是实例化部分的内存，Resources.UnloadAsset(Obj)会释放解压出来的那部分内存，AssetBundle.Unload(false)只卸载AssetBundle文件本身占据的内存，AssetBundle.Unload(true)还要卸载解压出来的部分占据的内存。</p>
+<p>AssetBundle.Unload(false) 卸载AssetBundle文件内存镜像。
+AssetBundle.Unload(true) 卸载AssetBundle文件内存镜像、AssetBundle.Load出来的所有对象。
+Resources.UnloadAsset(Object) 卸载已加载的Object对象。
+Resources.UnloadUnusedAssets() 卸载没有被引用的Asset对象。</p>
+<p>AssetBundle.LoadFromFile用来从磁盘上加载一个AssetBundle文件，如果是压缩过的，那么解压到内存中，否则可以直接读取，也可使用LoadFromFileAsync异步加载。</p>
+<p><img src="/uploads/unity3d_tips/AssetBundle.jpg" alt=""></p>
+<h2 id="unity是如何调用start方法的">Unity是如何调用Start方法的？</h2>
+<p>Unity可能使用类反射而非虚函数的方式来调用Update、Start等函数，主要原因是在于，并非所有的MonoBehaviour都需要Update。Unity会维护一个需要Update、Start的Behaviour列表，藉此避免进行空的虚函数调用，提高性能。</p>
+<p>Awake()在MonoBehavior创建后就立刻调用，Start()在MonoBehavior创建后在该帧Update之前调用。
+在addcomponent的时候会立即执行awake方法，除非物体未激活。</p>
+<h2 id="unity中脚本生命周期">Unity中脚本生命周期</h2>
+<p>Awake -&gt; OnEnable -&gt; Start -&gt;
+FixedUpdate -&gt; yield WaitForFixedUpdate -&gt; Update -&gt; yield null and yield WaitForSeconds -&gt; LateUpdate -&gt;
+OnWillRenderObject -&gt; OnGUI -&gt; yield WaitForEndOfFrame -&gt;
+OnDisable -&gt; OnDestroy</p>
+<p><img src="/uploads/unity3d_tips/MonoBehaviour.png" alt=""></p>
+<h2 id="移动摄像机的动作放在哪个系统函数中为什么放在这个函数中">移动摄像机的动作放在哪个系统函数中，为什么放在这个函数中？</h2>
+<p>通常需要先在Update中更新所有物体位置，然后在LateUpdate中更新摄像机的位置，防止画面抖动。</p>
+<h2 id="unity中destroy和destroyimmediate的区别">Unity中Destroy和DestroyImmediate的区别</h2>
+<p>Destroy可以销毁对象、组件、资源，它实际上会延迟执行，但和DestroyImmediate一样都是当前帧执行的，如果加了时间参数可以延迟销毁。DestroyImmediate立刻销毁对象，可以永久删除资源，只能在编辑器中使用，注意不要在迭代器中使用该函数。</p>
+<h2 id="unity的几个重要的路径">Unity的几个重要的路径</h2>
+<p>Resources（只读），文件夹下的资源无论使用与否都会被打包，可动态加载，但无法动态更新。
+StreamingAssets（只读），和Resources一样，区别是保持文件原有的格式，比如可存放原始JPG格式图片。
+Application.dataPath（只读），指向游戏数据目录，在编辑器中是Assets目录，其它平台目录不同。
+Application.persistentDataPath（可读写），持久化数据的路径，在Android和IOS上表示一个公共数据存储目录。</p>
+<h2 id="animation播放函数">Animation播放函数</h2>
+<p>Play: 播放默认动画。
+CrossFade: 在一定时间内淡入名称为name的动画并且淡出其他动画。
+PlayQueued: 播放队列，在前一个动画播放完成之后直接播放下一个动画。
+CrossFadeQueue: 淡入淡出队列，在前一个动画播放完成之后淡入淡出下一个动画。
+Blend: 在接下来的几秒内混合动画。</p>
+<h2 id="unity3d用于保存和读取数据的类">Unity3d用于保存和读取数据的类</h2>
+<p>PlayerPrefs.SetInt()
+PlayerPrefs.GetInt()</p>
+<h2 id="ngui的核心组件">NGUI的核心组件</h2>
+<ol>
+<li>UIRoot: 总是处于顶层，包含多种缩放模式，负责UI的缩放。
+Flexible模式，让UI总是按照像素大小显示，这样的话，屏幕分辨率增大时，UI看起来会变小；
+Constrained模式，保持UI在所有屏幕上显示一致，相当于整体的缩放。</li>
+<li>UICamera：名不符实，它实际的作用是把NGUI事件发送给窗口中所有UI物体，所以它和2D Camera组件一起绑定在了Camera对象上。
+如果你需要游戏中的物体接收NGUI事件，也可以把UICamera组件绑定到Main Camera上。
+要想让UICamera正常工作，Physics Settings中的Raycasts Hit Triggers必须被设为True。</li>
+<li>UIPanel：管理它的所有子对象，负责使用对象的几何数据来创建draw calls，即主要用于渲染。
+如果要创建有层级关系的面板，最好是每个面板各自有一个UIPanel，UIPanel上的Depth属性比子对象上的Depth更重要。
+如果UIPanel下面包含一个ScrollView，里面有很多对象，可以在UIPanel上勾选Cull选项来减少三角形的绘制。
+NGUI的所有Panel采用的绘制顺序值为3000，通过修改它可以使粒子位于面板之间。</li>
+<li>UIRect：是Panel和Widget的基础部分，也就是Anchors。选择锚点anchor point后，便可确定相对位置。</li>
+<li>UIWidget：一个基础组件，只在编辑界面中可见，常常可以作为Container。</li>
+<li>UITexture：继承自UIWidget，最基础的绘图组件。</li>
+<li>UISprite：继承自UIWidget，用于绘制图集Atlas中的一个精灵。有好几种类型：
+Simple类型：绘制方法和UITexture一样，只是数据来自Atlas。
+Filled类型：按照缩放填充整个区域。
+Tield类型：重复精灵来充整个区域。
+Sliced类型：进行九宫格切割操作，只有中间部分会被拉伸。</li>
+<li>UILabel：使用图片字体，或者动态引用一个Unity字体。但文字溢出时，有多种方式可选：
+Shrink Content: 文字内容被自动缩放以适应区域大小。
+Clamp Content：溢出的文字将被丢弃掉。
+Resize Freely：Label本身的大小将自动改变来适应文字内容。
+可以给文字增加阴影，外围框效果，将损失部分性能；或加入颜色标记、表情标记。</li>
+</ol>
+<h2 id="ngui粒子要求夹在中间粒子遮挡问题">NGUI粒子要求夹在中间？粒子遮挡问题</h2>
+<p>先保证UICamera的渲染层级包含粒子的层级，比如粒子与UI组件同在UI层。然后只要修改renderQueue就行了，GetComponent<Renderer>().sharedMaterial.renderQueue。</p>
+<p>UI界面上有个Particle，但是新弹出的界面没有挡住这个Particle，怎么解决特效遮挡问题？
+最好的办法是，包含3D物件，包括粒子特效，的界面独立占用一个Camera，由Depth决定，不会互相干扰。
+还有一种方法是调整Canvas的Sorting Layer，反正就是不同界面用不同的Canvas，然后要么用Sorting Layer，要么用Depth来区分。</p>
+<h2 id="ngui怎么用uicheckbox实现单选和多选效果">NGUI怎么用UICheckBox实现单选和多选效果</h2>
+<p>设置UIToggle组件参数，相同的Group就是单选，不同的就是多选效果。</p>
+<h2 id="ngui中uilable实现字体变色效果的2种方法">NGUI中UILable实现字体变色效果的2种方法</h2>
+<ul>
+<li>直接修改Color Tint</li>
+<li>在文字中加入颜色标记[00ff00]Lable[-]</li>
+</ul>
+<h2 id="dynamic-font在unicode下为什么比static-font更好">dynamic font在unicode下为什么比static font更好？</h2>
+<p>使用动态字体时，Unity不会预先生成一个包含所有字符的纹理，而是使用操作系统内置的字体渲染来实时创建的纹理。这样做的好处是，不需要字体数据，可以节省内存和下载的大小。缺点是，字体渲染在所有机器上未必相同，生成字体时可能比较慢。</p>
+<h2 id="纹理压缩">纹理压缩</h2>
+<p>将常见的压缩的格式（jpg,png）转换为硬件加速格式这个过程被称为纹理压缩。Android一般使用PVRTC，IOS使用ETC。</p>
+<h2 id="vector3normalized和vector3normalize">Vector3.normalized和Vector3.normalize</h2>
+<p>Vector3.forward与Vector3(0,0,1)是一个意思
+Vector3.normalized 当前向量是不改变的并且返回一个新的规范化的向量
+Vector3.normalize 改变当前向量，也就是当前向量长度变为1
+Vector3.magnitude 返回向量的长度</p>
+<h2 id="使用www模拟http的get和post请求">使用WWW模拟Http的Get和Post请求</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// Get
+</span></span><span class="line"><span class="cl">WWW getData = new WWW(url);
+</span></span><span class="line"><span class="cl">yield return getData;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// Post
+</span></span><span class="line"><span class="cl">WWWForm form = new WWWForm(); 
+</span></span><span class="line"><span class="cl">form.AddField(&#34;userid&#34;, &#34;ABC&#34;);
+</span></span><span class="line"><span class="cl">WWW getData = new WWW(url, form);
+</span></span><span class="line"><span class="cl">yield return getData;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="unity3d中的碰撞器和触发器的区别">unity3d中的碰撞器和触发器的区别？</h2>
+<p>碰撞器是触发器的载体，而触发器只是碰撞器身上的一个属性。
+当Is Trigger=false时，碰撞器根据物理引擎引发碰撞，产生碰撞的效果，可以调用OnCollisionEnter/Stay/Exit函数；
+当Is Trigger=true时，碰撞器被物理引擎所忽略，没有碰撞效果，可以调用OnTriggerEnter/Stay/Exit函数。
+发生碰撞的必要条件，两个物体都必须带有碰撞器，其中一个物体还必须带有Rigidbody刚体。</p>
+<h2 id="unity中物体快速移动可能会导致一帧位移过大从而穿过物体使得碰撞器检测失效">unity中，物体快速移动，可能会导致一帧位移过大从而穿过物体，使得碰撞器检测失效</h2>
+<p>开启一个属性：CCD 连续碰撞检测。当使用默认的离散式碰撞检测时，如果前一桢时对象在墙这一面，下一桢时对象已到到了墙另一面，那么碰撞检测算法将检测不到碰撞的发生，你可以将该对象的碰撞检测属性设置为Continuous，这时碰撞检测算法将会防止对象穿过所有的静态碰撞体，设置为Continuous Dynamic将还会防止穿过其他也设置为Continuous或者Continuous Dynamic的刚体。</p>
+<h2 id="不用物理碰撞组件写出物体相碰的方法">不用物理碰撞组件，写出物体相碰的方法</h2>
+<ul>
+<li>AABB，就是Rect检测的三维版，每次物体变换后计算一个最大包围盒，包围盒固定形状（常见的有长方体，圆柱体，球体等），根据此包围盒实行碰撞检测。一般用作初略快速检测。</li>
+<li>OBB，把物体初略当成一个规则形状（长方体，圆柱体，球体等），该形状随着物体进行3D变换（位移，旋转，偏移），然后以此形状检测碰撞。这个检测过程相对AABB更精确。</li>
+<li>MBB，即网格级别的碰撞检测，一般做法是首先经历AABB或OBB级别的检测，再遍历网格可能碰撞的所有的三角形，精确取值碰撞位置及对应三角形UV。</li>
+</ul>
+<h2 id="批处理-batching">批处理 Batching</h2>
+<p>对于使用同一个材质的物体，它们之间的不同仅在于顶点数据的差别。可以把这些顶点数据合并在一起，再一起发送给GPU，就可以完成一次批处理。Unity进行动态批处理的条件是，物体使用同一个材质并且满足一些特定条件，一切处理都是自动的。静态批处理，Unity会合并所有标识为Static的物体成为一个网格，合并后的网格其实包含多个子网格，Unity会判断其中使用同一个材质的子网格，然后对它们进行批处理。静态批处理可能会占用更多的内存。不管是动态批处理还是静态批处理，它们的前提都是要使用同一个材质。</p>
+<h2 id="arpg世界地图中角色被障碍物遮挡时的透视效果是如何实现的">ARPG世界地图中，角色被障碍物遮挡时的透视效果是如何实现的</h2>
+<ul>
+<li>方法一，射线检测，将相机移动到不被遮挡的位置。比如，没有天花板时，将相机慢慢上移。</li>
+<li>方法二，半透明掉中间遮挡的物体。用射线检测，然后动态替换掉材质。</li>
+<li>方法三，利用Stencil(模板缓冲)对角色进行重绘。通过Ztest将角色被遮挡的部分的Stencil标记出来，然后对这部分要么单色绘制，要么透明绘制，要么绘制一个描边。</li>
+</ul>
+<h2 id="lod">LOD</h2>
+<p>LOD技术有点类似于Mipmap技术，不同的是，LOD是对模型建立了一个模型金字塔，根据摄像机距离对象的远近，选择使用不同精度的模型。它的好处是可以在适当的时候大量减少需要绘制的顶点数目，它的缺点同样是需要占用更多的内存。在Unity中，可以通过LOD Group来实现LOD技术。通过LOD Group面板，我们可以选择需要控制的模型以及距离设置。</p>
+<h2 id="mipmap">Mipmap</h2>
+<p>其中每一个层级的小图都是主图的一个特定比例的缩小细节的复制品。因为存了主图和它的那些缩小的复制品，所以内存占用会比之前大。Mipmap相当于纹理LOD，根据距离远近显示不同精度的纹理。</p>
+<h2 id="occlusion-culling">Occlusion culling</h2>
+<p>遮挡剔除是用来消除躲在其他物件后面看不到的物件，这代表资源不会浪费在计算那些看不到的顶点上，进而提升性能。</p>
+<h2 id="lightmap">Lightmap</h2>
+<p>光照贴图主要用于场景中整体的光照效果。这种技术主要是提前把场景中的光照信息存储在一张光照纹理中，然后在运行时刻只需要根据纹理采样得到光照信息即可。</p>
+<h2 id="opengl渲染管线">OpenGL渲染管线</h2>
+<ol>
+<li>顶点变换：对顶点坐标进行变换；逐顶点光照；纹理坐标生成以及变换。本地坐标 - 世界坐标 - 相机坐标 - 投影 - 屏幕坐标。</li>
+<li>图元装配以及光栅化：根据顶点连接信息装配成图元，如线段或三角形；根据裁减坐标进行视景体裁减以及背面剔除；进行视口变换，得到顶点的窗口坐标；光栅化，根据各顶点的窗口坐标，生成图元内部像素的窗口坐标，并对各顶点的属性如法线、纹理坐标、颜色等进行插值得到各像素的属性。</li>
+<li>像素着色：输入的是像素，包括像素的窗口坐标以及属性，通过这些属性进行着色，如逐像素光照、贴纹理、添加雾化效果等，输出像素的颜色以及Z值。</li>
+<li>像素操作：根据上阶段输入的像素坐标、颜色以及Z值进行一系列的像素测试，分别为窗口裁剪测试(Scissor test)，透明测试(Alpha test)，模板测试(Stencil test)以及深度测试(Depth test)，通过这些测试的像素就可以根据混合参数与像素位置已有的像素进行混合，得到最终的像素颜色，并更新到帧缓存。</li>
+</ol>
+<h2 id="unity的渲染路径">Unity的渲染路径</h2>
+<p>在Camera中可选择具体的渲染路径，所有的渲染路径的核心都是光照的处理，Unity中光照可以按照逐顶点、逐像素、球谐光照。在逐像素光照中，每个像素的颜色被单独计算。逐顶点的光照，它只在每个顶点上做一次光照，除了顶点以外的其他像素都是使用常规的颜色混合算法（就是简单的插值，不会再做进一步的光照计算）评估颜色。具体用哪个，取决于光照的渲染模式的设置，重要的选项是强制每个光照为逐像素光照，不那么重要的选项是逐顶点光照。</p>
+<p>Forward Rendering，前向渲染路径，基于着色器使用一个或多个通道进行渲染，对于每个光源，必须计算场景中每个顶点的光照。渲染的复杂度可以用 <code>O(num_geometry_fragments * num_lights)</code> 来表示，可以看出复杂度和几何体的面数还有光源的数量正相关。影响物体的最亮的几个光源使用逐像素光照模式，接下来，最多有4个点光源会以逐顶点渲染的方式被计算，其他光源将以球谐函数的方式进行计算。</p>
+<p>Deferred Rendering，延迟渲染路径，这是一种可以按照你的需求在场景中使用任意数目的光源的方法，而且这个方法还能同时保证性能仍然保持在一个合理的范围。它也不限制阴影的数量，如果场景中的对象是在光照范围之内的话，也不会增加额外的渲染批次。它的光照渲染的时间复杂度可以用 <code>O(screen_resolution * num_lights)</code> 来表示，他和场景中物体的数量是无关的，只和光源数量有关。所有物体在不进行光照运算的情况下被绘制，然后对每个像素生成一组数据，这些数据包括位置、法线、高光颜色等，统一称之为G-buffer。之后，将每个光源以一个2D后期处理的方式(渲染屏幕大小的一个四边形)施加到最终图像上，这个过程使用的数据是在上一个批次中生成的G-buffer。延迟渲染的光照是发生在屏幕空间的。</p>
+<p>延迟渲染不允许我们渲染半透明物体，因为如果场景中存在半透明的物体，就没有办法记录下物体的深度和法线信息，因为半透明物体和半透明物体后面的不透明物体都是可见的，可是我们只能记录一个物体的信息。这个限制是通过使用在整个处理过程的结尾使用前向渲染来解决的。延迟渲染也不支持抗锯齿，原因与不能渲染半透明物体的情况类似。在大多数情况下，移动设备上延迟渲染的性能会比前向渲染的性能要差一些。这是因为每一帧渲染的时候都需要增加一次额外的渲染。如果你的场景中只有一个光源，那么使用延迟渲染可能是不划算的。</p>
+<h2 id="ztest和zwrite">ZTest和ZWrite</h2>
+<p>深度其实就是该像素点在3d世界中距离摄像机的距离。离摄像机越远，则深度值（Z值）越大。深度缓存中存储着准备要绘制在屏幕上的像素点的深度值。ZTest深度测试,默认情况是将要绘制的新像素的z值与深度缓冲区中对应位置的z值进行比较，如果比深度缓存中的值小，那么用新像素的颜色值更新深度缓存中对应像素的颜色值。</p>
+<p>在不使用深度测试的时候，如果我们先绘制一个距离较近的物体，再绘制距离较远的物体，则距离远的物体因为后绘制，会把距离近的物体覆盖掉，这样的效果并不是我们所希望的。而有了深度缓冲以后，绘制物体的顺序就不那么重要了，都能按照远近（Z值）正常显示，这很关键。</p>
+<p>zWrite代表是否要将像素的深度写入深度缓存中。像素的深度能否成功写入深度缓存，条件是ZWrite为On，ZTest通过；因为ZWrite默认值为On，ZTest默认值为LEqual，所以这很好地解释了为什么在unity中，距离相机近的东西会阻挡住距离相机远的东西。如果我们先绘制一个距离较近的物体，再绘制距离较远的物体，则距离远的物体因为后绘制，会把距离近的物体覆盖掉，这时我们可以通过修改ZWrite和ZTest来改变物体的遮挡关系！</p>
+<h2 id="alphatest">AlphaTest</h2>
+<p>透明度测试，就是Vshader中最后fragment函数输出的该点颜色值与固定值进行比较。可以决定该像素点是否渲染。</p>
+<h2 id="alpha-blend">Alpha Blend</h2>
+<p>透明物体，一般情况下都是不进行深度写入的，并且是最后渲染。</p>
+<p>通过定义一个表示物体半透明度的alpha值和一个半透明计算公式，可以将要绘制的物体颜色与颜色缓冲区中存在的颜色相混合，从而绘制出具有半透明效果的物体。由于alpha混合是当前绘制的像素颜色与颜色缓冲区中存在的颜色的混合运算，因此，在绘制半透明物体前，必须保证位于半透明物体后的物体先于半透明物体绘制，也就是说，先绘制不透明物体，再绘制半透明物体。而Alpha Blending则是一种中庸的方式，它使用当前fragment的alpha作为混合因子，来混合之前写入到缓存中颜色值。但Alpha Blending麻烦的一点就是它需要关闭ZWrite，并且要十分小心物体的渲染顺序。如果不关闭ZWrite，那么在进行深度检测的时候，它背后的物体本来是可以透过它被我们看到的，但由于深度检测时大于它的深度就被剔除了，从而我们就看不到它后面的物体了。</p>
+<h2 id="简述找出迷宫出口的算法">简述找出迷宫出口的算法</h2>
+<p>AStar寻路算法 F=G+H</p>
+<h2 id="向量和四元素">向量和四元素</h2>
+<p>向量，几何意义上说，是有大小和方向的有向线段；向量的大小就是向量各分量平方和的平方根。对于许多向量，我们只关心向量的方向不在乎向量的大小，单位向量就是大小为1的向量。
+向量加法满足交换律，但向量减法不满足交换律。</p>
+<p>向量点乘，标量和向量可以相乘，向量和向量也可以相乘，点乘的记法来至a·b中的点。向量点乘就是对应分量乘积的和。其结果是一个标量。
+代数定义：[x,y,z]·[a,b,c] = ax+by+cz。
+几何定义：a向量·b向量 = |a||b|cos(夹角)。
+两个定义可以互相推倒。一般来说，点乘结果描述了两个向量的“相似”程度，点乘结果越大，两个向量越相近，点乘和向量间的夹角相关，计算两向量间的夹角= arccos(a·b)。</p>
+<p>向量叉乘，得到一个向量，并且不满足交换律。它满足反交换律 a × b = -(b × a) 。
+叉乘公式：[x,y,z] × [a,b,c] = [yc-zb , za-xc , xb-ya]。
+当点乘和叉乘在一起时，叉乘优先计算， a · b × c = a·(b×c)。
+因为点乘返回一个标量，同时标量和向量间不能叉乘。几何解释：叉乘得到的向量垂直于原来的两个向量。叉乘最重要的应用就是创建垂直于平面、三角形、多边形的向量，比如求法线。</p>
+<p>矩阵旋转使用一个4x4大小的矩阵来表示旋转，旋转轴可以是任意向量。旋转其实只需要知道一个向量，一个角度，但矩阵法使用了16个元素，计算比较费时。</p>
+<p>欧拉角使用最简单的x,y,z值来分别表示在x，y，z轴上的旋转角度，其取值为0-360(或者0-2pi），一般使用roll，pitch，yaw来表示这些分量的旋转值。需要注意的是，这里的旋转是针对世界坐标系说的，这意味着第一次的旋转不会影响第二、三次的转轴。欧拉角容易出现的问题是</p>
+<ul>
+<li>不易在任意方向的旋转轴插值</li>
+<li>万向节死锁</li>
+<li>旋转的次序无法确定。</li>
+</ul>
+<p>Gimbal Lock: 因为旋转必须按照一定顺序，比如按照X、Y、Z的轴顺序旋转，那么层级高的X旋转时会带动Y、Z的轴旋转，这样可能导致丢失一个维度的旋转能力。如果不按照固定顺序，3轴同时转，会导致错误的旋转。解决方法是：构造一个不同的旋转层级顺序。</p>
+<p>轴角用一个以单位矢量定义的旋转角，再加上一个标量定义的旋转角来表示旋转。通常的表示[x,y,z,theta]，前面三个表示轴，最后一个表示角度。表示非常直观，也很紧凑。轴角最大的一个局限就是不能进行简单的插值，此外，轴角形式的旋转不能直接施于点或矢量，必转换为矩阵或者四元素。</p>
+<p><a href="http://blog.csdn.net/candycat1992/article/details/41254799">http://blog.csdn.net/candycat1992/article/details/41254799</a></p>
+<p>四元素感觉上就是轴角的进化，也是使用一个3维向量表示转轴和一个角度分量表示绕此转轴的旋转角度，即(x,y,z,w)， 其中
+<code>w = cos(theta/2) , x  = ax * sin(theta/2), y  = ay * sin(theta/2) , z  = az * sin(theta/2)</code>
+其中(ax,ay,az)表示轴的矢量，theta表示绕此轴的旋转角度。四元数中的每个数都是经过“处理”的轴和角，轴角描述的“四元组”并不是一个空间下的东西。首先（ax,ay,az）是一个3维坐标下的矢量，而theta则是级坐标下的角度，简单的将他们组合到一起并不能保证他们插值结果的稳定性，因为他们无法归一化，所以不能保证最终插值后得到的矢量长度（经过旋转变换后两点之间的距离）相等，而四元数在是在一个统一的4维空间中，方便归一化来插值，又能方便的得到轴、角这样用于3D图像的信息数据，所以用四元数再合适不过了。相比于矩阵，四元素也只要存储4个浮点数，优势很明显。给定两个四元数p和q，分别代表旋转P和Q，则乘积pq表示两个旋转的合成（即旋转了Q之后再旋转P），并不是用加法。</p>
+<h2 id="向量vector3100和向量vector3001叉乘得出的向量是什么">向量Vector3(1,0,0)和向量Vector3(0,0,1)叉乘得出的向量是什么？</h2>
+<p>正负取决于sin夹角</p>
+<h2 id="写出一个人物有限状态机的简略代码">写出一个人物有限状态机的简略代码</h2>
+<p>例如，可以包含静止、移动、战斗、死亡几个状态的切换。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public class State
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	public Action onEnter;
+</span></span><span class="line"><span class="cl">	public Action onLeave;
+</span></span><span class="line"><span class="cl">	public Action onUpdate;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">public class StateMachine
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	private State _state;
+</span></span><span class="line"><span class="cl">	public State state
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		get { return _state; }
+</span></span><span class="line"><span class="cl">		set
+</span></span><span class="line"><span class="cl">		{
+</span></span><span class="line"><span class="cl">			if (_state != null &amp;&amp; _state.onLeave != null) _state.onLeave();
+</span></span><span class="line"><span class="cl">			_state = value;
+</span></span><span class="line"><span class="cl">			if (_state != null &amp;&amp; _state.onEnter != null) _state.onEnter();
+</span></span><span class="line"><span class="cl">		}
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	protected void UpdateState(float deltaTime)
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		if (_state != null &amp;&amp; _state.onUpdate != null) _state.onUpdate(deltaTime);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-07-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/unity3d/">unity3d</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/csharp_regular/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">C# 正则表达式</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/game_music/">
+            <span class="next-text nav-default">游戏音乐</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/unity3d_skill_points/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

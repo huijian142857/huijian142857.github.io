@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Regular on 挥剑对风尘</title>
+    <link>https://huijian142857.gitee.io/tags/regular/</link>
+    <description>Recent content in Regular on 挥剑对风尘</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 01 Jul 2021 21:17:22 +0800</lastBuildDate>
+    <atom:link href="https://huijian142857.gitee.io/tags/regular/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C# 正则表达式</title>
+      <link>https://huijian142857.gitee.io/post/csharp_regular/</link>
+      <pubDate>Thu, 01 Jul 2021 21:17:22 +0800</pubDate>
+      <guid>https://huijian142857.gitee.io/post/csharp_regular/</guid>
+      <description>C# 中正则表达式用法： Regex.IsMatch(filePathName, fileFilter) 限定符： 1 2 3 4 5 6 * 匹配上一个元素零次或多次 + 匹配上一个元素一次或多次 ? 匹配上一个元素零次或一次 {n} 匹配上一个元素恰</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Unity3D 协程和线程 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="协程Coroutine主要用于控制代码在特定的时机执行，给人感觉和线程Thread一样是在异步执行，但其实协程和Update函数一样是在Un" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/unity3d_thread/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/unity3d_thread/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="Unity3D 协程和线程">
+  <meta property="og:description" content="协程Coroutine主要用于控制代码在特定的时机执行，给人感觉和线程Thread一样是在异步执行，但其实协程和Update函数一样是在Un">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2017-08-18T17:00:00+00:00">
+    <meta property="article:modified_time" content="2017-08-18T17:00:00+00:00">
+    <meta property="article:tag" content="Unity3d">
+
+  <meta itemprop="name" content="Unity3D 协程和线程">
+  <meta itemprop="description" content="协程Coroutine主要用于控制代码在特定的时机执行，给人感觉和线程Thread一样是在异步执行，但其实协程和Update函数一样是在Un">
+  <meta itemprop="datePublished" content="2017-08-18T17:00:00+00:00">
+  <meta itemprop="dateModified" content="2017-08-18T17:00:00+00:00">
+  <meta itemprop="wordCount" content="1476">
+  <meta itemprop="keywords" content="Unity3d">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Unity3D 协程和线程">
+  <meta name="twitter:description" content="协程Coroutine主要用于控制代码在特定的时机执行，给人感觉和线程Thread一样是在异步执行，但其实协程和Update函数一样是在Un">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Unity3D 协程和线程</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-08-18 </span>
+        <div class="post-category">
+            <a href="/categories/unity3d/"> unity3d </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>协程Coroutine主要用于控制代码在特定的时机执行，给人感觉和线程Thread一样是在异步执行，但其实协程和Update函数一样是在Unity的MainThread中执行的，Unity在每帧都会处理对象上的协程。值得注意的是，通过StartCoroutine开启的协程是立即执行的，只有遇到yield语句才会挂起，在下一帧满足条件后会继续执行后面的代码。协程在遇到yield语句后，一般是在LateUpdate函数之后执行的。调用对象的SetActive(false)会让对象上的所有协程停止执行，再调用SetActive(true)也不会恢复执行；调用MonoBehaviour.enabled = false，对协程没有影响。Coroutine主要利用IEnumerator迭代器实现，IEnumerator接口有两个方法 Current 和 MoveNext()，迭代功能主要靠 MoveNext() 实现，每次通过MoveNext()迭代的Current对应了其中的一个yield语句，使用了yield语法糖可以不用写Current和MoveNext()部分的代码实现。</p>
+<!-- more --> 
+<p>StartCoroutine 用于启动一个协程。可能的实现方式：新建一个任务，当前 Ienumerator 函数作为一个参数，然后添加到任务列表中；开启另一个 Ienumerator，用一个 while 循环等待该任务的完成；然后在在 Update 中取出队列中的一个任务执行 MoveNext，完成之后继续下一个任务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">readonly</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">CoroutineInfo</span><span class="o">&gt;</span> <span class="n">newWorkers</span> <span class="o">=</span> <span class="n">new</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">CoroutineInfo</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">readonly</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">CoroutineInfo</span><span class="o">&gt;</span> <span class="n">workers</span> <span class="o">=</span> <span class="n">new</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">CoroutineInfo</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="n">CoroutineInfo</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">IEnumerator</span> <span class="n">CoRoutine</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="ne">bool</span> <span class="n">IsFinished</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">IEnumerator</span> <span class="n">StartCustomCoroutine</span><span class="p">(</span><span class="n">IEnumerator</span> <span class="n">process</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">var</span> <span class="n">data</span> <span class="o">=</span> <span class="n">new</span> <span class="n">CoroutineInfo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">CoRoutine</span> <span class="o">=</span> <span class="n">process</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">newWorkers</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">WaitUntilFinished</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">IEnumerator</span> <span class="n">WaitUntilFinished</span><span class="p">(</span><span class="n">CoroutineInfo</span> <span class="n">workerData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">workerData</span><span class="o">.</span><span class="n">IsFinished</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">yield</span> <span class="k">return</span> <span class="n">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">AddNewWorkers</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">foreach</span> <span class="p">(</span><span class="k">var</span> <span class="n">worker</span> <span class="ow">in</span> <span class="n">newWorkers</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">workers</span><span class="o">.</span><span class="n">AddLast</span><span class="p">(</span><span class="n">worker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">newWorkers</span><span class="o">.</span><span class="n">Clear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">Update</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AddNewWorkers</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">workers</span><span class="o">.</span><span class="n">Count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">var</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">workers</span><span class="o">.</span><span class="n">First</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">currentNode</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">var</span> <span class="n">next</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">Next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">var</span> <span class="n">worker</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">Value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">try</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">worker</span><span class="o">.</span><span class="n">IsFinished</span> <span class="o">=</span> <span class="o">!</span><span class="n">worker</span><span class="o">.</span><span class="n">CoRoutine</span><span class="o">.</span><span class="n">MoveNext</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">worker</span><span class="o">.</span><span class="n">IsFinished</span> <span class="o">=</span> <span class="bp">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Debug</span><span class="o">.</span><span class="n">LogException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">worker</span><span class="o">.</span><span class="n">IsFinished</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">workers</span><span class="o">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">currentNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">currentNode</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AddNewWorkers</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>协程不是异步执行的，和Update在一个主线程上执行，所以相当于并发，即协程的任务和其它任务是间隔执行的。而线程之间是可以在同一时刻执行的，这称做并行，多线程在涉及对相同数据读写时需要考虑安全问题。</p>
+<p>如果执行一个比较耗时的任务，为了不阻塞主线程，可以通过协程把任务细分，然后在切分点执行yield return null语句来实现，但最好的办法还是新开一个线程，等执行完了再继续执行。下面以读一个大文件为例，看看在Unity中如何使用线程。由于在新建的线程中，很多Unity的API无法使用，所以线程的使用是受限的。</p>
+<p>TestScript.cs</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">using System.Collections;
+</span></span><span class="line"><span class="cl">using System.Collections.Generic;
+</span></span><span class="line"><span class="cl">using UnityEngine;
+</span></span><span class="line"><span class="cl">using UnityEngine.UI;
+</span></span><span class="line"><span class="cl">using System.IO;
+</span></span><span class="line"><span class="cl">using System;
+</span></span><span class="line"><span class="cl">using System.Threading;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">public class TestScript : MonoBehaviour {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    [Serializable]
+</span></span><span class="line"><span class="cl">    class JsonData {
+</span></span><span class="line"><span class="cl">        public List&lt;JsonObject&gt; objectList = new List&lt;JsonObject&gt; ();
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    [Serializable]
+</span></span><span class="line"><span class="cl">    class JsonObject {
+</span></span><span class="line"><span class="cl">        public string bookId;
+</span></span><span class="line"><span class="cl">        public string bookName;
+</span></span><span class="line"><span class="cl">        public float price;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    // http://JacksonDunstan.com/articles/3746
+</span></span><span class="line"><span class="cl">    void Start () {
+</span></span><span class="line"><span class="cl">        string filePath = Application.dataPath + &#34;/file.txt&#34;;
+</span></span><span class="line"><span class="cl">        StartCoroutine (ReadFileByTask (filePath));
+</span></span><span class="line"><span class="cl">        //StartCoroutine (ReadFileByThread (filePath));
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    IEnumerator ReadFileByTask (string filePath)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        yield return new WaitForThreadedTask (() =&gt; {
+</span></span><span class="line"><span class="cl">            ReadFile(filePath);
+</span></span><span class="line"><span class="cl">        });
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    IEnumerator ReadFileByThread (string filePath) {
+</span></span><span class="line"><span class="cl">        bool done = false;
+</span></span><span class="line"><span class="cl">        new Thread (() =&gt; {
+</span></span><span class="line"><span class="cl">            ReadFile(filePath);
+</span></span><span class="line"><span class="cl">            done = true;
+</span></span><span class="line"><span class="cl">        }).Start ();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        while (!done) {
+</span></span><span class="line"><span class="cl">            yield return null;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    void ReadFile (string filePath)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        if (File.Exists (filePath)) {
+</span></span><span class="line"><span class="cl">            string json = File.ReadAllText (filePath);
+</span></span><span class="line"><span class="cl">            JsonData dataList = JsonUtility.FromJson&lt;JsonData&gt; (json);
+</span></span><span class="line"><span class="cl">            Debug.LogWarning (&#34;read&#34;);
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    void CreateFile (string filePath)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        if (File.Exists (filePath)) {
+</span></span><span class="line"><span class="cl">            File.Delete (filePath);
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        FileStream file = new FileStream (filePath, FileMode.OpenOrCreate);
+</span></span><span class="line"><span class="cl">        StreamWriter sw = new StreamWriter (file);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        JsonData test = new JsonData ();
+</span></span><span class="line"><span class="cl">        for (int i = 0; i &lt; 1000000; i++) {
+</span></span><span class="line"><span class="cl">            JsonObject obj = new JsonObject () { bookId = &#34;book_id_10_&#34; + i, bookName = &#34;book_name_1_&#34; + i, price = 128.5f*i };
+</span></span><span class="line"><span class="cl">            test.objectList.Add (obj);
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        string json = JsonUtility.ToJson (test);
+</span></span><span class="line"><span class="cl">        sw.Write (json);
+</span></span><span class="line"><span class="cl">        sw.Close ();
+</span></span><span class="line"><span class="cl">        file.Close ();
+</span></span><span class="line"><span class="cl">        Debug.LogWarning (&#34;created&#34;);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>WaitForThreadedTask.cs</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">using System;
+</span></span><span class="line"><span class="cl">using System.Threading;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// &lt;summary&gt;
+</span></span><span class="line"><span class="cl">/// executes a task on a new thread and keeps waiting until it&#39;s done, this may not be safe
+</span></span><span class="line"><span class="cl">/// &lt;/summary&gt;
+</span></span><span class="line"><span class="cl">public class WaitForThreadedTask : UnityEngine.CustomYieldInstruction 
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    /// &lt;summary&gt;
+</span></span><span class="line"><span class="cl">    /// if the thread is running
+</span></span><span class="line"><span class="cl">    /// &lt;/summary&gt;
+</span></span><span class="line"><span class="cl">    private bool isRunning;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    /// &lt;summary&gt;
+</span></span><span class="line"><span class="cl">    /// If the coroutine should keep waiting
+</span></span><span class="line"><span class="cl">    /// &lt;/summary&gt;
+</span></span><span class="line"><span class="cl">    public override bool keepWaiting { get { return isRunning; } }
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    public WaitForThreadedTask (Action task, ThreadPriority priority = ThreadPriority.Normal) {
+</span></span><span class="line"><span class="cl">        isRunning = true;
+</span></span><span class="line"><span class="cl">        new Thread (() =&gt; {
+</span></span><span class="line"><span class="cl">            task();
+</span></span><span class="line"><span class="cl">            isRunning = false;
+</span></span><span class="line"><span class="cl">        }).Start (priority);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以先用 CreateFile 来创建一个大文件，然后再读取，可以明显发现使用线程后不会阻塞Unity主线程。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2017-08-18
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/unity3d/">unity3d</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/algorithm_astar/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">AStar寻路算法学习</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/unity3d_camera_move/">
+            <span class="next-text nav-default">Unity3D 相机移动和缩放</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/unity3d_thread/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

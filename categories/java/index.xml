@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on 挥剑对风尘</title>
+    <link>https://huijian142857.gitee.io/categories/java/</link>
+    <description>Recent content in Java on 挥剑对风尘</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 15 Dec 2015 13:50:00 +0000</lastBuildDate>
+    <atom:link href="https://huijian142857.gitee.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>java中byte[]和int之间的转换</title>
+      <link>https://huijian142857.gitee.io/post/java_bytes_to_int/</link>
+      <pubDate>Tue, 15 Dec 2015 13:50:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/java_bytes_to_int/</guid>
+      <description>转换前，需要先对byte[]认识清楚，所以不得不提到大端Big-endian和小端Little-endian的概念。 java中一个int整数</description>
+    </item>
+    <item>
+      <title>用Intellij Idea创建简单的Servlet</title>
+      <link>https://huijian142857.gitee.io/post/java_servlet_idea/</link>
+      <pubDate>Sun, 06 Jul 2014 15:07:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/java_servlet_idea/</guid>
+      <description>Servlet作为Java服务端程序，使用起来还是挺方便的，下面是具体配置过程，我用的是Intellij Idea。 1.做好必要准备，Inte</description>
+    </item>
+    <item>
+      <title>Java常用知识点</title>
+      <link>https://huijian142857.gitee.io/post/java_skill_points/</link>
+      <pubDate>Fri, 28 Mar 2014 11:31:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/java_skill_points/</guid>
+      <description>（1）java不支持默认参数，需要用重载来实现 （2）java中要比较字符串是否相等，不能用等号，要用 equals 函数来比较内容 （3）尽量避免使用 try catch 来</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Unity3D中的Shader - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="内建Shader 简单的说，Shader是为渲染管线中的特定处理阶段提供算法的一段代码。Shader是伴随着可编程渲染管线出现的，从而可以对渲" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/unity3d_shader_base/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/unity3d_shader_base/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="Unity3D中的Shader">
+  <meta property="og:description" content="内建Shader 简单的说，Shader是为渲染管线中的特定处理阶段提供算法的一段代码。Shader是伴随着可编程渲染管线出现的，从而可以对渲">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2014-07-16T14:20:00+00:00">
+    <meta property="article:modified_time" content="2014-07-16T14:20:00+00:00">
+    <meta property="article:tag" content="Unity3d">
+
+  <meta itemprop="name" content="Unity3D中的Shader">
+  <meta itemprop="description" content="内建Shader 简单的说，Shader是为渲染管线中的特定处理阶段提供算法的一段代码。Shader是伴随着可编程渲染管线出现的，从而可以对渲">
+  <meta itemprop="datePublished" content="2014-07-16T14:20:00+00:00">
+  <meta itemprop="dateModified" content="2014-07-16T14:20:00+00:00">
+  <meta itemprop="wordCount" content="4411">
+  <meta itemprop="keywords" content="Unity3d">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Unity3D中的Shader">
+  <meta name="twitter:description" content="内建Shader 简单的说，Shader是为渲染管线中的特定处理阶段提供算法的一段代码。Shader是伴随着可编程渲染管线出现的，从而可以对渲">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Unity3D中的Shader</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2014-07-16 </span>
+        <div class="post-category">
+            <a href="/categories/unity3d/"> unity3d </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#内建shader">内建Shader</a></li>
+        <li><a href="#shader类型">Shader类型</a></li>
+        <li><a href="#表面着色器">表面着色器</a></li>
+        <li><a href="#顶点和片段着色器">顶点和片段着色器</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="内建shader">内建Shader</h2>
+<p>简单的说，Shader是为渲染管线中的特定处理阶段提供算法的一段代码。Shader是伴随着可编程渲染管线出现的，从而可以对渲染过程加以控制。
+Unity提供了很多内建的Shader，这些可以从官网下载，打开looking for older version的链接就能看到Build-in shaders。选择合适的Shader很重要，以下是开销从低到高的排序：</p>
+<ol>
+<li>Unlit：仅使用纹理颜色，不受光照影响</li>
+<li>VertexLit：顶点光照</li>
+<li>Diffuse：漫反射</li>
+<li>Specular：在漫反射基础上增加高光计算</li>
+<li>Normal mapped：法线贴图，增加了一张法线贴图和几个着色器指令</li>
+<li>Normal Mapped Specular：带高光法线贴图</li>
+<li>Parallax Normal Mapped：视差法线贴图，增加了视差贴图的计算开销</li>
+<li>Parallax Normal Mapped Specular：带高光视差法线贴图</li>
+</ol>
+<p>对于现在流行的移动平台游戏，Unity提供了几种专门的着色器放在Shader-&gt;Mobile下，它们是专门优化过的。</p>
+<!-- more --> 
+<h2 id="shader类型">Shader类型</h2>
+<p>在Unity中，可以编写3种类型的Shader：</p>
+<ol>
+<li>表面着色器 Surface Shaders：最常用的Shader，可以与灯光、阴影、投影器交互，以Cg/HLSL语言进行编写，不涉及光照时尽量不要使用。</li>
+<li>顶点和片段着色器 Vertex and Fragment Shaders：全屏图像效果，代码比较多，以Cg/HLSL编写，难以和光照交互。</li>
+<li>固定功能管线着色器 Fixed Function Shaders：游戏要运行在不支持可编程管线的老旧机器上时，需要用ShaderLab语言来编写。</li>
+</ol>
+<p>无论编写哪种Shader，实际的Shader代码都需要嵌入ShaderLab代码中，Unity通过ShaderLab代码来组织Shader结构。
+下面是我新建的一个Shader的默认内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Shader &#34;Custom/TestShader&#34; {
+</span></span><span class="line"><span class="cl">    Properties {
+</span></span><span class="line"><span class="cl">        _MainTex (&#34;Base (RGB)&#34;, 2D) = &#34;white&#34; {}
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    SubShader {
+</span></span><span class="line"><span class="cl">        Tags { &#34;RenderType&#34;=&#34;Opaque&#34; }
+</span></span><span class="line"><span class="cl">        LOD 200
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        CGPROGRAM
+</span></span><span class="line"><span class="cl">        #pragma surface surf Lambert
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        sampler2D _MainTex;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        struct Input {
+</span></span><span class="line"><span class="cl">            float2 uv_MainTex;
+</span></span><span class="line"><span class="cl">        };
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        void surf (Input IN, inout SurfaceOutput o) {
+</span></span><span class="line"><span class="cl">            half4 c = tex2D (_MainTex, IN.uv_MainTex);
+</span></span><span class="line"><span class="cl">            o.Albedo = c.rgb;
+</span></span><span class="line"><span class="cl">            o.Alpha = c.a;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        ENDCG
+</span></span><span class="line"><span class="cl">    } 
+</span></span><span class="line"><span class="cl">    FallBack &#34;Diffuse&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Properties：用来定义着色器中使用的贴图资源或者数值参数等，这里定义了一个Base （RGB）的2D纹理。
+SubShader：一个着色器包含的一个或多个子着色器。Unity从上到下遍历子着色器，找到第一个能被设备支持的着色器。
+FallBack：备用着色器，一个对硬件要求最低的Shader名字。</p>
+<p>Properties定义的属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">名称(&#34;显示名称&#34;, Vector) = 默认向量值，一个四维向量
+</span></span><span class="line"><span class="cl">名称(&#34;显示名称&#34;, Color) = 默认颜色值，一个颜色（取值0~1的四维向量）属性
+</span></span><span class="line"><span class="cl">名称(&#34;显示名称&#34;, Float) = 默认浮点数值，一个浮点数
+</span></span><span class="line"><span class="cl">名称(&#34;显示名称&#34;, Range(min,max)) = 默认浮点数值，一个浮点数，取值min~max
+</span></span><span class="line"><span class="cl">名称(&#34;显示名称&#34;, 2D) = 默认贴图名称{选项}，一个2D纹理属性
+</span></span><span class="line"><span class="cl">名称(&#34;显示名称&#34;, Rect) = 默认贴图名称{选项}，一个矩形纹理属性（非2的n次幂）
+</span></span><span class="line"><span class="cl">名称(&#34;显示名称&#34;, Cube) = 默认贴图名称{选项}，一个立方体纹理属性
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>选项指的是一些纹理的可选参数，包括：
+TexGen：纹理生成模式，可以是ObjectLinear、EyeLinear、SphereMap、CubeReflect、CubeNormal中的一种。如果使用了自定义的顶点程序，这些参数会被忽略。
+LightmapMode：纹理将受渲染器的光照贴图参数影响。纹理将不会从材质中获取，而是取自渲染器的设置。</p>
+<p>示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Properties {
+</span></span><span class="line"><span class="cl">   _RefDis (&#34;Reflect Distance&#34;, Range(0, 1)) = 0.3 //范围数值
+</span></span><span class="line"><span class="cl">   _Color (&#34;Reflect Color&#34;, Color) = (.34, .85, .92, 1) //颜色
+</span></span><span class="line"><span class="cl">   _MainTex (&#34;Reflect Color&#34;, 2D) = &#34;white&#34;{} //纹理
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>常用的变量类型如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">颜色和向量：float4, half4, fixed4
+</span></span><span class="line"><span class="cl">范围和浮点数：float, half, fixed
+</span></span><span class="line"><span class="cl">2D纹理贴图：sampler2D
+</span></span><span class="line"><span class="cl">Cubemap：samplerCUBE
+</span></span><span class="line"><span class="cl">3D纹理贴图：sampler3D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>SubShader，子着色器由标签（可选）、通用状态（可选）、Pass列表组成。使用子着色器渲染时，每个pass都会渲染一次对象，所以应尽量减少Pass数量。</p>
+<p>Category，分类用于提供让子着色器继承的命令。</p>
+<h2 id="表面着色器">表面着色器</h2>
+<p>使用Cg/HLSL编写，然后嵌在ShaderLab的结构代码中使用。仅需编写最关键的表面函数，其余代码由Unity生成，包括适配各种光源类型、渲染实时阴影以及集成到前向/延迟渲染管线中。如果你需要的效果与光照无关，最好不要使用表面着色器，否则会进行很多不必要的光照计算。使用#pragma surface&hellip;来指明是一个表面着色器。输入结构体Input一般包含必须的纹理坐标，还可以在输入结构中加入一些附加数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CGPROGRAM
+</span></span><span class="line"><span class="cl">#pragma surface surf Lambert
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sampler2D _MainTex;
+</span></span><span class="line"><span class="cl">fixed4 _Color;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">struct Input {
+</span></span><span class="line"><span class="cl">    float2 uv_MainTex;
+</span></span><span class="line"><span class="cl">};
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">void surf (Input IN, inout SurfaceOutput o) {
+</span></span><span class="line"><span class="cl">    half4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+</span></span><span class="line"><span class="cl">    o.Albedo = c.rgb;
+</span></span><span class="line"><span class="cl">    o.Alpha = c.a;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">ENDCG
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>SurfaceOutpu描述了表面的各种参数，它的标准结构如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">struct SurfaceOutput{
+</span></span><span class="line"><span class="cl">    half3 Albedo;    //反射光
+</span></span><span class="line"><span class="cl">    half3 Normal;    //法线
+</span></span><span class="line"><span class="cl">    half3 Emission;  //自发光
+</span></span><span class="line"><span class="cl">    half Specular;   //高光
+</span></span><span class="line"><span class="cl">    half Gloss;      //光泽度
+</span></span><span class="line"><span class="cl">    half Alpha;      //透明度
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="顶点和片段着色器">顶点和片段着色器</h2>
+<p>顶点和片段着色器，运行于具有可编程渲染管线的硬件上，它包括顶点程序和片段程序。使用该着色器渲染时，固定功能管线将会关闭，即编写好的顶点程序替代原有的3D变换、光照、纹理坐标生成等功能，片段程序会替换掉SetTexture命令中的纹理混合模式。代码使用Cg/HLSL编写，放在Pass命令中，格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">SubShader{
+</span></span><span class="line"><span class="cl">    Pass{
+</span></span><span class="line"><span class="cl">        CGPROGRAM
+</span></span><span class="line"><span class="cl">        #pragma vertex vert
+</span></span><span class="line"><span class="cl">        #pragma fragment frag
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        //cg code
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        ENDCG
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译命令说明如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#pragma vertex name
+</span></span><span class="line"><span class="cl">---将函数name的代码编译成顶点程序
+</span></span><span class="line"><span class="cl">#pragma fragment name
+</span></span><span class="line"><span class="cl">---将函数name的代码编译成片段程序
+</span></span><span class="line"><span class="cl">#pragma geometry name
+</span></span><span class="line"><span class="cl">---将函数name的代码编译成DX10的几何着色器
+</span></span><span class="line"><span class="cl">#pragma hull name
+</span></span><span class="line"><span class="cl">---将函数name的代码编译成DX11的hull着色器
+</span></span><span class="line"><span class="cl">#pragma domain name
+</span></span><span class="line"><span class="cl">---将函数name的代码编译成DX11的domain着色器
+</span></span><span class="line"><span class="cl">#pragma fragmentoption option
+</span></span><span class="line"><span class="cl">---添加选项到编译的OpenGL片段程序，对于顶点程序或编译目标不是OpenGL的无效
+</span></span><span class="line"><span class="cl">#pragma target name
+</span></span><span class="line"><span class="cl">---设置着色器的编译目标
+</span></span><span class="line"><span class="cl">#pragma only_renderers space separated names
+</span></span><span class="line"><span class="cl">---仅编译到指定的渲染平台
+</span></span><span class="line"><span class="cl">#pragma exclude_renderers space separated names
+</span></span><span class="line"><span class="cl">---不编译到指定的渲染平台
+</span></span><span class="line"><span class="cl">#pragma glsl
+</span></span><span class="line"><span class="cl">---为桌面系统的OpenGL进行编译时，将Cg/HLSL代码转换成GLSL代码
+</span></span><span class="line"><span class="cl">#pragma glsl_no_auto_normalization
+</span></span><span class="line"><span class="cl">---编译到移动平台GLSL时，关闭顶点着色器中对法线和切线进行自动规范化
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>示例代码，使用命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">Shader</span> <span class="s2">&#34;Custom/Shader1&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Properties</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_Color</span><span class="p">(</span><span class="s2">&#34;Main Color&#34;</span><span class="p">,</span> <span class="ne">Color</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_SpecColor</span><span class="p">(</span><span class="s2">&#34;Spec Color&#34;</span><span class="p">,</span> <span class="ne">Color</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_Emission</span><span class="p">(</span><span class="s2">&#34;Emmisive Color&#34;</span><span class="p">,</span> <span class="ne">Color</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_Shininess</span><span class="p">(</span><span class="s2">&#34;Shininess&#34;</span><span class="p">,</span> <span class="ne">Range</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">=</span> <span class="mf">0.7</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_MainTex</span><span class="p">(</span><span class="s2">&#34;Base (RGB)&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="n">D</span><span class="p">)</span> <span class="o">=</span> <span class="s2">&#34;white&#34;</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">SubShader</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Pass</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="ne">Material</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Diffuse</span><span class="p">[</span><span class="n">_Color</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Ambient</span><span class="p">[</span><span class="n">_Color</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Shininess</span><span class="p">[</span><span class="n">_Shininess</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Specular</span><span class="p">[</span><span class="n">_SpecColor</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Emission</span><span class="p">[</span><span class="n">_Emission</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Lighting</span> <span class="n">On</span>
+</span></span><span class="line"><span class="cl">            <span class="n">SeparateSpecular</span>  <span class="n">On</span>
+</span></span><span class="line"><span class="cl">            <span class="n">SetTexture</span><span class="p">[</span><span class="n">_MainTex</span><span class="p">]{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">constantColor</span><span class="p">[</span><span class="n">_Color</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Combine</span> <span class="n">texture</span> <span class="o">*</span> <span class="n">primary</span> <span class="n">DOUBLE</span><span class="p">,</span> <span class="n">texture</span> <span class="o">*</span> <span class="n">constant</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">FallBack</span> <span class="s2">&#34;Diffuse&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>示例代码，使用Cg。其中的包含文件可以在/Data/CGIncludes/目录下找到。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> Shader &#34;Custom/Shader2&#34; {
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    //定义属性（变量）
+</span></span><span class="line"><span class="cl">    Properties {
+</span></span><span class="line"><span class="cl">        _MainTex (&#34;Texture&#34;, 2D) = &#34;white&#34; {} //纹理
+</span></span><span class="line"><span class="cl">        _Color (&#34;Main Color&#34;, Color) = (1,1,1,0.5) //颜色
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    //子着色器
+</span></span><span class="line"><span class="cl">    SubShader {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        //每个Pass中，对象几何体都被渲染一次
+</span></span><span class="line"><span class="cl">        Pass{
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            CGPROGRAM //Cg代码开始
+</span></span><span class="line"><span class="cl">            #pragma vertex vert //将函数vert编译为顶点程序
+</span></span><span class="line"><span class="cl">            #pragma fragment frag //将函数frag编译为片段程序
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            //包含一个内置的cg文件，提供了常用的声明和函数，比如appdata_base结构
+</span></span><span class="line"><span class="cl">            #include &#34;UnityCG.cginc&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            float4 _Color; //变量，颜色的向量表示
+</span></span><span class="line"><span class="cl">            sampler2D _MainTex;
+</span></span><span class="line"><span class="cl">            float4 _MainTex_ST;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            //定义一个结构体v2f
+</span></span><span class="line"><span class="cl">            struct v2f{
+</span></span><span class="line"><span class="cl">                float4 pos:SV_POSITION;
+</span></span><span class="line"><span class="cl">                float2 uv:TEXCOORD0;
+</span></span><span class="line"><span class="cl">            };
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            //顶点处理程序
+</span></span><span class="line"><span class="cl">            v2f vert(appdata_base v)
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                v2f o;
+</span></span><span class="line"><span class="cl">                //3D坐标被投影到2D窗口中，与矩阵Model-View-Projection相乘
+</span></span><span class="line"><span class="cl">                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+</span></span><span class="line"><span class="cl">                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+</span></span><span class="line"><span class="cl">                return o;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            //片段处理程序
+</span></span><span class="line"><span class="cl">            half4 frag(v2f i):COLOR
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                half4 texcol = tex2D(_MainTex, i.uv);
+</span></span><span class="line"><span class="cl">                //自定义颜色_Color与纹理的融合
+</span></span><span class="line"><span class="cl">                return texcol * _Color;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            ENDCG //Cg代码结束
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    //备用着色器
+</span></span><span class="line"><span class="cl">    FallBack &#34;VertexLit&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的例子用到了一些内置的变量，有下面这些：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">UNITY_MATRIX_MVP--------------------------当前的model*view*projection矩阵
+</span></span><span class="line"><span class="cl">UNITY_MATRIX_MV---------------------------当前的model*view矩阵
+</span></span><span class="line"><span class="cl">UNITY_MATRIX_V----------------------------当前的view矩阵
+</span></span><span class="line"><span class="cl">UNITY_MATRIX_P----------------------------当前的projection矩阵
+</span></span><span class="line"><span class="cl">UNITY_MATRIX_VP---------------------------当前的view*projection矩阵
+</span></span><span class="line"><span class="cl">UNITY_MATRIX_T_MV-------------------------model*view矩阵的转置矩阵
+</span></span><span class="line"><span class="cl">UNITY_MATRIX_IT_MV------------------------model*view矩阵的转置逆矩阵
+</span></span><span class="line"><span class="cl">UNITY_MATRIX_TEXTURE0
+</span></span><span class="line"><span class="cl">UNITY_MATRIX_TEXTURE1
+</span></span><span class="line"><span class="cl">UNITY_MATRIX_TEXTURE2
+</span></span><span class="line"><span class="cl">UNITY_MATRIX_TEXTURE3---------------------纹理变换矩阵
+</span></span><span class="line"><span class="cl">UNITY_LIGHTMODEL_AMBIENT------------------当前的环境光颜色
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是官方文档中的一个例子，可以产生不同颜色交错的效果：
+<img src="/uploads/unity3d_shader_base/v1.png" alt=""></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Shader &#34;Custom/Bars&#34; {
+</span></span><span class="line"><span class="cl">    SubShader {
+</span></span><span class="line"><span class="cl">        Pass {
+</span></span><span class="line"><span class="cl">            CGPROGRAM
+</span></span><span class="line"><span class="cl">            #pragma vertex vert
+</span></span><span class="line"><span class="cl">            #pragma fragment frag
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            #include &#34;UnityCG.cginc&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            struct vertOut {
+</span></span><span class="line"><span class="cl">                float4 pos:SV_POSITION;
+</span></span><span class="line"><span class="cl">                float4 scrPos;
+</span></span><span class="line"><span class="cl">            };
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            vertOut vert(appdata_base v) {
+</span></span><span class="line"><span class="cl">                vertOut o;
+</span></span><span class="line"><span class="cl">                o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+</span></span><span class="line"><span class="cl">                //ComputeScreenPos将返回片段着色器的屏幕位置scrPos
+</span></span><span class="line"><span class="cl">                o.scrPos = ComputeScreenPos(o.pos);
+</span></span><span class="line"><span class="cl">                return o;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            fixed4 frag(vertOut i) : COLOR0 {
+</span></span><span class="line"><span class="cl">                float2 wcoord = (i.scrPos.xy/i.scrPos.w);
+</span></span><span class="line"><span class="cl">                fixed4 color;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                //改变50可以调整间距
+</span></span><span class="line"><span class="cl">                if (fmod(50.0*wcoord.x,2.0)&lt;1.0) {
+</span></span><span class="line"><span class="cl">                    color = fixed4(wcoord.xy,0.6,1.0);//这里可以改变颜色
+</span></span><span class="line"><span class="cl">                } else {
+</span></span><span class="line"><span class="cl">                    color = fixed4(0.1,0.3,0.7,1.0);//这里可以改变颜色
+</span></span><span class="line"><span class="cl">                }
+</span></span><span class="line"><span class="cl">                return color;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            ENDCG
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面的例子来自官方手册，棋盘格效果：
+<img src="/uploads/unity3d_shader_base/v2.png" alt=""></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Shader &#34;Custom/Chess&#34; {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    SubShader {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        Pass {
+</span></span><span class="line"><span class="cl">            CGPROGRAM
+</span></span><span class="line"><span class="cl">            #pragma vertex vert
+</span></span><span class="line"><span class="cl">            #pragma fragment frag
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            #include &#34;UnityCG.cginc&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            //输入顶点结构体，包含位置和颜色
+</span></span><span class="line"><span class="cl">            struct vertexInput {
+</span></span><span class="line"><span class="cl">                float4 vertex : POSITION;
+</span></span><span class="line"><span class="cl">                float4 texcoord0 : TEXCOORD0;
+</span></span><span class="line"><span class="cl">            };
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            //片段结构体，包含位置和颜色
+</span></span><span class="line"><span class="cl">            struct fragmentInput{
+</span></span><span class="line"><span class="cl">                float4 position : SV_POSITION;
+</span></span><span class="line"><span class="cl">                float4 texcoord0 : TEXCOORD0;
+</span></span><span class="line"><span class="cl">            };
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            //顶点处理
+</span></span><span class="line"><span class="cl">            fragmentInput vert(vertexInput i){
+</span></span><span class="line"><span class="cl">                fragmentInput o;
+</span></span><span class="line"><span class="cl">                o.position = mul (UNITY_MATRIX_MVP, i.vertex);
+</span></span><span class="line"><span class="cl">                o.texcoord0 = i.texcoord0;
+</span></span><span class="line"><span class="cl">                return o;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            //片段处理
+</span></span><span class="line"><span class="cl">            float4 frag(fragmentInput i) : COLOR {
+</span></span><span class="line"><span class="cl">                float4 color;
+</span></span><span class="line"><span class="cl">                //fmod用来取余数，物体表面X方向被分成了8/2=4个区间
+</span></span><span class="line"><span class="cl">                //X坐标对2求余，所以这里用1来作为比较，黑、白各占一半
+</span></span><span class="line"><span class="cl">                if ( fmod(i.texcoord0.x*8.0,2.0) &lt; 1.0  ){
+</span></span><span class="line"><span class="cl">                    if ( fmod(i.texcoord0.y*8.0,2.0) &lt; 1.0 )
+</span></span><span class="line"><span class="cl">                    {
+</span></span><span class="line"><span class="cl">                        color = float4(1.0,1.0,1.0,1.0);//白色
+</span></span><span class="line"><span class="cl">                    } else {
+</span></span><span class="line"><span class="cl">                        color = float4(0.0,0.0,0.0,1.0);//黑色
+</span></span><span class="line"><span class="cl">                    }
+</span></span><span class="line"><span class="cl">                } else {
+</span></span><span class="line"><span class="cl">                    if ( fmod(i.texcoord0.y*8.0,2.0) &gt; 1.0 )
+</span></span><span class="line"><span class="cl">                    {
+</span></span><span class="line"><span class="cl">                        color = float4(1.0,1.0,1.0,1.0);//白色
+</span></span><span class="line"><span class="cl">                    } else {
+</span></span><span class="line"><span class="cl">                        color = float4(0.0,0.0,0.0,1.0);//黑色
+</span></span><span class="line"><span class="cl">                    }
+</span></span><span class="line"><span class="cl">                }
+</span></span><span class="line"><span class="cl">                return color;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            ENDCG
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    FallBack &#34;Diffuse&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>相同效果的简化代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Shader &#34;Custom/ChessOpt&#34; {
+</span></span><span class="line"><span class="cl">    SubShader {
+</span></span><span class="line"><span class="cl">        Pass {
+</span></span><span class="line"><span class="cl">            CGPROGRAM
+</span></span><span class="line"><span class="cl">            #pragma vertex vert_img
+</span></span><span class="line"><span class="cl">            #pragma fragment frag
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            #include &#34;UnityCG.cginc&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            float4 frag(v2f_img i) : COLOR {
+</span></span><span class="line"><span class="cl">                bool p = fmod(i.uv.x*8.0,2.0) &lt; 1.0;
+</span></span><span class="line"><span class="cl">                bool q = fmod(i.uv.y*8.0,2.0) &gt; 1.0;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                return float4(float3((p &amp;&amp; q) || !(p || q)),1.0);
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">            ENDCG
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上一个例子中有个texcoord0变量，它的x和y的值都是从0到1的，刚好映射到一张特殊的纹理上。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2014-07-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/unity3d/">unity3d</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/cpp_errors/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">C&#43;&#43;错误笔记</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/unity3d_math/">
+            <span class="next-text nav-default">Unity3D 数学相关</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/unity3d_shader_base/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

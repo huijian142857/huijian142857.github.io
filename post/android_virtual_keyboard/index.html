@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>在Scaleform输入框中弹出Android键盘 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="这个虚幻3项目很让人头疼，就这么简单的功能，在scaleform的输入框TextField中弹出android键盘，我做了很久才完成。大致方" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/android_virtual_keyboard/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/android_virtual_keyboard/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="在Scaleform输入框中弹出Android键盘">
+  <meta property="og:description" content="这个虚幻3项目很让人头疼，就这么简单的功能，在scaleform的输入框TextField中弹出android键盘，我做了很久才完成。大致方">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2016-01-22T10:18:00+00:00">
+    <meta property="article:modified_time" content="2016-01-22T10:18:00+00:00">
+    <meta property="article:tag" content="Android">
+
+  <meta itemprop="name" content="在Scaleform输入框中弹出Android键盘">
+  <meta itemprop="description" content="这个虚幻3项目很让人头疼，就这么简单的功能，在scaleform的输入框TextField中弹出android键盘，我做了很久才完成。大致方">
+  <meta itemprop="datePublished" content="2016-01-22T10:18:00+00:00">
+  <meta itemprop="dateModified" content="2016-01-22T10:18:00+00:00">
+  <meta itemprop="wordCount" content="1707">
+  <meta itemprop="keywords" content="Android">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="在Scaleform输入框中弹出Android键盘">
+  <meta name="twitter:description" content="这个虚幻3项目很让人头疼，就这么简单的功能，在scaleform的输入框TextField中弹出android键盘，我做了很久才完成。大致方">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">在Scaleform输入框中弹出Android键盘</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-01-22 </span>
+        <div class="post-category">
+            <a href="/categories/android/"> android </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>这个虚幻3项目很让人头疼，就这么简单的功能，在scaleform的输入框TextField中弹出android键盘，我做了很久才完成。大致方法是，actionscript调用一个ShowKeyboard函数，对应的uc脚本中的函数被调用，表示需要弹出android的虚拟键盘。然后，uc脚本去调用c++代码，c++又调用JNI函数，最终弹出虚拟键盘。并且，还要反过来调用，即用户在虚拟键盘上的输入要及时反馈给scaleform的UI层。</p>
+<!-- more --> 
+<p>先贴android代码。要及时获取输入框的状态，包括光标位置和按键的捕获，需要实现一个自定义的输入框类。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">public</span> <span class="k">class</span> <span class="n">EditTextCursorWatcher</span> <span class="k">extends</span> <span class="n">EditText</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">EditTextCursorWatcher</span><span class="p">(</span><span class="n">Context</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">super</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">private</span> <span class="n">OnKeyPreImeListener</span> <span class="n">keyPreImelistener</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">interface</span> <span class="n">OnKeyPreImeListener</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">public</span> <span class="n">void</span> <span class="n">onKeyPreIme</span><span class="p">(</span><span class="ne">int</span> <span class="n">keyCode</span><span class="p">,</span> <span class="n">KeyEvent</span> <span class="n">event</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">void</span> <span class="n">addOnKeyPreImeListener</span> <span class="p">(</span><span class="n">OnKeyPreImeListener</span> <span class="n">_listener</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="n">keyPreImelistener</span> <span class="o">=</span> <span class="n">_listener</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">void</span> <span class="n">removeOnKeyPreImeListener</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">keyPreImelistener</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">private</span> <span class="n">OnSelectionChangedListener</span> <span class="n">selectionChangedListener</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">interface</span> <span class="n">OnSelectionChangedListener</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">public</span> <span class="n">void</span> <span class="n">onSelectionChanged</span><span class="p">(</span><span class="ne">int</span> <span class="n">selStart</span><span class="p">,</span> <span class="ne">int</span> <span class="n">selEnd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">void</span> <span class="n">addOnSelectionChangedListener</span> <span class="p">(</span><span class="n">OnSelectionChangedListener</span> <span class="n">_listener</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">selectionChangedListener</span> <span class="o">=</span> <span class="n">_listener</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">void</span> <span class="n">removeOnSelectionChangedListener</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">selectionChangedListener</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="err">@</span><span class="n">Override</span>
+</span></span><span class="line"><span class="cl">	<span class="n">protected</span> <span class="n">void</span> <span class="n">onSelectionChanged</span><span class="p">(</span><span class="ne">int</span> <span class="n">selStart</span><span class="p">,</span> <span class="ne">int</span> <span class="n">selEnd</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">selectionChangedListener</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">selectionChangedListener</span><span class="o">.</span><span class="n">onSelectionChanged</span><span class="p">(</span><span class="n">selStart</span><span class="p">,</span> <span class="n">selEnd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">super</span><span class="o">.</span><span class="n">onSelectionChanged</span><span class="p">(</span><span class="n">selStart</span><span class="p">,</span> <span class="n">selEnd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="err">@</span><span class="n">Override</span>
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">boolean</span> <span class="n">onKeyPreIme</span><span class="p">(</span><span class="ne">int</span> <span class="n">keyCode</span><span class="p">,</span> <span class="n">KeyEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">keyPreImelistener</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">keyPreImelistener</span><span class="o">.</span><span class="n">onKeyPreIme</span><span class="p">(</span><span class="n">keyCode</span><span class="p">,</span> <span class="n">event</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">super</span><span class="o">.</span><span class="n">onKeyPreIme</span><span class="p">(</span><span class="n">keyCode</span><span class="p">,</span> <span class="n">event</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是正式的代码了，我用来测试的。这里的输入框都是动态创建的，然后隐藏键盘时会销毁掉。在Scaleform中使用时，这个创建的输入框其实是需要隐藏的，这里只需要隐藏KeyboardTextLayout就行了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">public</span> <span class="k">class</span> <span class="n">MainActivity</span> <span class="k">extends</span> <span class="n">Activity</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">protected</span> <span class="n">Handler</span> <span class="n">handler</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">private</span> <span class="n">LinearLayout</span> <span class="n">KeyboardTextLayout</span>	<span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">private</span> <span class="n">EditTextCursorWatcher</span> <span class="n">KeyboardText</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">private</span> <span class="n">TextView</span> <span class="n">clonedText</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">private</span> <span class="n">TextView</span> <span class="n">clonedTextCursor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="err">@</span><span class="n">Override</span>
+</span></span><span class="line"><span class="cl">	<span class="n">protected</span> <span class="n">void</span> <span class="n">onCreate</span><span class="p">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">super</span><span class="o">.</span><span class="n">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">requestWindowFeature</span><span class="p">(</span><span class="n">Window</span><span class="o">.</span><span class="n">FEATURE_NO_TITLE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">handler</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Handler</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="ne">Timer</span> <span class="n">timer</span> <span class="o">=</span> <span class="n">new</span> <span class="ne">Timer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">timer</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">new</span> <span class="n">TimerTask</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">public</span> <span class="n">void</span> <span class="n">run</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">final</span> <span class="ne">String</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&#34;Test&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		    	<span class="n">ShowKeyBoard</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="bp">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="cl">		<span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">void</span> <span class="n">ShowKeyBoard</span><span class="p">(</span><span class="ne">String</span> <span class="n">InputText</span><span class="p">,</span> <span class="ne">int</span> <span class="n">selStart</span><span class="p">,</span> <span class="ne">float</span> <span class="n">posX</span><span class="p">,</span> <span class="ne">float</span> <span class="n">posY</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="ne">float</span> <span class="n">sizeX</span><span class="p">,</span> <span class="ne">float</span> <span class="n">sizeY</span><span class="p">,</span> <span class="n">boolean</span> <span class="n">IsPassword</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">final</span> <span class="n">MainActivity</span> <span class="n">activity</span>		<span class="o">=</span> <span class="n">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">final</span> <span class="ne">String</span> <span class="n">FinalText</span>			<span class="o">=</span> <span class="n">InputText</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">final</span> <span class="ne">int</span> <span class="n">FinalSelStart</span>			<span class="o">=</span> <span class="n">selStart</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">final</span> <span class="ne">int</span> <span class="n">FinalPosX</span>				<span class="o">=</span> <span class="p">(</span><span class="ne">int</span><span class="p">)(</span><span class="n">posX</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">final</span> <span class="ne">int</span> <span class="n">FinalPosY</span>				<span class="o">=</span> <span class="p">(</span><span class="ne">int</span><span class="p">)(</span><span class="n">posY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">final</span> <span class="ne">int</span> <span class="n">FinalSizeX</span>			<span class="o">=</span> <span class="p">(</span><span class="ne">int</span><span class="p">)(</span><span class="n">sizeX</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">final</span> <span class="ne">int</span> <span class="n">FinalSizeY</span>			<span class="o">=</span> <span class="p">(</span><span class="ne">int</span><span class="p">)(</span><span class="n">sizeY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">handler</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">new</span> <span class="n">Runnable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">public</span> <span class="n">void</span> <span class="n">run</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span><span class="p">(</span> <span class="n">KeyboardTextLayout</span> <span class="o">==</span> <span class="n">null</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="p">{</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardTextLayout</span> <span class="o">=</span> <span class="n">new</span> <span class="n">LinearLayout</span><span class="p">(</span> <span class="n">activity</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardTextLayout</span><span class="o">.</span><span class="n">setOrientation</span><span class="p">(</span> <span class="n">LinearLayout</span><span class="o">.</span><span class="n">HORIZONTAL</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardTextLayout</span><span class="o">.</span><span class="n">setPadding</span><span class="p">(</span><span class="n">FinalPosX</span><span class="p">,</span> <span class="n">FinalPosY</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span> <span class="o">=</span> <span class="n">new</span> <span class="n">EditTextCursorWatcher</span><span class="p">(</span> <span class="n">activity</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span><span class="o">.</span><span class="n">setSingleLine</span><span class="p">(</span><span class="bp">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span><span class="o">.</span><span class="n">setHeight</span><span class="p">(</span><span class="n">FinalSizeY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span><span class="o">.</span><span class="n">setWidth</span><span class="p">(</span><span class="n">FinalSizeX</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span><span class="o">.</span><span class="n">setPadding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">FinalText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">final</span> <span class="ne">int</span> <span class="n">keyboardTextLength</span> <span class="o">=</span> <span class="n">KeyboardText</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">.</span><span class="n">length</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span><span class="o">.</span><span class="n">setSelection</span><span class="p">(</span><span class="n">FinalSelStart</span> <span class="o">&gt;</span> <span class="n">keyboardTextLength</span> <span class="err">?</span> 
+</span></span><span class="line"><span class="cl">						<span class="n">keyboardTextLength</span> <span class="p">:</span> <span class="n">FinalSelStart</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					
+</span></span><span class="line"><span class="cl">					<span class="n">clonedTextCursor</span> <span class="o">=</span> <span class="n">new</span> <span class="n">TextView</span><span class="p">(</span><span class="n">activity</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">clonedTextCursor</span><span class="o">.</span><span class="n">setHeight</span><span class="p">(</span><span class="n">FinalSizeY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">clonedTextCursor</span><span class="o">.</span><span class="n">setWidth</span><span class="p">(</span><span class="n">FinalSizeX</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">clonedTextCursor</span><span class="o">.</span><span class="n">setPadding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">clonedTextCursor</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&#34;&#34;</span> <span class="o">+</span> <span class="n">KeyboardText</span><span class="o">.</span><span class="n">getSelectionStart</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">					
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span><span class="o">.</span><span class="n">addTextChangedListener</span><span class="p">(</span><span class="n">new</span> <span class="n">TextWatcher</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">						<span class="err">@</span><span class="n">Override</span>
+</span></span><span class="line"><span class="cl">						<span class="n">public</span> <span class="n">void</span> <span class="n">beforeTextChanged</span><span class="p">(</span><span class="n">CharSequence</span> <span class="n">s</span><span class="p">,</span> <span class="ne">int</span> <span class="n">start</span><span class="p">,</span> <span class="ne">int</span> <span class="n">count</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">							<span class="ne">int</span> <span class="n">after</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">							
+</span></span><span class="line"><span class="cl">						<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">						<span class="err">@</span><span class="n">Override</span>
+</span></span><span class="line"><span class="cl">						<span class="n">public</span> <span class="n">void</span> <span class="n">onTextChanged</span><span class="p">(</span><span class="n">CharSequence</span> <span class="n">s</span><span class="p">,</span> <span class="ne">int</span> <span class="n">start</span><span class="p">,</span> <span class="ne">int</span> <span class="n">before</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">							<span class="ne">int</span> <span class="n">count</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">							<span class="n">clonedText</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">						<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">						<span class="err">@</span><span class="n">Override</span>
+</span></span><span class="line"><span class="cl">						<span class="n">public</span> <span class="n">void</span> <span class="n">afterTextChanged</span><span class="p">(</span><span class="n">Editable</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">							
+</span></span><span class="line"><span class="cl">						<span class="p">}</span>
+</span></span><span class="line"><span class="cl">						
+</span></span><span class="line"><span class="cl">					<span class="p">});</span>
+</span></span><span class="line"><span class="cl">					
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span><span class="o">.</span><span class="n">addOnSelectionChangedListener</span><span class="p">(</span><span class="n">new</span> <span class="n">OnSelectionChangedListener</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">						<span class="err">@</span><span class="n">Override</span>
+</span></span><span class="line"><span class="cl">						<span class="n">public</span> <span class="n">void</span> <span class="n">onSelectionChanged</span><span class="p">(</span><span class="ne">int</span> <span class="n">selStart</span><span class="p">,</span> <span class="ne">int</span> <span class="n">selEnd</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">							<span class="n">clonedTextCursor</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&#34;&#34;</span> <span class="o">+</span> <span class="n">selStart</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">						<span class="p">}</span>
+</span></span><span class="line"><span class="cl">						
+</span></span><span class="line"><span class="cl">					<span class="p">});</span>
+</span></span><span class="line"><span class="cl">					
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span><span class="o">.</span><span class="n">addOnKeyPreImeListener</span><span class="p">(</span><span class="n">new</span> <span class="n">OnKeyPreImeListener</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">						<span class="err">@</span><span class="n">Override</span>
+</span></span><span class="line"><span class="cl">						<span class="n">public</span> <span class="n">void</span> <span class="n">onKeyPreIme</span><span class="p">(</span><span class="ne">int</span> <span class="n">keyCode</span><span class="p">,</span> <span class="n">KeyEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">							<span class="k">if</span> <span class="p">(</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="n">KEYCODE_BUTTON_B</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">							<span class="p">{</span>
+</span></span><span class="line"><span class="cl">								<span class="n">HideKeyBoard</span><span class="p">(</span><span class="bp">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">							<span class="p">}</span>
+</span></span><span class="line"><span class="cl">						<span class="p">}</span>
+</span></span><span class="line"><span class="cl">						
+</span></span><span class="line"><span class="cl">					<span class="p">});</span>
+</span></span><span class="line"><span class="cl">					
+</span></span><span class="line"><span class="cl">					
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardTextLayout</span><span class="o">.</span><span class="n">addView</span><span class="p">(</span><span class="n">KeyboardText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					
+</span></span><span class="line"><span class="cl">					<span class="o">//</span> <span class="n">clone</span>
+</span></span><span class="line"><span class="cl">					<span class="n">clonedText</span> <span class="o">=</span> <span class="n">new</span> <span class="n">TextView</span><span class="p">(</span><span class="n">activity</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">clonedText</span><span class="o">.</span><span class="n">setHeight</span><span class="p">(</span><span class="n">FinalSizeY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">clonedText</span><span class="o">.</span><span class="n">setWidth</span><span class="p">(</span><span class="n">FinalSizeX</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">clonedText</span><span class="o">.</span><span class="n">setPadding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">clonedText</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">KeyboardText</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardTextLayout</span><span class="o">.</span><span class="n">addView</span><span class="p">(</span><span class="n">clonedText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardTextLayout</span><span class="o">.</span><span class="n">addView</span><span class="p">(</span><span class="n">clonedTextCursor</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					
+</span></span><span class="line"><span class="cl">					<span class="n">addContentView</span><span class="p">(</span> <span class="n">KeyboardTextLayout</span><span class="p">,</span> <span class="n">new</span> <span class="n">LayoutParams</span><span class="p">(</span> 
+</span></span><span class="line"><span class="cl">						<span class="n">LayoutParams</span><span class="o">.</span><span class="n">WRAP_CONTENT</span><span class="p">,</span> <span class="n">LayoutParams</span><span class="o">.</span><span class="n">WRAP_CONTENT</span><span class="p">)</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardTextLayout</span><span class="o">.</span><span class="n">setVisibility</span><span class="p">(</span><span class="n">View</span><span class="o">.</span><span class="n">VISIBLE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">				
+</span></span><span class="line"><span class="cl">				
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">});</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">handler</span><span class="o">.</span><span class="n">postDelayed</span><span class="p">(</span><span class="n">new</span> <span class="n">Runnable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">public</span> <span class="n">void</span> <span class="n">run</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span><span class="p">(</span> <span class="n">KeyboardTextLayout</span> <span class="o">!=</span> <span class="n">null</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="p">{</span>  	
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span><span class="o">.</span><span class="n">requestFocus</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">					<span class="n">InputMethodManager</span> <span class="n">imm</span> <span class="o">=</span> <span class="p">(</span><span class="n">InputMethodManager</span><span class="p">)</span><span class="n">getSystemService</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">						<span class="n">Context</span><span class="o">.</span><span class="n">INPUT_METHOD_SERVICE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">imm</span><span class="o">.</span><span class="n">showSoftInput</span><span class="p">(</span> <span class="n">KeyboardText</span><span class="p">,</span> <span class="n">InputMethodManager</span><span class="o">.</span><span class="n">SHOW_FORCED</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">public</span> <span class="n">void</span> <span class="n">HideKeyBoard</span><span class="p">(</span> <span class="n">boolean</span> <span class="n">wasCancelled</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>	
+</span></span><span class="line"><span class="cl">		<span class="n">final</span> <span class="n">boolean</span> <span class="n">finalwasCancelled</span> <span class="o">=</span> <span class="n">wasCancelled</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">handler</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">new</span> <span class="n">Runnable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">public</span> <span class="n">void</span> <span class="n">run</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>	    
+</span></span><span class="line"><span class="cl">				<span class="k">if</span><span class="p">(</span> <span class="n">KeyboardTextLayout</span> <span class="o">!=</span> <span class="n">null</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="p">{</span>         
+</span></span><span class="line"><span class="cl">					<span class="k">if</span><span class="p">(</span> <span class="n">KeyboardText</span> <span class="o">!=</span> <span class="n">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">finalwasCancelled</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">					<span class="p">{</span>
+</span></span><span class="line"><span class="cl">						
+</span></span><span class="line"><span class="cl">					<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">					<span class="o">//</span> <span class="ow">in</span> <span class="k">case</span> <span class="n">its</span> <span class="n">still</span> <span class="n">up</span>
+</span></span><span class="line"><span class="cl">					<span class="n">InputMethodManager</span> <span class="n">mgr</span> <span class="o">=</span> <span class="p">(</span><span class="n">InputMethodManager</span><span class="p">)</span><span class="n">getSystemService</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">						<span class="n">Context</span><span class="o">.</span><span class="n">INPUT_METHOD_SERVICE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">mgr</span><span class="o">.</span><span class="n">hideSoftInputFromWindow</span><span class="p">(</span><span class="n">KeyboardText</span><span class="o">.</span><span class="n">getWindowToken</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					
+</span></span><span class="line"><span class="cl">					<span class="n">ViewGroup</span> <span class="n">viewGroup</span> <span class="o">=</span> <span class="p">(</span><span class="n">ViewGroup</span><span class="p">)(</span><span class="n">KeyboardTextLayout</span><span class="o">.</span><span class="n">getParent</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">					<span class="n">viewGroup</span><span class="o">.</span><span class="n">removeView</span><span class="p">(</span><span class="n">KeyboardTextLayout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardTextLayout</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">					<span class="n">KeyboardText</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">				
+</span></span><span class="line"><span class="cl">				<span class="o">//</span> <span class="n">some</span> <span class="n">extra</span> <span class="n">task</span>
+</span></span><span class="line"><span class="cl">				<span class="n">DisplayMetrics</span> <span class="n">dm</span> <span class="o">=</span> <span class="n">new</span> <span class="n">DisplayMetrics</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">				<span class="n">getWindowManager</span><span class="p">()</span><span class="o">.</span><span class="n">getDefaultDisplay</span><span class="p">()</span><span class="o">.</span><span class="n">getMetrics</span><span class="p">(</span><span class="n">dm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="ne">int</span> <span class="n">screenWidth</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">widthPixels</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="ne">int</span> <span class="n">screenHeigh</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">heightPixels</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Toast</span><span class="o">.</span><span class="n">makeText</span><span class="p">(</span><span class="n">getApplicationContext</span><span class="p">(),</span> <span class="s2">&#34;&#34;</span> <span class="o">+</span> <span class="n">screenWidth</span> <span class="o">+</span> <span class="s2">&#34;,&#34;</span> <span class="o">+</span> <span class="n">screenHeigh</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">					<span class="n">Toast</span><span class="o">.</span><span class="n">LENGTH_LONG</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">});</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Android这一层做完了，其它的应该也不难了，但是UE3中那些相互调用真的让人很烦。uc脚本也只会在虚幻3里面使用，基本上被淘汰了。下面记录一点吧，首先是actionscript调用uc脚本，文档里都有，假设actionscript里面有个函数名叫handleShowKeyBoard，那么uc脚本里可以这么写。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// Called from ActionScript
+</span></span><span class="line"><span class="cl">delegate HandleShowKeyBoardDelegate(string inputText, int selStart, float posX, float posY);
+</span></span><span class="line"><span class="cl">function HandleShowKeyBoard(string inputText, int selStart, float posX, float posY)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	`Log(&#34;---handleShowKeyBoard has been called from actionscript---&#34; $inputText 
+</span></span><span class="line"><span class="cl">		@ &#34;  &#34; $selStart @ &#34;  &#34; $posX @ &#34;  &#34; $posY);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	class&#39;R_Util&#39;.Static.ShowKeyboard(inputText, selStart, posX, posY, 0, 0, false);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">function SetDelegate_HandleShowKeyBoard(delegate&lt;HandleShowKeyBoardDelegate&gt; Delegated)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	if (DialogClassRef == none)
+</span></span><span class="line"><span class="cl">		`Warn(&#34;SetDelegate_HandleShowKeyBoard failed to get DialogClassRef&#34;);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	class&#39;R_UIManager&#39;.static.GetDialogManager().ActionScriptSetFunction(
+</span></span><span class="line"><span class="cl">		DialogClassRef, &#34;handleShowKeyBoard&#34;);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>actionscript的关键代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">//</span> <span class="n">StyledTextInput</span><span class="o">.</span><span class="n">as</span>
+</span></span><span class="line"><span class="cl"><span class="n">public</span> <span class="n">function</span> <span class="n">handleInput</span><span class="p">(</span><span class="n">details</span><span class="p">:</span><span class="n">InputDetails</span><span class="p">,</span> <span class="n">pathToFocus</span><span class="p">:</span><span class="ne">Array</span><span class="p">):</span><span class="n">Boolean</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">details</span><span class="o">.</span><span class="n">navEquivalent</span> <span class="o">==</span> <span class="n">NavigationCode</span><span class="o">.</span><span class="n">ENTER</span> <span class="ow">and</span> <span class="n">details</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&#34;keyDown&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">LoginDialog</span><span class="p">(</span><span class="n">LoginDialog</span><span class="o">.</span><span class="n">dialog</span><span class="p">)</span><span class="o">.</span><span class="n">setFocusedTextField</span><span class="p">(</span><span class="n">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">var</span> <span class="n">myPoint</span><span class="p">:</span><span class="ne">Object</span> <span class="o">=</span> <span class="p">{</span> <span class="n">x</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="mi">0</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">		<span class="n">localToGlobal</span><span class="p">(</span><span class="n">myPoint</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">LoginDialog</span><span class="o">.</span><span class="n">handleShowKeyBoard</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">this</span><span class="o">.</span><span class="n">textField</span><span class="o">.</span><span class="n">caretIndex</span><span class="p">,</span> <span class="n">myPoint</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">myPoint</span><span class="o">.</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">super</span><span class="o">.</span><span class="n">handleInput</span><span class="p">(</span><span class="n">details</span><span class="p">,</span> <span class="n">pathToFocus</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">LoginDialog</span><span class="o">.</span><span class="n">as</span>
+</span></span><span class="line"><span class="cl"><span class="n">public</span> <span class="k">static</span> <span class="n">function</span> <span class="n">handleShowKeyBoard</span><span class="p">(</span><span class="n">inputText</span><span class="p">:</span><span class="ne">String</span><span class="p">,</span> <span class="n">selStart</span><span class="p">:</span><span class="n">Number</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">	<span class="n">posX</span><span class="p">:</span><span class="n">Number</span><span class="p">,</span> <span class="n">posY</span><span class="p">:</span><span class="n">Number</span><span class="p">):</span><span class="n">Void</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">trace</span><span class="p">(</span><span class="s2">&#34;---unreal should open input method---&#34;</span> <span class="o">+</span> <span class="n">inputText</span> <span class="o">+</span> <span class="s2">&#34;:&#34;</span> <span class="o">+</span> <span class="n">selStart</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;---&#34;</span> <span class="o">+</span> <span class="n">posX</span> <span class="o">+</span> <span class="s2">&#34;,&#34;</span> <span class="o">+</span> <span class="n">posY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">public</span> <span class="n">function</span> <span class="n">setFocusedTextField</span><span class="p">(</span><span class="n">textField</span><span class="p">:</span><span class="n">StyledTextInput</span><span class="p">):</span><span class="n">Void</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">focusedTextField</span> <span class="o">=</span> <span class="n">textField</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">public</span> <span class="n">function</span> <span class="n">showKeyBoardCallback</span><span class="p">(</span><span class="n">inputText</span><span class="p">:</span><span class="ne">String</span><span class="p">,</span> <span class="n">selStart</span><span class="p">:</span><span class="n">Number</span><span class="p">):</span><span class="n">Void</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">focusedTextField</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">focusedTextField</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">inputText</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Selection</span><span class="o">.</span><span class="n">setSelection</span><span class="p">(</span><span class="n">selStart</span><span class="p">,</span> <span class="n">selStart</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>反过来，下面是uc函数调用actionscript函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">function ShowKeyBoardCallback(string InputText, int selStart)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	if(DialogRef != None)
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		`Log(&#34;---actionscript ShowKeyBoardCallback should be called ---&#34;);
+</span></span><span class="line"><span class="cl">		DialogRef.ActionScriptVoid(&#34;showKeyBoardCallback&#34;);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	else
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		`Warn(&#34;ShowKeyBoardCallback failed to get DialogRef&#34;);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>UC脚本怎么调用C++了？在uc中用native。C++怎么调用UC了？在uc中用event。然后编译UC脚本时，会自动生成相应的C++头文件，我们去实现即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">static native function ShowKeyboard(string InputText, int selStart, 
+</span></span><span class="line"><span class="cl">	float posX, float posY, float sizeX, float sizeY, bool IsPassword);
+</span></span><span class="line"><span class="cl">event OnKeyboardFinished(string InputText, int selStart)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	`Log(&#34;---OnKeyboardFinished---&#34;$InputText $selStart);
+</span></span><span class="line"><span class="cl">	class&#39;R_UIManager&#39;.static.ShowKeyBoardCallback(InputText, selStart);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后JNI方面的事就不用说了。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-01-22
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/android/">android</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/algorithm_common/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">常见算法汇总</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/java_bytes_to_int/">
+            <span class="next-text nav-default">java中byte[]和int之间的转换</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/android_virtual_keyboard/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

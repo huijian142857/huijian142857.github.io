@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Csharp on 挥剑对风尘</title>
+    <link>https://huijian142857.gitee.io/categories/csharp/</link>
+    <description>Recent content in Csharp on 挥剑对风尘</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 01 Jul 2021 21:17:22 +0800</lastBuildDate>
+    <atom:link href="https://huijian142857.gitee.io/categories/csharp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C# 正则表达式</title>
+      <link>https://huijian142857.gitee.io/post/csharp_regular/</link>
+      <pubDate>Thu, 01 Jul 2021 21:17:22 +0800</pubDate>
+      <guid>https://huijian142857.gitee.io/post/csharp_regular/</guid>
+      <description>C# 中正则表达式用法： Regex.IsMatch(filePathName, fileFilter) 限定符： 1 2 3 4 5 6 * 匹配上一个元素零次或多次 + 匹配上一个元素一次或多次 ? 匹配上一个元素零次或一次 {n} 匹配上一个元素恰</description>
+    </item>
+    <item>
+      <title>C# 使用反射向 List 中添加数据</title>
+      <link>https://huijian142857.gitee.io/post/csharp_reflection/</link>
+      <pubDate>Wed, 03 Jan 2018 22:00:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/csharp_reflection/</guid>
+      <description>Reflection 使你能够获取有关加载的程序集和其中定义的类型的信息，如类、接口和值类型。 程序集包含模块、模块包含类型，而类型包含成员。反射提供封装程序集、</description>
+    </item>
+    <item>
+      <title>C# in Depth</title>
+      <link>https://huijian142857.gitee.io/post/csharp_in_depth/</link>
+      <pubDate>Thu, 29 Sep 2016 22:00:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/csharp_in_depth/</guid>
+      <description>The Changing Face of C# Development A Simple Data Type Read-only properties and Weakly typed collections (C# 1)&#xA;1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 using System.Collections; public class Product { string name; public string Name { get { return name; } } decimal price; public decimal Price { get { return price; } } public Product(string name, decimal price) { this.</description>
+    </item>
+    <item>
+      <title>C#知识点</title>
+      <link>https://huijian142857.gitee.io/post/csharp_tips/</link>
+      <pubDate>Sun, 14 Aug 2016 20:00:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/csharp_tips/</guid>
+      <description>C# 继承结构 通过继承一个现有的类，新创建的类可以不需要写任何代码， 就可以按照继承来的父类中的合适的访问权限直接拥有所继承的类的功能， 同时还可以</description>
+    </item>
+    <item>
+      <title>C#中使用DLL文件</title>
+      <link>https://huijian142857.gitee.io/post/csharp_dll/</link>
+      <pubDate>Mon, 11 Nov 2013 18:14:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/csharp_dll/</guid>
+      <description>首先，我们需要在C++程序中导出DLL文件。我使用的是Visual Studio开发，把项目&amp;quot;属性&amp;quot;中的“配置类型”改为&amp;</description>
+    </item>
+  </channel>
+</rss>

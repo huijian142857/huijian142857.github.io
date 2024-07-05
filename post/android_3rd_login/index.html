@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>为Android游戏接入第三方登录功能 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="“游戏客户端”调用“SDK客户端”的登录功能向“SDK服务端”进行身份认证 验证通过后，“游戏客户端”可得到用户信息，根据游戏逻辑可将用户信息" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/android_3rd_login/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/android_3rd_login/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="为Android游戏接入第三方登录功能">
+  <meta property="og:description" content="“游戏客户端”调用“SDK客户端”的登录功能向“SDK服务端”进行身份认证 验证通过后，“游戏客户端”可得到用户信息，根据游戏逻辑可将用户信息">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2015-08-28T16:47:00+00:00">
+    <meta property="article:modified_time" content="2015-08-28T16:47:00+00:00">
+    <meta property="article:tag" content="Android">
+
+  <meta itemprop="name" content="为Android游戏接入第三方登录功能">
+  <meta itemprop="description" content="“游戏客户端”调用“SDK客户端”的登录功能向“SDK服务端”进行身份认证 验证通过后，“游戏客户端”可得到用户信息，根据游戏逻辑可将用户信息">
+  <meta itemprop="datePublished" content="2015-08-28T16:47:00+00:00">
+  <meta itemprop="dateModified" content="2015-08-28T16:47:00+00:00">
+  <meta itemprop="wordCount" content="1640">
+  <meta itemprop="keywords" content="Android">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="为Android游戏接入第三方登录功能">
+  <meta name="twitter:description" content="“游戏客户端”调用“SDK客户端”的登录功能向“SDK服务端”进行身份认证 验证通过后，“游戏客户端”可得到用户信息，根据游戏逻辑可将用户信息">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">为Android游戏接入第三方登录功能</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2015-08-28 </span>
+        <div class="post-category">
+            <a href="/categories/android/"> android </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <ol>
+<li>
+<p>“游戏客户端”调用“SDK客户端”的登录功能向“SDK服务端”进行身份认证</p>
+</li>
+<li>
+<p>验证通过后，“游戏客户端”可得到用户信息，根据游戏逻辑可将用户信息传给“游戏服务器”进行验证</p>
+</li>
+<li>
+<p>“游戏服务器”通过客户端传来的用户信息，一般还需要向“SDK服务器”请求验证用户信息</p>
+</li>
+<li>
+<p>验证通过后，“游戏服务器”从数据库中查询用户信息，不存在的话直接插入新的用户信息，然后将验证结果和用户信息返回给“游戏客户端”</p>
+</li>
+<li>
+<p>如果使用了登录会话管理，用户登录后会生成一个新的会话token字符串，把这个token传给“游戏客户端”即可，使用这个token即可查出对应的用户信息</p>
+</li>
+<li>
+<p>在使用第三方账号登录时，需要为每个第三方账号ID建立一个新的玩家ID，使这两个ID产生关联即可</p>
+</li>
+</ol>
+<!-- more --> 
+<p><img src="/uploads/android_3rd_login/login_process.png" alt=""></p>
+<p>上图是一个典型的登录过程，关键点是游戏服务端如何做第三方玩家账号与游戏中玩家账号的数据库映射。
+客户端代码比较简单，可以点此下载<a href="/uploads/android_3rd_login/ThirdPartySDKTest.zip">完整客户端登录代码</a>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public void authenticate(final AuthenticationInterface authenticationInterface, 
+</span></span><span class="line"><span class="cl">	final AuthenticationRequest request)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        // save the request
+</span></span><span class="line"><span class="cl">        m_authenticationInterface = authenticationInterface;
+</span></span><span class="line"><span class="cl">        m_request = request;
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        // call third party login method
+</span></span><span class="line"><span class="cl">        OppoClientHelper m_oppoSdk = OppoClientHelper.getInstance();
+</span></span><span class="line"><span class="cl">        m_oppoSdk.setLoginCallback(new OppoLoginCallback()
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            @Override
+</span></span><span class="line"><span class="cl">            public void onSuccess(String userId, String accessToken) {
+</span></span><span class="line"><span class="cl">                doAuthenticate(userId, accessToken);
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            @Override
+</span></span><span class="line"><span class="cl">            public void onFailure() {
+</span></span><span class="line"><span class="cl">                m_authenticationInterface.onAuthenticationCancel();
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">        });
+</span></span><span class="line"><span class="cl">        m_oppoSdk.sdkLogin();
+</span></span><span class="line"><span class="cl">    }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>登录服务端采用Java的Servlet技术实现，下面是doPost部分代码。这里主要省略了从数据库中获取用户信息和从第三方SDK获取用户信息的代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">public</span> <span class="k">class</span> <span class="n">Authenticate</span> <span class="k">extends</span> <span class="n">HttpServlet</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">static</span> <span class="k">class</span> <span class="n">RequiredParameters</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="ne">String</span> <span class="n">gameId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="ne">String</span> <span class="n">deviceId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="ne">String</span> <span class="n">userId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="ne">String</span> <span class="n">token</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">static</span> <span class="k">class</span> <span class="n">OppoUserInfo</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="err">@</span><span class="n">JsonIgnoreProperties</span><span class="p">({</span> <span class="s2">&#34;sex&#34;</span><span class="p">,</span> <span class="s2">&#34;profilePictureUrl&#34;</span><span class="p">,</span> <span class="s2">&#34;emailStatus&#34;</span><span class="p">,</span> <span class="s2">&#34;email&#34;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="k">static</span> <span class="k">class</span> <span class="n">BriefUser</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">public</span> <span class="ne">String</span> <span class="n">getId</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">public</span> <span class="n">void</span> <span class="n">setId</span><span class="p">(</span><span class="ne">String</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">this</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">public</span> <span class="ne">String</span> <span class="n">getName</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">public</span> <span class="n">void</span> <span class="n">setName</span><span class="p">(</span><span class="ne">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">this</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">private</span> <span class="ne">String</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">private</span> <span class="ne">String</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="err">@</span><span class="n">JsonProperty</span><span class="p">(</span><span class="s2">&#34;BriefUser&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="n">BriefUser</span> <span class="n">getBriefUser</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">briefUser</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="n">void</span> <span class="n">setBriefUser</span><span class="p">(</span><span class="n">BriefUser</span> <span class="n">briefUser</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">this</span><span class="o">.</span><span class="n">briefUser</span> <span class="o">=</span> <span class="n">briefUser</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">private</span> <span class="n">BriefUser</span> <span class="n">briefUser</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="k">static</span> <span class="n">final</span> <span class="n">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1</span><span class="n">L</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="k">static</span> <span class="n">final</span> <span class="ne">String</span> <span class="n">authenticateTypeName</span> <span class="o">=</span> <span class="s2">&#34;oppo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">protected</span> <span class="n">void</span> <span class="n">doPost</span><span class="p">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="p">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    	<span class="n">throws</span> <span class="n">ServletException</span><span class="p">,</span> <span class="n">IOException</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>    
+</span></span><span class="line"><span class="cl">        <span class="o">//</span> <span class="n">check</span> <span class="n">request</span> <span class="n">parameters</span>
+</span></span><span class="line"><span class="cl">        <span class="n">RequiredParameters</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">new</span> <span class="n">RequiredParameters</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Map</span><span class="o">&lt;</span><span class="ne">String</span><span class="p">,</span> <span class="ne">String</span><span class="p">[]</span><span class="o">&gt;</span> <span class="n">parameterMap</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getParameterMap</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">parameterMap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;userId&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="n">null</span> <span class="o">||</span> <span class="n">parameterMap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;token&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="n">null</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">AuthenticationUtilities</span><span class="o">.</span><span class="n">sendError</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            	<span class="n">HttpServletResponse</span><span class="o">.</span><span class="n">SC_INTERNAL_SERVER_ERROR</span><span class="p">,</span> <span class="s2">&#34;internal error&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">AuthenticationUtilities</span><span class="o">.</span><span class="n">logWarning</span><span class="p">(</span><span class="n">authenticateTypeName</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            	<span class="s2">&#34;wrong parameters:&#34;</span> <span class="o">+</span> <span class="n">parameterMap</span><span class="o">.</span><span class="n">toString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">parameters</span><span class="o">.</span><span class="n">userId</span> <span class="o">=</span> <span class="n">parameterMap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;userId&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">toString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">parameters</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">parameterMap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;token&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">toString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="n">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="o">//</span> <span class="n">query</span> <span class="n">userInfo</span> <span class="n">from</span> <span class="n">third</span> <span class="n">party</span> <span class="n">SDK</span>
+</span></span><span class="line"><span class="cl">            <span class="ne">String</span> <span class="n">gcUserInfo</span> <span class="o">=</span> <span class="s2">&#34;{{jsonstring}}&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="o">//</span> <span class="n">check</span> <span class="n">returned</span> <span class="n">JSON</span> <span class="n">string</span> <span class="n">from</span> <span class="n">SDK</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ObjectMapper</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">OppoUserInfo</span> <span class="n">userInfo</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">readValue</span><span class="p">(</span><span class="n">gcUserInfo</span><span class="p">,</span> <span class="n">OppoUserInfo</span><span class="o">.</span><span class="k">class</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">parameters</span><span class="o">.</span><span class="n">userId</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">userInfo</span><span class="o">.</span><span class="n">getBriefUser</span><span class="p">()</span><span class="o">.</span><span class="n">getId</span><span class="p">())){</span>
+</span></span><span class="line"><span class="cl">                <span class="n">AuthenticationUtilities</span><span class="o">.</span><span class="n">sendError</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                	<span class="n">HttpServletResponse</span><span class="o">.</span><span class="n">SC_INTERNAL_SERVER_ERROR</span><span class="p">,</span> <span class="s2">&#34;internal error&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">AuthenticationUtilities</span><span class="o">.</span><span class="n">logWarning</span><span class="p">(</span><span class="n">authenticateTypeName</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                	<span class="s2">&#34;verify userId failed:&#34;</span> <span class="o">+</span> <span class="n">parameters</span><span class="o">.</span><span class="n">userId</span><span class="o">.</span><span class="n">toString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="n">try</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="o">//</span> <span class="k">do</span> <span class="n">with</span> <span class="n">database</span> <span class="ow">and</span> <span class="n">get</span> <span class="n">a</span> <span class="n">returned</span> <span class="n">token</span>
+</span></span><span class="line"><span class="cl">                <span class="ne">String</span> <span class="n">authenticationToken</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">boolean</span> <span class="n">databaseResult</span> <span class="o">=</span> <span class="bp">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">databaseResult</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">AuthenticationUtilities</span><span class="o">.</span><span class="n">sendError</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                    	<span class="n">HttpServletResponse</span><span class="o">.</span><span class="n">SC_INTERNAL_SERVER_ERROR</span><span class="p">,</span> <span class="s2">&#34;internal_error&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">AuthenticationUtilities</span><span class="o">.</span><span class="n">logSevere</span><span class="p">(</span><span class="n">authenticateTypeName</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                    	<span class="s2">&#34;database returned R_failure_internal_error.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="o">//</span> <span class="k">if</span> <span class="n">success</span><span class="p">,</span> <span class="n">send</span> <span class="n">response</span> <span class="n">to</span> <span class="n">client</span>
+</span></span><span class="line"><span class="cl">                <span class="n">response</span><span class="o">.</span><span class="n">getWriter</span><span class="p">()</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="s2">&#34;authenticationToken=&#34;</span> <span class="o">+</span> <span class="n">authenticationToken</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">catch</span> <span class="p">(</span><span class="n">final</span> <span class="n">Exception</span> <span class="n">exception</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="n">AuthenticationUtilities</span><span class="o">.</span><span class="n">sendError</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                	<span class="n">HttpServletResponse</span><span class="o">.</span><span class="n">SC_INTERNAL_SERVER_ERROR</span><span class="p">,</span> <span class="s2">&#34;internal_error&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">AuthenticationUtilities</span><span class="o">.</span><span class="n">logSevere</span><span class="p">(</span><span class="n">authenticateTypeName</span><span class="p">,</span> <span class="n">exception</span><span class="o">.</span><span class="n">toString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">AuthenticationUtilities</span><span class="o">.</span><span class="n">sendError</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            	<span class="n">HttpServletResponse</span><span class="o">.</span><span class="n">SC_INTERNAL_SERVER_ERROR</span><span class="p">,</span> <span class="s2">&#34;internal error&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">AuthenticationUtilities</span><span class="o">.</span><span class="n">logSevere</span><span class="p">(</span><span class="n">authenticateTypeName</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">getMessage</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是使用到的日志功能代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public class AuthenticationUtilities 
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    private static final Logger ms_logger = Logger.getLogger(&#34;spacetime-authentication&#34;);
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    public static void sendError(final HttpServletResponse response, final int responseCode, 
+</span></span><span class="line"><span class="cl">    	final String errorMessage) throws IOException{
+</span></span><span class="line"><span class="cl">        response.setStatus(responseCode);
+</span></span><span class="line"><span class="cl">        response.getWriter().print(errorMessage);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    public static void logInfo(final String authenticationTypeName, final String message){
+</span></span><span class="line"><span class="cl">        ms_logger.info(authenticationTypeName + &#34;:&#34; + message);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    public static void logWarning(final String authenticationTypeName, final String message){
+</span></span><span class="line"><span class="cl">        ms_logger.warning(authenticationTypeName + &#34;:&#34; + message);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    public static void logSevere(final String authenticationTypeName, final String message){
+</span></span><span class="line"><span class="cl">        ms_logger.severe(authenticationTypeName + &#34;:&#34; + message);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里对数据库的操作也很重要，下面是使用postgresql中用到的部分Sql代码。
+如果用户第一次登录，还需要在数据库中建立新用户，然后产生会话token。如果可以查到用户信息，直接产生token并返回结果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CREATE TABLE authentication_token
+</span></span><span class="line"><span class="cl">(
+</span></span><span class="line"><span class="cl">    token UUID NOT NULL,
+</span></span><span class="line"><span class="cl">    account_id UUID NOT NULL,
+</span></span><span class="line"><span class="cl">    authentication_time TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now(),
+</span></span><span class="line"><span class="cl">    PRIMARY KEY (token)
+</span></span><span class="line"><span class="cl">);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CREATE INDEX authentication_token_index_account_id ON authentication_token (account_id);
+</span></span><span class="line"><span class="cl">CREATE INDEX authentication_token_index_authentication_time ON authentication_token (authentication_time);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-- --------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CREATE TABLE auth_account
+</span></span><span class="line"><span class="cl">(
+</span></span><span class="line"><span class="cl">    account_id UUID NOT NULL,
+</span></span><span class="line"><span class="cl">    creation_time TIMESTAMP DEFAULT now() NOT NULL,
+</span></span><span class="line"><span class="cl">    PRIMARY KEY (account_id)
+</span></span><span class="line"><span class="cl">);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ALTER TABLE authentication_token ADD CONSTRAINT authentication_token_account_id_fkey FOREIGN KEY (account_id) REFERENCES auth_account (account_id) ON UPDATE CASCADE ON DELETE CASCADE;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-- ----------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CREATE TABLE spacetime_account_oppo
+</span></span><span class="line"><span class="cl">(
+</span></span><span class="line"><span class="cl">    oppo_account_id VARCHAR(64) NOT NULL,
+</span></span><span class="line"><span class="cl">    account_id UUID NOT NULL,
+</span></span><span class="line"><span class="cl">    creation_time TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now(),
+</span></span><span class="line"><span class="cl">    PRIMARY KEY(oppo_account_id)
+</span></span><span class="line"><span class="cl">);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ALTER TABLE spacetime_account_oppo ADD CONSTRAINT spacetime_account_oppo_account_id_fkey FOREIGN KEY (account_id) REFERENCES auth_account (account_id) ON UPDATE CASCADE ON DELETE NO ACTION;
+</span></span><span class="line"><span class="cl">ALTER TABLE spacetime_account_oppo ADD CONSTRAINT spacetime_account_oppo_account_id_unique UNIQUE(account_id);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-- --------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CREATE OR REPLACE FUNCTION get_new_auth_account_id_0007
+</span></span><span class="line"><span class="cl">(
+</span></span><span class="line"><span class="cl">    v_account_id OUT UUID
+</span></span><span class="line"><span class="cl">)
+</span></span><span class="line"><span class="cl">RETURNS UUID
+</span></span><span class="line"><span class="cl">AS $$
+</span></span><span class="line"><span class="cl">BEGIN
+</span></span><span class="line"><span class="cl">    &lt;&lt;retry&gt;&gt;
+</span></span><span class="line"><span class="cl">    LOOP
+</span></span><span class="line"><span class="cl">        v_account_id := public.uuid_generate_v4();
+</span></span><span class="line"><span class="cl">        BEGIN
+</span></span><span class="line"><span class="cl">            INSERT INTO auth_account (account_id) VALUES (v_account_id);
+</span></span><span class="line"><span class="cl">            EXIT retry;
+</span></span><span class="line"><span class="cl">        EXCEPTION
+</span></span><span class="line"><span class="cl">            WHEN UNIQUE_VIOLATION THEN
+</span></span><span class="line"><span class="cl">        END;
+</span></span><span class="line"><span class="cl">    END LOOP;
+</span></span><span class="line"><span class="cl">END;
+</span></span><span class="line"><span class="cl">$$
+</span></span><span class="line"><span class="cl">LANGUAGE plpgsql; 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-- ----------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CREATE FUNCTION cleanup_expired_authentication_tokens_0001
+</span></span><span class="line"><span class="cl">(
+</span></span><span class="line"><span class="cl">)
+</span></span><span class="line"><span class="cl">RETURNS VOID
+</span></span><span class="line"><span class="cl">AS $$
+</span></span><span class="line"><span class="cl">BEGIN
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    DELETE FROM authentication_token WHERE authentication_time &lt; now() - interval &#39;10 minutes&#39;;
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">END;
+</span></span><span class="line"><span class="cl">$$
+</span></span><span class="line"><span class="cl">LANGUAGE plpgsql;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-- --------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CREATE FUNCTION create_authentication_token_0001
+</span></span><span class="line"><span class="cl">(
+</span></span><span class="line"><span class="cl">    v_account_id IN UUID,
+</span></span><span class="line"><span class="cl">    v_token OUT UUID
+</span></span><span class="line"><span class="cl">)
+</span></span><span class="line"><span class="cl">RETURNS UUID
+</span></span><span class="line"><span class="cl">AS $$
+</span></span><span class="line"><span class="cl">BEGIN
+</span></span><span class="line"><span class="cl">    PERFORM cleanup_expired_authentication_tokens_0001();
+</span></span><span class="line"><span class="cl">    v_token := public.uuid_generate_v4();
+</span></span><span class="line"><span class="cl">    UPDATE
+</span></span><span class="line"><span class="cl">        authentication_token 
+</span></span><span class="line"><span class="cl">    SET
+</span></span><span class="line"><span class="cl">        token = v_token, 
+</span></span><span class="line"><span class="cl">        authentication_time = now()
+</span></span><span class="line"><span class="cl">    WHERE 
+</span></span><span class="line"><span class="cl">        account_id = v_account_id;
+</span></span><span class="line"><span class="cl">    IF NOT FOUND THEN
+</span></span><span class="line"><span class="cl">        BEGIN
+</span></span><span class="line"><span class="cl">            INSERT INTO authentication_token 
+</span></span><span class="line"><span class="cl">                (token, account_id) 
+</span></span><span class="line"><span class="cl">            VALUES 
+</span></span><span class="line"><span class="cl">                (v_token, v_account_id);
+</span></span><span class="line"><span class="cl">        EXCEPTION
+</span></span><span class="line"><span class="cl">            WHEN UNIQUE_VIOLATION THEN
+</span></span><span class="line"><span class="cl">                UPDATE 
+</span></span><span class="line"><span class="cl">                    authentication_token 
+</span></span><span class="line"><span class="cl">                SET 
+</span></span><span class="line"><span class="cl">                    token = v_token, 
+</span></span><span class="line"><span class="cl">                    authentication_time = now()
+</span></span><span class="line"><span class="cl">                WHERE 
+</span></span><span class="line"><span class="cl">                    account_id = v_account_id;
+</span></span><span class="line"><span class="cl">        END;
+</span></span><span class="line"><span class="cl">    END IF;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">END;
+</span></span><span class="line"><span class="cl">$$
+</span></span><span class="line"><span class="cl">LANGUAGE plpgsql;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-- ----------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CREATE OR REPLACE FUNCTION get_authentication_token_oppo_0008
+</span></span><span class="line"><span class="cl">(
+</span></span><span class="line"><span class="cl">    v_oppoId IN VARCHAR,
+</span></span><span class="line"><span class="cl">    v_result OUT INTEGER,
+</span></span><span class="line"><span class="cl">    v_token OUT UUID
+</span></span><span class="line"><span class="cl">)
+</span></span><span class="line"><span class="cl">RETURNS RECORD
+</span></span><span class="line"><span class="cl">AS $$
+</span></span><span class="line"><span class="cl">DECLARE
+</span></span><span class="line"><span class="cl">    t_account_id UUID;
+</span></span><span class="line"><span class="cl">BEGIN
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    SELECT account_id INTO t_account_id FROM spacetime_account_oppo WHERE oppo_account_id = v_oppoId;
+</span></span><span class="line"><span class="cl">    IF NOT FOUND THEN
+</span></span><span class="line"><span class="cl">        t_account_id := get_new_auth_account_id_0007();
+</span></span><span class="line"><span class="cl">        BEGIN
+</span></span><span class="line"><span class="cl">            INSERT INTO spacetime_account_oppo
+</span></span><span class="line"><span class="cl">                (oppo_account_id, account_id)
+</span></span><span class="line"><span class="cl">            VALUES
+</span></span><span class="line"><span class="cl">                (v_oppoId, t_account_id);
+</span></span><span class="line"><span class="cl">        EXCEPTION
+</span></span><span class="line"><span class="cl">            WHEN UNIQUE_VIOLATION THEN
+</span></span><span class="line"><span class="cl">                BEGIN
+</span></span><span class="line"><span class="cl">                    RAISE EXCEPTION &#39;spacetime_account_oppo: oppo_account_id [%] or account_id [%] already exist&#39;, v_oppoId, t_account_id;
+</span></span><span class="line"><span class="cl">                END;
+</span></span><span class="line"><span class="cl">        END;
+</span></span><span class="line"><span class="cl">    END IF;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    v_result := 0; -- R_success
+</span></span><span class="line"><span class="cl">    v_token := (SELECT f.v_token FROM create_authentication_token_0001(t_account_id) f);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">END;
+</span></span><span class="line"><span class="cl">$$
+</span></span><span class="line"><span class="cl">LANGUAGE plpgsql;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-- --------------------------------------------------------------------
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2015-08-28
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/android/">android</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/cpp_primer_part_1_2/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">C&#43;&#43; Primer 第五版 学习笔记 Part I and II</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/other_git_note/">
+            <span class="next-text nav-default">Git学习笔记</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/android_3rd_login/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

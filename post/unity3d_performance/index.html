@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Unity3D-优化相关 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="Unity每次在准备数据并通知GPU渲染的过程称为一次Draw Call。一般情况下，渲染一次拥有一个网格并携带一种材质的物体便会使用一次Dr" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/unity3d_performance/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/unity3d_performance/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="Unity3D-优化相关">
+  <meta property="og:description" content="Unity每次在准备数据并通知GPU渲染的过程称为一次Draw Call。一般情况下，渲染一次拥有一个网格并携带一种材质的物体便会使用一次Dr">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2018-11-10T12:00:00+00:00">
+    <meta property="article:modified_time" content="2018-11-10T12:00:00+00:00">
+    <meta property="article:tag" content="Unity3d">
+
+  <meta itemprop="name" content="Unity3D-优化相关">
+  <meta itemprop="description" content="Unity每次在准备数据并通知GPU渲染的过程称为一次Draw Call。一般情况下，渲染一次拥有一个网格并携带一种材质的物体便会使用一次Dr">
+  <meta itemprop="datePublished" content="2018-11-10T12:00:00+00:00">
+  <meta itemprop="dateModified" content="2018-11-10T12:00:00+00:00">
+  <meta itemprop="wordCount" content="8144">
+  <meta itemprop="keywords" content="Unity3d">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Unity3D-优化相关">
+  <meta name="twitter:description" content="Unity每次在准备数据并通知GPU渲染的过程称为一次Draw Call。一般情况下，渲染一次拥有一个网格并携带一种材质的物体便会使用一次Dr">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Unity3D-优化相关</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-11-10 </span>
+        <div class="post-category">
+            <a href="/categories/unity3d/"> unity3d </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#注意事项">注意事项</a></li>
+        <li><a href="#相关插件">相关插件</a></li>
+        <li><a href="#ui-优化">UI 优化</a></li>
+        <li><a href="#profiler-cpu">Profiler CPU</a></li>
+        <li><a href="#内存管理-内存优化">内存管理 内存优化</a></li>
+        <li><a href="#最佳实践">最佳实践：</a></li>
+        <li><a href="#帧率">帧率</a></li>
+        <li><a href="#preawake">PreAwake</a></li>
+        <li><a href="#光照">光照</a></li>
+        <li><a href="#渲染">渲染</a></li>
+        <li><a href="#review">Review</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Unity每次在准备数据并通知GPU渲染的过程称为一次Draw Call。一般情况下，渲染一次拥有一个网格并携带一种材质的物体便会使用一次Draw Call。</p>
+<!-- more --> 
+<p>在PlayerSettings中，勾选Optimize Mesh Data可以减小安装包的体积，勾选Dynamic Batching也可能减小安装包的大小，将Strpping Level变为Use micro mscorlib可以明显减小安装包的大小。在Projects-&gt;Quality中可以调整默认的图像显示级别，关闭垂直同步后才能用代码锁定帧率。例如：</p>
+<p>[Pixel Light Count] (low)0  (mid)2  (high)4
+[Texture Quality]   (low)HalfRes    (mid)FullRes
+[Anisotropic Textures]  (low)Disabled   (mid)PerTexture
+[Soft Particles]    (low)Disable    (mid)Disable    (high)Enable
+[Billboards Face Camera Position]   (low)Disable    (mid)Enable
+[Shadow Resolution] (low)Disable    (mid)Disable    (high)HardShadows (extra)HardShadows MediumResolution
+[Shadow Distance]   (high)30    (extra)45
+[Shadow Mode]   ShadowMask
+[Shadow Near Plane Offset]  3
+[Shadow Cascades]   No Cascades
+[Blend Weights] (low)2 Bones    (mid)2 Bones  (high)4 Bones
+[V Sync Count]  Don&rsquo;t Sync
+[Lod Bias]  (low)0.5    (mid)0.9    (high)1.5   (high)2
+[Maximum LOD Level] 0
+[Particle Raycast Budget] (low)16   (mid)256    (high)1024
+[Texture Streaming Budget]  (low)256    (mid)512    (high)2048</p>
+<p>Android优化时，如果压缩图集，可以明显改变apk的大小。常见的方法是，设置图片的压缩模式为 Normal Quality，在Inspector面板右下角的preview中可以看到图片大小已经变得很小了，一般格式为 ETC2。IOS版优化时，如果要压缩图片，必须保证图片长宽一样，比如是<code>1024*1024</code>的图片。</p>
+<h2 id="注意事项">注意事项</h2>
+<ol>
+<li>
+<p>缓存频繁使用的对象和组件，避免在 Update 函数里使用 GetComponent 和 Find 来获取。注意，GetComponent 只在编辑器下产生GC。</p>
+</li>
+<li>
+<p>使用 CompareTag 来比较 tag 是否相同，因为直接获取 Tag 会产生 GC。</p>
+</li>
+<li>
+<p>尽量避免使用 MeshCollider，Unity 自带的 Sphere 等Mesh组件多边形也比较大，可以使用自己的，或者将多个Box Collider或者Capsule Collider组合在一起。</p>
+</li>
+<li>
+<p>使用遮挡剔除，剔除被摄像头可视范围内其他物体遮挡的物体。</p>
+</li>
+<li>
+<p>使用光照贴图 lightmap 来替代实时光照。</p>
+</li>
+<li>
+<p>当不必要每帧都执行时，可以在 Update 中降低频率，定时重复调用可以使用 InvokeRepeating 函数实现。</p>
+</li>
+<li>
+<p>尽量减少临时变量的使用，特别是Update函数中，特别是 string 字符串应该避免大量的拼接。</p>
+</li>
+<li>
+<p>在游戏暂停、场景切换时，可以主动进行垃圾回收，去除不必要的内存占用。
+<code>if (Time.frameCount % 50 == 0)　　System.GC.Collection();</code></p>
+</li>
+<li>
+<p>在 Project Settings -&gt; Time 中，通过调整 Fixed Timestep 可以降低物理更新占用的CPU损耗，但会牺牲一些精度。</p>
+</li>
+<li>
+<p>避免在 Update 函数中分配内存，这样也会增加垃圾回收的开销。</p>
+</li>
+<li>
+<p>某些Shader可能会严重影响性能，要谨慎使用。Unity自带的一些shader，可以选择Mobile或Unlit目录下的来提升性能。</p>
+</li>
+<li>
+<p>避免使用透明和多个材质的对象，尽可能共用材质。</p>
+</li>
+<li>
+<p>将不需要移动的物体设为 Static，让引擎可以进行其批处理。</p>
+</li>
+<li>
+<p>尽量压缩图片，从而占用更少的内存带宽。</p>
+</li>
+<li>
+<p>避免频繁调用 GameObject.SetActive，若要隐藏物体，可以改用移出视野的方法来提升性能。</p>
+</li>
+<li>
+<p>SpriteRender 如果要切换图片，必须把这些图片打为图集，打图集只需要设置 Packing Tag，否则会产生大量的 DrawCall。</p>
+</li>
+<li>
+<p>切换模型的材质会产生更多的 DrawCall，解决的办法是改变 sharedMaterial，而不是 material。
+但是在运行时，需要独立设置材质时，可以用 Renderer 的 SetPropertyBlock 在修改材质属性时不生成新的材质实例。MaterialPropertyBlock 相当于在shader里增加了一个数组, 然后每一个对象根据自己的Gpu instance的值去索引你修改的值。</p>
+</li>
+<li>
+<p>模型缩放包含镜像时，不支持批处理，所以不能减少 DrawCall。</p>
+</li>
+<li>
+<p>材质为透明时，不支持批处理，所以不能减少 DrawCall，但把 RenderQueue 改为 AlphaTest 会减少 DrawCall。</p>
+</li>
+<li>
+<p>特效播放完后仍然会产生 DrawCall，所以需要 DeActive 掉。</p>
+</li>
+<li>
+<p>用 Screen.SetResolution 设置分辨率可以提升性能，同时锁定30帧也可以。</p>
+</li>
+<li>
+<p>单个特效的不同部分使用不同的 order in layer 可以进行批处理，每个不同的特效都应该有不同的 order，这个方法可能导致重叠。</p>
+</li>
+<li>
+<p>在材质上设置 GPU instancing 可以提升批处理相同材质物体的性能，如果同时可以 dynamic batching，那么 dynamic batching 会被禁用。</p>
+</li>
+<li>
+<p>yield return 0 由于装箱会产生内存垃圾，使用 yield return null 就不会产生副作用。</p>
+</li>
+<li>
+<p>使用 <code>while (!isComplete){ yield return new WaitForSeconds(1f); }</code> 会不断产生内存垃圾，如果把 <code>new WaitForSeconds(1f)</code> 放外面就不会了。</p>
+</li>
+<li>
+<p>短时间内创建大量游戏对象会造成 CPU 峰值，引起游戏卡顿。 我们可以在 Update 中以一定的时间间隔创建多个游戏对象，在 Coroutine 中做每帧限时加载不太准，协程本身性能不太好。</p>
+</li>
+<li>
+<p>减少粒子系统的使用，降低粒子的发射速度。</p>
+</li>
+<li>
+<p>当对象离开、进入摄像头视锥时，调用 <code>OnBecameInvisible/OnBecameVisible</code>，在其中使用 <code>enabled = false</code> 或 <code>setActive</code> 可以关闭无需更新的脚本，比如关闭不可见的粒子特效。</p>
+</li>
+<li>
+<p>使用 struct 替代 class 可以避免 GC。</p>
+</li>
+<li>
+<p>在UI中制作 ScrollView 时，如果里面的元素很多，把移出视图外的元素拼接到最下面或最上面，可以获得更好的性能。</p>
+</li>
+<li>
+<p>使用细节级别 LOD，可支持游戏对象在不同的细节级别上转换网格，具体取决于物体与摄像头的距离。 对应的贴图上的优化技术是 Mip Maps。</p>
+</li>
+<li>
+<p>只使用一个摄像头 Camera。</p>
+</li>
+<li>
+<p>资源分离打包与加载是最有效的减小安装包体积与运行时内存占用的手段。</p>
+</li>
+<li>
+<p>NGUI中将一段时间内会发生变化的控件放在同一个Panel上，其余基本不变化的控件就放在别的Panel上，从而减少UIPanel重建的CPU消耗，动静分离。</p>
+</li>
+<li>
+<p>降低贴图素材分辨率，降低模型精度。</p>
+</li>
+<li>
+<p>场景中如果没有使用灯光和像素灯，就不要使用法线贴图，因为法线效果只有在有光源的情况下才有效果。</p>
+</li>
+<li>
+<p>尽量使用对象池，为所有动态游戏对象制作和使用池，这样在游戏运行时间内不会动态分配任何东西。</p>
+</li>
+<li>
+<p>匿名函数中的闭包 closure 会产生一个匿名类，当 closure 被使用时匿名类会实例化从而导致GC，所以要避免频繁调用。</p>
+</li>
+<li>
+<p>装箱和拆箱会导致GC，比如把 Enum 作为 Dictionary 的 key，调用 GetHashCode(Object) 时存在值类型变为引用类型，解决办法是为 Enum 写一个比较类，传入Dictionary的构造函数中。</p>
+</li>
+<li>
+<p>游戏 Release 版应该屏蔽 Debug.Log 等日志，需要使用宏定义来屏蔽</p>
+</li>
+<li>
+<p>闭包和匿名函数都会带来内存分配，尽可能不要使用</p>
+</li>
+<li>
+<p>Camera.main 存在开销，会自动调用 FindObjectWithTag，所以尽量不要使用</p>
+</li>
+<li>
+<p>如果性能瓶颈在 CPU，骨骼蒙皮计算才需要打开 GPU skinning</p>
+</li>
+<li>
+<p>在PhysicsManagerSetting的LayerCollisionMatrix去掉不参加碰撞检测的Layer</p>
+</li>
+<li>
+<p>如果场景中有大量的SkinnedMeshRenderers，Animation Instancing可以有效的降低CPU的消耗。它十分适合那些有大量角色存在的游戏中。</p>
+</li>
+</ol>
+<h2 id="相关插件">相关插件</h2>
+<p>DoTween
+Mesh Baker
+FinalIK: Mecanim动画状态机是支持Root Motion的，人物跑动时脚步是可以稳稳的踩在地面上的，插件FinalIK 用于解决人物腿部悬空的问题
+Cinemachine: 功能完整且强大，可以填平摄像机开发的深坑
+Simple Waypoint System: 可以让一切物体都能非常可控的按照固定的曲线路径移动，当然也包括摄像机
+BehaviorDesigner
+A* Pathfinding Project Pro
+Post-processing Stack v2</p>
+<h2 id="ui-优化">UI 优化</h2>
+<p>界面的快速隐藏和显示，推荐的做法 -&gt;
+把界面单独作为一个Canvas，并绑定一个相机，同时在绑定相机的Culling Mask中设置一个不渲染的Layer；
+隐藏时，把Canvas移出相机范围，同时把Canvas的Layer改为不被渲染的Layer，禁用对应的GraphicRaycaster组件，把Canvas中所有的动态UI元素停止。
+显示时，移回Canvas，改回Layer，激活GraphicRaycaster组件。
+可以通过 Canvas Group 来控制UI元素是否可交互，控制透明度等。</p>
+<p>Canvas.SendWillRenderCanvases 的优化方法 -&gt;
+disable canvas PixelPerfect, dynamic font to static, watch out for text outline.
+使用更多的 Canvas 进行合批处理减少UI重建的耗时，比如给每个 ScrollView 添加一个 Canvas.
+UI 设计注意动静分离，减少重建
+通过 Disable Canvas 组件可以更加高效的隐藏 UI 元素
+使用 RectMask2D 进行 Clip，以及关闭 Pixel Perfect 可以优化 ScrollRect</p>
+<p>UI元素存在半透明，并且很多元素叠加，就导致 OverDraw 消耗比较大。可以通过减小叠加层数，缩小Sprite的空白区域等方式来控制。</p>
+<p>当Canvas处于WorldSpace或ScreenSpace时，Canvas存在Event Camera或Render Camera属性，需要挂接Camera。此处若为None，会自动调用 Camera.main 造成较大开销，所以应该预先关联 Camera。</p>
+<p>文字性能相关参数：text.font.name, text.fontSize, text.fontStyle
+优化方法：去掉 shadow 和 outline
+文本（Text）组件对移动设备的性能要求很高，所以可以禁用 “Rich Text”功能
+如果图像与文本组件无需与玩家交互，可以取消勾选 “Raycast Target”
+尽量使用字符集较小的字体，如果遇到性能问题，请尝试取消勾选所有Text组件的 “Best Fit”选项</p>
+<p>界面优化基本思路：
+注意 SetActive,SetParent,GetComponent,AddComponent 应减少使用。
+降低界面复杂度，降低节点数目。如果不能预加载，可以把界面拆分为多个部分动态加载；可以简化设计；去掉没用的节点；使用大图而不是小图拼接。
+界面动静分离。经常变动的节点元素放在一个Canvas里，偶尔变动的节点元素放一个Canvas里，几乎不变的放一个Canvas里。
+界面中可以不用 Layout 组件的地方不要用。
+TableView中的Cell可以在Update中分帧加载，上下滚动时可以循环利用。
+一个界面尽量用最少的图集个数，注意优化图集。除了几个通用图集，其它图集按UI模块类型来区分。
+UI背景图片不要出现NPOT尺寸，如果要用NPOT，尝试多个NPOT图合并为POT尺寸，或者先拉伸为POT，使用时再还原。
+考虑到内存使用，做一个UI界面缓存策略，某些界面一开始就预加载永不卸载，某些打开后不卸载，某些界面延迟卸载，某些界面不预加载。
+UI上尽量减少Animation和Animator动画的使用，简单的动画用程序实现即可。</p>
+<p>&mdash;使用Canvas分割不同的UI部分
+&mdash;同一个Canvas内的元素要用相同的Z值，避免打断批处理
+&mdash;使用相同的材质和贴图，即使用图集，对material和shader做动画不会打断批处理
+&mdash;使用相同的Clipping Rect</p>
+<p>Graphic Raycaster: 用于处理UI的点击事件等，不需要交互的Canvas最好去掉这个组件</p>
+<p>全屏UI： 可以禁用其它相机；通过禁用Canvas来隐藏其它UI；降低游戏帧率。</p>
+<h2 id="profiler-cpu">Profiler CPU</h2>
+<p>Profiler 中的 Shader.parse 主要是在加载shader，而 CreateGpuProgram 则是去通知Gpu，需要GPU对这个Shader针对目标平台进行编译。Shader.Parse的耗时可以使用 always include 或者使用AB包并常驻内存不去卸载来解决。而 CreateGPUProgram 则可以使用在游戏初始化的时候使用例如一个Cube挂上相应的Material然后放到视域体内渲染一帧即可，然后把Cube移动到很远的地方就可以了。或者使用 ShaderVariantCollection.WarmUp，这个会自动创建三角面来告知GPU编译这个shader了，
+但是这个接口会造成启动的时候耗时较高，而且如果当shader被卸载，再加载的时候还是会出现CreateGPUProgram的。</p>
+<p>Unity Profiler中最常检查的内容是CPU Usage，其中GC Alloc和Time ms最为重要。建议对单帧2K以上的内存分配，以及每帧20B以上的内存分配进行排查。新的Memory Profiler工具, 通过图形的方式展示了工程中占用内存最高的资源类型，因此可以很方便的进行资源内存的优化。在安卓平台下并没有XCode中这么全面的性能分析工具。最常用的工具有Adreno Profiler和Mali Graphics Debugger，这两个工具都是用来进行GPU性能分析的。</p>
+<ul>
+<li>预先编译Shader:Shader.WarmupAllShader(Shader Variant Collection)</li>
+<li>及时停止不必要的Update：Animator，ParticleSystem</li>
+<li>主动隐藏不在镜头内的动画对象</li>
+<li>使用加载队列，人物分帧异步加载，平衡预加载和即时加载的数量和大小</li>
+<li>耗时操作分散离散到各帧</li>
+</ul>
+<h2 id="内存管理-内存优化">内存管理 内存优化</h2>
+<ul>
+<li>
+<p>0 gc policy</p>
+</li>
+<li>
+<p>no gc with a custom heap, gc when heap is full</p>
+</li>
+<li>
+<p>avoid using Resources.UnloadUnusedAssets</p>
+</li>
+<li>
+<p>使用对象池和引用池</p>
+</li>
+<li>
+<p>GC注意：foreach, delegate, string, reflection</p>
+</li>
+<li>
+<p>Model Import Setting:Read/Write Enable</p>
+</li>
+<li>
+<p>Model Import Setting : Normals &amp; Tangents -&gt; None</p>
+</li>
+<li>
+<p>模型压缩</p>
+</li>
+<li>
+<p>FBX Import Setting : Animation Type Generic -&gt;None，要从Fbx中导出动画资源后使用</p>
+</li>
+<li>
+<p>Texture Import Setting:Generate MipMap</p>
+</li>
+<li>
+<p>Animation Clip 60 fps -&gt;30 fps</p>
+</li>
+<li>
+<p>删除相同关键帧，自动以关键帧压缩</p>
+</li>
+<li>
+<p>Audio import Setting: ios -&gt; mp3, android -&gt;vorbis (Force to mono)</p>
+</li>
+<li>
+<p>Audio Clip Sampling rate : 40K -&gt;20k</p>
+</li>
+<li>
+<p>小的音频文件采用Decompress On Load</p>
+</li>
+<li>
+<p>声音削减采样，尽量使用单声道或OGG格式</p>
+</li>
+<li>
+<p>去掉不必要的Alpha通道</p>
+</li>
+<li>
+<p>拆分alpha,对于没有渐变过度的alpha图进行尺寸压缩</p>
+</li>
+<li>
+<p>表格二进制化</p>
+</li>
+<li>
+<p>字体裁剪</p>
+</li>
+<li>
+<p>String使用intern处理</p>
+</li>
+<li>
+<p>避免一些临时资源重复创建，例如www.texture</p>
+</li>
+<li>
+<p>控制Object池的使用，LRU算法</p>
+</li>
+</ul>
+<h2 id="最佳实践">最佳实践：</h2>
+<p>安卓 DeepProfiler 调试命令 Android &ndash; Development Build &ndash; Mono :
+adb shell am start -n com.company.game/com.unity3d.player.UnityPlayerActivity -e &lsquo;unity&rsquo; &lsquo;-deepprofiling&rsquo;
+The Deep Profiler button remains grayed out during profiling.</p>
+<p>通过换掉最耗时的几个shader，可以确定发热和性能问题是否在GPU方面</p>
+<p>Debug.Log 比较耗时，必要时应该关闭堆栈信息，或者关闭Log，这个在Console窗口也可以设置
+<code>Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);</code>
+<code>Debug.unityLogger.logEnabled = false;</code></p>
+<p>string 的拼接和其它函数，比如 EndsWith,StartWith 都比较耗时
+在 Update 中使用 string.Format 也比较耗时
+反射 Reflection 比较耗时
+大量 <code>new T()</code> 也比较耗时，会调用 <code>Activator.CreateInstance()</code>
+Dictionary 大量元素的 Contans 和 Add 比较耗时
+大量 AddComponent 很耗时，还要注意 new 和 Awake 造成的耗时
+大量同时加载一些资源，比如 UI 界面比较耗时
+大量 GameObject.SetActive 比较耗时，触发很多 OnDisable 和 OnEnable 函数
+使用同步加载一些大资源时会卡顿，但速度比异步快很多
+FindObjectOfType 比较耗时
+Transform.SetParent 比较耗时
+使用 WWW(url) 网络不通时有点耗时
+UnloadUnusedAssets 和 GC 容易卡顿
+避免 Update 中使用 Material.GetColor 这样的函数，可直接使用 Material.SetFloat
+Shader.Find 比较耗时
+Shader.Parse 比较耗时，要用 ShaderVarientCollection 预加载</p>
+<p>改变游戏视角也可以降低DrawCalll
+每帧限制加载和卸载的场景资源数量（考虑实现一个加载和卸载管理器队列，不要同时加载多个资源）
+累加 DateTime.Now.Ticks 然后在 LateUpdate 中重置，可以在每帧 Update 中限制加载资源的时间
+在 Socket 消息处理中通过 DateTime.Now.Ticks 来限制每帧处理消息所用的时间，这种方法不推荐
+主要的消耗应该在加载，实在不行就用每间隔0.1秒请求加载几个资源的方式，同时配合预加载来做
+在高中低机型上加载不同等级的特效，视野外特效关闭
+设置transform.forward 和 Quaternion.LookRotation 的值不能为 Vector3.Zero
+Resources 和 StreamingAssets 目录中不要包含无用的资源</p>
+<p>耗时资源应该预加载，比如一些 UI 界面，可能要关联加载很多图片
+频繁加载的资源应该常驻内存，或者在对象池中始终保持一定数量，比如血条
+AssetBundle 加载用 LoadFromFileAsync 比 WWW 好，Load 比 LoadAsync 快很多，LoadAll 比循环 Load 快
+在场景内每帧从Assetbundle加载的Asset数建议限制在2到5个，数量高时耗时过长容易造成卡顿</p>
+<p>GC.MarkDependencies 的消耗是由Resources.UnloadUnusedAssets引起的，该函数的主要作用是查找并卸载不再使用的资源。游戏场景越复杂、资源越多，该函数的开销越大，一般在300~2000 ms范围内。对于该函数的优化，一方面控制场景中不必要的资源量，同时通过UnloadAsset来及时卸载不再使用的资源，以减少Resources.UnloadUnusedAssets的耗时压力。</p>
+<p>Lua 与 C# 的交互应该尽可能的少，避免频繁调用，可以优化循环调用为单个调用. 注意 Unity 的 Profiler 无法展示 Lua 部分的性能问题，所以 Lua 中只应该写简单的逻辑，不应该涉及复杂运算和频繁互调，否则很难排查性能问题。也可以尝试在 Lua 中调用 C# 的 Profiler Sample 函数来检查性能。</p>
+<p>UI 图片应该关闭 mipmap，非 UI 图片如果长宽都小于 128 也该关闭 mipmap，光照贴图也不需要 mipmap
+普通图片maxSize为1024。头部和武器部分，法线高光等控制贴图maxSize为256，其它为512。身体其它部分maxSize为512和1024.
+纹理导入，检查Generate Mipmaps选项有没有开启，需要关闭2D以及UI纹理上的Mipmap选项。</p>
+<p>音频用 mp3 格式好，用 Streaming 或较小 Quality 的 Vorbis 格式可降低内存占用，非及时音效可开启 LoadInBackground
+&mdash;尽量使用Mono，节省一半的内存和磁盘空间
+&mdash;小于200kb的音频，使用 Decompress On Load 选项
+&mdash;大于200kb的音频，使用 Compressed In Memory 选项
+&mdash;很大的背景音乐，使用  Streaming 选项
+&mdash;尽量降低音频的压缩率
+&mdash;不要通过降低音量的方式静音，而是直接不再播放音乐</p>
+<p>导入模型fbx时，关闭 <code>importAnimation,useFileUnits,isReadable,importBlendShapes,addCollider</code>. 开启 <code>optimizeMesh,weldVertices</code>, 设置 <code>importNormals=Import, importTangents=CalculateMikk, meshCompression=Off</code>.
+检查Read/Write Enabled是否开启,如果项目中不需要在运行时修改这些Mesh数据的话，建议把这个选项关闭。
+检查Animation Type有没有设置成None, 对于不包含动画数据的模型文件，我们建议把这个选项设置为None。</p>
+<p>AnimationClip可以通过压缩浮点精度，剔除无用的Scale曲线来降低内存占用。
+导入动画fbx时，设置 <code>globalScale=1f, importAnimation=true, resampleCurves=false, animationType=Generic</code>. 用 GetAllCurves 获取 curveData，然后对每个 curveData.curve.keys 数据中的 <code>value,inTangent,outTangent</code> 进行精简. 例如 <code>key.value = float.Parse(key.value.ToString(&quot;f3&quot;))</code>, 精简后的资源一般需要提取出来用.
+动画导入，在Animation页面检查动画的帧率，一般30FPS足够满足大部分游戏的效果。</p>
+<p>设置 Animation 的 Compress 选项为 Optimal，选中 OptimizeMesh 选项，进行简化以提升加载速度.</p>
+<p>检查无效脚本，防止警告；去掉错误信息.</p>
+<p>对于需要远近切换的情况，应该使用 LOD Group 功能来提升渲染性能</p>
+<p>求两点距离时用 sqrMagnitude 替代 Distance 函数可以避免求根操作</p>
+<p>用 ScriptableObject 存储数据比 Prefab 更快更小</p>
+<p>使用 Profile.BeginSample 定位性能热点代码
+热点区域的代码应该写成简短的函数便于性能分析</p>
+<h2 id="帧率">帧率</h2>
+<p>设定 <code>Application.targetFrameRate</code> 控制游戏帧率，注意要关闭垂直同步。这些限制游戏帧率的方法可以提高性能，降低发热，但是同时限制了渲染帧率和其它部分的帧率。新版 Unity 的按需渲染 <code>OnDemandRendering</code> 允许单独控制渲染帧率，比如在UI界面或暂停界面上，在回合制游戏中活动较少时，都可以适当降低渲染帧率。</p>
+<h2 id="preawake">PreAwake</h2>
+<p>添加一个接口 IPreAwake，一些需要执行 Awake 的脚本实现 IPreAwake 接口，非运行时获取所有 IPreAwake 脚本，运行时先以 InActive 方式加载场景，然后统一执行所有的 IPreAwake 方法，然后再激活场景，而 Awake 方法中只执行最快速的方法。执行 IPreAwake 脚本时，保证每帧只执行一个 PreAwake 方法，所谓 时间分片的优化。</p>
+<p>把 Awake,Start,OnEnable 的工作移到runtime之前，比如 PreWarm Shaders 这些操作，还有其他数据准备，序列化操作结果。</p>
+<p>游戏场景分成小部分，使用 SubScene</p>
+<p>预加载所有资源，为了不加载图片，可能需要动态给窗口赋予图片</p>
+<p>避免调用 Update 和 FixedUpdate，可以自定义一个 Update 接口，然后调用所有的 Update 方法</p>
+<p>避免在 Hierarchy 中移动 GameObject</p>
+<h2 id="光照">光照</h2>
+<p>烘培光照：该技术会将光照结果一次性地直接“绘制”在纹理中，最后游戏中无需进行任何计算。这种方法您可以随意放置光源，因为所有光照都会被烘焙到纹理中。当然，这样就失去了动态光照的一些特性，例如动态阴影。</p>
+<p>光照探头：可以利用光照探头（Light Probes）来解决烘焙光照无法动态变化的问题。这些探头会在光照烘焙时将环境光信息存储起来，不同的是它并非保存在纹理而是停在空间的某个位置。通过这种方式，物体在探头活动区域内移动时就会被预先烘焙好的光照“照亮”。</p>
+<p>阴影投射器：为场景中的重要角色使用假动态阴影。可以在角色的脚底放个圆形黑色纹理。也可以使用阴影投射器，这种技术会利用物体本身的网格信息，在其下方投射出以假乱真的阴影。还可以借助Fast Shadow Receiver插件来实现阴影投射。</p>
+<p>阴影：如果一定要用动态光照，请保证数量越少越好，并且整个游戏中仅使用一个方向光源。</p>
+<p>方向光设置：可以将Culling Mask设为仅影响需要被光照的GameObject，以免消耗更多性能。多多尝试设置 Shadows Resolution 的值，找到刚好合乎需求的设置。但有一点要注意，编辑器中的效果不一定与设备上的显示效果一致。</p>
+<p>质量设置：
+Pixel Count：如需减少光照计算所需的量，将 “Pixel Count” 的值降为1，如果没有任何光源则设为0。
+Soft particles：如果对软粒子没有特别需求则不要启用该选项。
+Shadows：仔细调整阴影相关的参数，它非常重要。
+Shadow Distance: 慢慢减少这个值，可以看到远处的阴影开始消失。用来设置需要处理的阴影距离。超过该距离的阴影会被忽略。</p>
+<h2 id="渲染">渲染</h2>
+<ul>
+<li>减少后处理等需要的rt数量和大小</li>
+<li>优化复杂的Shader，使用数学手段，使用Shader LOD 显示不同的效果</li>
+<li>避免使用alphaTest</li>
+<li>适当增加面数，尽量减少后处理</li>
+<li>削减PS指令数，转移到VS</li>
+<li>注意不透明物体渲染顺序</li>
+<li>移动平台如果不追求极限画质，建议选择前向渲染模式，否则选择延迟渲染模式</li>
+<li>IOS读取设备机型,安卓读取显卡型号决定渲染质量等级（可建立配置表），未知型号建立渲染等级判断方案（CPU主频，显存，FPS）</li>
+<li>用一个图集处理所有粒子</li>
+<li>多通道Shader不会合批</li>
+<li>自己写剔除代码，记得剔除不必要的背面绘制</li>
+<li>控制带宽：贴图过滤选项，Mipmap，贴图大小，自定义的Buffer</li>
+<li>合并全屏滤镜</li>
+<li>自己实现阴影</li>
+</ul>
+<h2 id="review">Review</h2>
+<p>Unity Project Review 内容一般包括：
+游戏启动时间分析
+场景、资源加载时间分析
+游戏过程中GPU&amp;CPU性能分析
+内存使用情况分析
+Asset Bundle和序列化分析
+Il2cpp、代码剪裁和binary大小优化
+Asset审查自动化
+UGUI性能分析</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-11-10
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/unity3d/">unity3d</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/realtime_rendering/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Real-Time Rendering 4th edition 学习笔记</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/unity3d_editor_window_table/">
+            <span class="next-text nav-default">Unity3D EditorWindow Table</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/unity3d_performance/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

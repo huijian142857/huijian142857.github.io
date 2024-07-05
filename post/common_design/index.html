@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>常见编程方法 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="一些常见的编程方法汇总 单例模式 确保一个类只有一个实例，有几个要素：私有构造方法、指向自身实例的静态引用、以自身实例为返回值的静态共有方法。单" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/common_design/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/common_design/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="常见编程方法">
+  <meta property="og:description" content="一些常见的编程方法汇总 单例模式 确保一个类只有一个实例，有几个要素：私有构造方法、指向自身实例的静态引用、以自身实例为返回值的静态共有方法。单">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2018-05-09T22:08:00+00:00">
+    <meta property="article:modified_time" content="2018-05-09T22:08:00+00:00">
+    <meta property="article:tag" content="Design">
+
+  <meta itemprop="name" content="常见编程方法">
+  <meta itemprop="description" content="一些常见的编程方法汇总 单例模式 确保一个类只有一个实例，有几个要素：私有构造方法、指向自身实例的静态引用、以自身实例为返回值的静态共有方法。单">
+  <meta itemprop="datePublished" content="2018-05-09T22:08:00+00:00">
+  <meta itemprop="dateModified" content="2018-05-09T22:08:00+00:00">
+  <meta itemprop="wordCount" content="3723">
+  <meta itemprop="keywords" content="Design">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="常见编程方法">
+  <meta name="twitter:description" content="一些常见的编程方法汇总 单例模式 确保一个类只有一个实例，有几个要素：私有构造方法、指向自身实例的静态引用、以自身实例为返回值的静态共有方法。单">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">常见编程方法</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-05-09 </span>
+        <div class="post-category">
+            <a href="/categories/design/"> design </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#单例模式">单例模式</a></li>
+        <li><a href="#工厂模式">工厂模式</a></li>
+        <li><a href="#观察者模式">观察者模式</a></li>
+        <li><a href="#适配器模式">适配器模式</a></li>
+        <li><a href="#设计模式六大原则">设计模式六大原则</a></li>
+        <li><a href="#位运算和枚举组合">位运算和枚举组合</a></li>
+        <li><a href="#try-parse-模式">try-parse 模式</a></li>
+        <li><a href="#ecs-实体组件系统">ECS 实体组件系统</a></li>
+        <li><a href="#多线程编程要点">多线程编程要点</a></li>
+        <li><a href="#逻辑-update-中刷新-vs-事件触发方式">逻辑 Update 中刷新 VS 事件触发方式</a></li>
+        <li><a href="#黑板模式">黑板模式</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>一些常见的编程方法汇总</p>
+<!-- more --> 
+<h2 id="单例模式">单例模式</h2>
+<p>确保一个类只有一个实例，有几个要素：私有构造方法、指向自身实例的静态引用、以自身实例为返回值的静态共有方法。单例模式根据实例化对象时机的不同分为两种：一种是饿汉式单例，一种是懒汉式单例。
+饿汉式单例在单例类被加载时候，就实例化一个对象交给自己的引用；而懒汉式在调用取得实例方法的时候才会实例化对象。
+单例模式的优点，在内存中只有一个对象，避免频繁的创建销毁对象，可以全局访问。多线程使用单例使用共享资源时，注意线程安全问题。</p>
+<h2 id="工厂模式">工厂模式</h2>
+<p>工厂方法，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使一个类的实例化延迟到其子类。工厂方法的核心是一个抽象工厂类，或者说是一个工厂接口，而简单工厂的核心是一个具体类。
+例如，使用简单工厂来获取一个水果时，根据不同参数可以直接创建不同的水果实例；使用工厂方法时，可以直接创建一个子类对象，或者创建一个实现了接口的工厂类对象，但只有通过它调用获取产品的方法时才真正创建一个水果实例；抽象工厂，提供一个创建一些列相关或相互依赖对象的接口，而无需指定它们具体的类。
+使用工厂模式，可以使代码结构清晰，有效地封装变化，对调用者屏蔽具体的产品类，降低耦合度。</p>
+<h2 id="观察者模式">观察者模式</h2>
+<p>例如，假设热水器由三部分组成：热水器、警报器、显示器。热水器只负责烧水，在到达一定温度时需要通知警报器、显示器。Observer模式包含两类对象：
+Subject：被监视对象，包含被感兴趣的内容，例如热水器的温度。
+Observer：监视者，它监视Subject，当Subject中某件事发生时，会通知Observer，而Observer会采取相应的行动。
+本例中，事情发生的顺序：警报器和显示器告诉热水器对温度感兴趣，热水器知道后保留对显示器和警报器的引用，热水器执行烧水当温度高时通过引用调用方法来发出警报、显示水温。
+Observer设计模式是为了定义对象间的一种一对多的依赖关系，以便于当一个对象的状态改变时，其他依赖于它的对象会被自动告知并更新。Observer模式是一种松耦合的设计模式。</p>
+<h2 id="适配器模式">适配器模式</h2>
+<p>例如，Shape抽象类定义了Draw()方法，用于在屏幕上绘制图形，Square和Circle继承了Shape类，并实现了Draw()方法。另一个与Shape相关联的类Window，它的Initialize()方法接受一个Shape类型的参数，并调用其Draw()方法。假如我们从第三方获得了另一个类XTriangle，而它并没有Draw()方法，只有一个完成同样功能的Display()方法。此时，如果我们想让客户程序Window类使用XTriangle类，就不得不再重载一个Initialize()方法，让它接受一个XTriangle类型的参数。
+但这是治标不治本的方法，因为可能有很多类似Window的类，它们都只接受Shape类型，对每一处都进行修改显然是不切实际的。</p>
+<p>通常的办法是创建一个包装（Wrapper）类，让这个包装类继承自Shape，同时让它含有一个对XTriangle的引用，并且将Draw()方法的实现委托给XTriangle.Display()去完成。这样就实现了Adapter模式，它的正式定义是：将一个类（XTriangle）的接口转换为客户端（Window）所期待的另一接口（Shape）。Adpater能够让各个类之间相互协作，而不受不兼容接口的影响。</p>
+<h2 id="设计模式六大原则">设计模式六大原则</h2>
+<ol>
+<li>
+<p>单一职责原则
+不存在多余一个导致类变更的原因，即一个类只负责一项职责</p>
+</li>
+<li>
+<p>里氏替换原则
+所有引用基类的地方必须透明地使用子类对象。</p>
+</li>
+<li>
+<p>依赖倒置原则
+高层模块不应该依赖低层模块；抽象不该依赖细节，细节应该依赖于抽象。</p>
+</li>
+<li>
+<p>接口隔离原则
+客户端不应该依赖它不需要的接口；一个类对另一个类的依赖应建立在最小的接口上。</p>
+</li>
+<li>
+<p>迪米特法则
+一个对象应对其他对象保持最少的了解。尽量降低类与类之间的耦合。</p>
+</li>
+<li>
+<p>开闭原则
+一个软件实体如类、模块、函数应对扩展开放，对修改关闭。</p>
+</li>
+</ol>
+<h2 id="位运算和枚举组合">位运算和枚举组合</h2>
+<p>用一个变量表示多种状态时，需要使用位运算。下面的代码没有经过测试。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public Enum State
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    a = 1 &lt;&lt; 0,
+</span></span><span class="line"><span class="cl">    b = 1 &lt;&lt; 1,
+</span></span><span class="line"><span class="cl">    c = 1 &lt;&lt; 2,
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">int state = State.a | State.b;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">if (state &amp; State.a &gt; 0)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    Debug.Log(&#34;&#34;);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">if (state &amp; State.b &gt; 0)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    Debug.Log(&#34;&#34;);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">1 &lt;&lt; 0 是00000001
+</span></span><span class="line"><span class="cl">1 &lt;&lt; 1 是00000010
+</span></span><span class="line"><span class="cl">1 &lt;&lt; 2 是00000100
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">用移位来定义枚举就是为了把1的位置错开，然后当你需要同时满足多个枚举值的时候，可以使用位或（|）操作把多个枚举值合并，而不会互相影响。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">state ^= State.a;
+</span></span><span class="line"><span class="cl">state ^= State.b;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">使用上面的操作可以还原。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="try-parse-模式">try-parse 模式</h2>
+<p>该函数返回一个布尔值，指示给定的字符串值是否能够被解析。如果为true，则将分析的值分配给生成的输出参数date。它的使用如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DateTime date;
+</span></span><span class="line"><span class="cl">if (DateTime.TryParse(someDateString, out date))
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    //  date现在是解析值
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">else
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    // date是DateTime.MinValue,默认值
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="ecs-实体组件系统">ECS 实体组件系统</h2>
+<p>ECS 架构先有个 World，它是系统（System）和实体(Entity)的集合。而实体就是一个ID，这个ID对应了组件(Component)的集合。组件用来存储游戏状态并且没有任何的行为(Behavior)。System有行为但是没有状态。</p>
+<p>Entity：代表游戏中的实体，是 Component 的容器。本身并无数据和逻辑。
+Component：代表实体有什么，一个或多个 Component 组成了游戏中的逻辑实体。只有数据，不涉及逻辑。
+System：对 Component 集中进行逻辑操作的部分。一个 System 可以操作一类或多类 Component。同一个 Component 在不同的 System 中，可以关联不同的逻辑。</p>
+<p>System 遍历检查所有元组，并在其状态上执行一些操作，绝大多数的重要System都关注了不止一个组件。System不知道实体到底是什么，它只关心组件集合的小切片。</p>
+<p>体现了组合优于继承，数据驱动，状态和行为分离解耦等思想。</p>
+<p>比如，System 遍历所有的Connection组件，Connection组件用来管理服务器上的玩家网络连接，是挂在代表玩家的实体上的。为什么不能使用传统的面向对象编程(OOP)的组件模型呢？因为Connection组件会同时被多个行为所使用。传统OOP中，一个类既是行为又是数据，但是Connection组件不是行为，它就只是状态。Connection完全不符合OOP中的对象的概念，它在不同的System中、不同的时机下，意味着完全不同的事情。</p>
+<p>除了可以提高缓存命中率外，新世代的 ECS 还可以通过分析数据依赖和读写关系，来实现 System 间的并行。比如更新时， System A 需要读 组件1，System B 需要读 组件1、写组件2，System C 需要写 组件1，那么调度时可以把 System A 和 System B 分配到不同线程处理，之后再处理 System C。</p>
+<h2 id="多线程编程要点">多线程编程要点</h2>
+<p>在对容器进行操作时，加 lock 要尽可能的缩小范围。
+或者使用 无锁队列。</p>
+<p>public void ProcessMessages()
+{
+if (count &gt; 0)
+{
+forlist.Clear();
+try
+{
+lock (adding)
+{
+forlist.AddRange(adding);
+adding.Clear();
+count = 0;
+}
+for (int i = 0; i &lt; forlist.Count; i++)
+{
+try
+{
+doAction(forlist[i]);
+}
+catch (Exception err)
+{
+OnError?.Invoke(err);
+}
+}
+}
+finally
+{
+forlist.Clear();
+}
+}
+}</p>
+<h2 id="逻辑-update-中刷新-vs-事件触发方式">逻辑 Update 中刷新 VS 事件触发方式</h2>
+<p>通常情况下，由于存在需求变化，在 Update 中刷新最终状态都是更好的做法。
+Update 刷新可以让逻辑更加简单，如果担心 Update 导致性能问题，可以引入 isDirty 变量处理。
+用事件触发的方式，比如 Start 和 End 这种成对的，容易出现在逻辑复杂的情况难以扩展的问题。
+如果原来是事件触发的逻辑，如果引入新的条件，可能还需要通过引入新维度的方法来解决。
+比如，原来控制 Image 是否显示的逻辑，如果有新的条件来了，需要添加 Child 子节点引入新维度控制显示与否。</p>
+<h2 id="黑板模式">黑板模式</h2>
+<p>游戏系统的模块间通信的需求也是很多的，AI，动画，物理，实体与实体间，等等，他们都需要彼此交换数据，我想，大家经常碰到的一个头疼的问题就是，
+这个数据应该存在哪里？存在这里也可以，存在那里也可以，或者索性做个Data类来存，所以在Player类里，变量会越来越多，变量列表越来越长。</p>
+<p>黑板就是这样一个共享数据的结构，它对于多个系统间通信是很有帮助的。提供一种数据传递的方式，有助于系统的封装和解耦合。</p>
+<p>黑板做为独立的数据模块，可以”超然”于所有的模块之外，提供一些额外的数据维护和管理的功能，这个让我想到了那些内存数据库，
+比如redis和memcached，从某种程度上，黑板就像程序内的数据库。</p>
+<p>黑板的数据是共享的，比如我们要去拿一个数据，我们不需要先拿到它的实例（还需要考虑是否为null），然后再通过get方法去取数据，
+我们只需要存一个黑板的实例，然后通过黑板获取数据的方法来获取。</p>
+<p>像黑板这样的共享数据结构，既是黄金屋，又是垃圾堆，用好不容易，所以在黑板原有的功能中，我们可以加一些额外的功能：
+数据过期时间：对于写入黑板的数据，可以加一个过期时间的功能
+数据作用域：我们可以规定可以读写该数据子系统，默认情况下，黑板的数据都是全局可见的</p>
+<p>举例：
+行为树的节点间也是存在通信的需求的。
+比如我们有一个简单的攻击序列节点，第一个节点是选择目标，第二个节点是攻击，这里就存在一个节点间通信的需求。
+所以”攻击目标”这个数据就会在两个节点间进行通信，第一个节点输出，第二个节点输入，那这个数据应该存在哪里呢？
+存在角色身上是一个选择，还有一个选择，就是存在与这个行为树绑定的黑板上面，
+在Unity的Behaivor Design这个行为树插件里，这样的变量就叫共享变量。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-05-09
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/design/">design</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unity3d_node_editor/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Unity3D 节点编辑器</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/unity3d_read_excel/">
+            <span class="next-text nav-default">Unity3D 读取和写入Excel文件</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/common_design/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

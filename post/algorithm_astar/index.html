@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>AStar寻路算法学习 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="AStar 寻路算法可以像 Dijkstra 算法一样保证找到最短路径，同时也像贪心最好优先搜索算法一样使用启发值对算法进行引导，它结合了Dijkstra算法使用的节点" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/algorithm_astar/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/algorithm_astar/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="AStar寻路算法学习">
+  <meta property="og:description" content="AStar 寻路算法可以像 Dijkstra 算法一样保证找到最短路径，同时也像贪心最好优先搜索算法一样使用启发值对算法进行引导，它结合了Dijkstra算法使用的节点">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2017-08-31T17:00:00+00:00">
+    <meta property="article:modified_time" content="2017-08-31T17:00:00+00:00">
+    <meta property="article:tag" content="Algorithm">
+    <meta property="article:tag" content="Unity3d">
+
+  <meta itemprop="name" content="AStar寻路算法学习">
+  <meta itemprop="description" content="AStar 寻路算法可以像 Dijkstra 算法一样保证找到最短路径，同时也像贪心最好优先搜索算法一样使用启发值对算法进行引导，它结合了Dijkstra算法使用的节点">
+  <meta itemprop="datePublished" content="2017-08-31T17:00:00+00:00">
+  <meta itemprop="dateModified" content="2017-08-31T17:00:00+00:00">
+  <meta itemprop="wordCount" content="1239">
+  <meta itemprop="keywords" content="Algorithm,Unity3d">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AStar寻路算法学习">
+  <meta name="twitter:description" content="AStar 寻路算法可以像 Dijkstra 算法一样保证找到最短路径，同时也像贪心最好优先搜索算法一样使用启发值对算法进行引导，它结合了Dijkstra算法使用的节点">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">AStar寻路算法学习</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-08-31 </span>
+        <div class="post-category">
+            <a href="/categories/algorithm/"> algorithm </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>AStar 寻路算法可以像 Dijkstra 算法一样保证找到最短路径，同时也像贪心最好优先搜索算法一样使用启发值对算法进行引导，它结合了Dijkstra算法使用的节点信息（倾向于距离起点较近的节点），以及贪心最好优先搜索算法的信息（倾向于距离目标较近的节点）。使用g(n)表示从起点到节点n的花费，h(n)表示从节点n到目标点的花费的估值，定义 f(n) = g(n) + h(n)，AStar 算法通过不断检测最小的f(n)来搜索一条代价最小的路径。启发式函数 h(n) 用来控制算法的行为，如果估计太低，仍会得到最短路径，但速度减慢；如果估计太高，就放弃最短路径，但会运行的很快。</p>
+<!-- more --> 
+<p>这里使用 Unity 来实现最终代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">using</span> <span class="n">System</span><span class="o">.</span><span class="n">Collections</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">using</span> <span class="n">System</span><span class="o">.</span><span class="n">Collections</span><span class="o">.</span><span class="n">Generic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">using</span> <span class="n">UnityEngine</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">public</span> <span class="k">class</span> <span class="n">AStarPathfinder</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">const</span> <span class="ne">int</span> <span class="n">Straight_Cost</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">const</span> <span class="ne">int</span> <span class="n">Diagonal_Cost</span> <span class="o">=</span> <span class="mi">14</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="ne">int</span> <span class="n">mapWidth</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="ne">int</span> <span class="n">mapHeight</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">///</span> <span class="o">&lt;</span><span class="n">summary</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">///</span> <span class="err">默认地图左下角坐标为</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="err">，分别由</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="err">表示，</span><span class="n">x向右为正</span><span class="err">，</span><span class="n">y向上为正</span>
+</span></span><span class="line"><span class="cl">    <span class="o">///</span> <span class="o">&lt;/</span><span class="n">summary</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="n">AStarNode</span><span class="p">[,]</span> <span class="n">nodes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">AStarPathfinder</span><span class="p">(</span><span class="ne">int</span> <span class="n">mapWidth</span><span class="p">,</span> <span class="ne">int</span> <span class="n">mapHeight</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">this</span><span class="o">.</span><span class="n">mapWidth</span> <span class="o">=</span> <span class="n">mapWidth</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">this</span><span class="o">.</span><span class="n">mapHeight</span> <span class="o">=</span> <span class="n">mapHeight</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">nodes</span> <span class="o">=</span> <span class="n">new</span> <span class="n">AStarNode</span><span class="p">[</span><span class="n">mapWidth</span><span class="p">,</span> <span class="n">mapHeight</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="o">//</span><span class="n">x必须对应mapWidth</span><span class="p">,</span> <span class="n">y必须对应mapHeight</span><span class="p">,</span> <span class="err">此处按列遍历</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">mapWidth</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">mapHeight</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span> <span class="n">AStarNode</span><span class="p">(</span><span class="n">new</span> <span class="n">IntVector2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="bp">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">AStarNode</span><span class="o">&gt;</span> <span class="n">GetNeighbours</span><span class="p">(</span><span class="n">AStarNode</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">List</span><span class="o">&lt;</span><span class="n">AStarNode</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">new</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">AStarNode</span><span class="o">&gt;</span> <span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">j</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="o">//</span> <span class="err">如果是自己，则跳过</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="ne">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="ne">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">//</span> <span class="err">判断是否越界</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">mapWidth</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">mapHeight</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">list</span><span class="o">.</span><span class="n">Add</span> <span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="ne">bool</span> <span class="n">CanWalkToNeighbour</span> <span class="p">(</span><span class="n">AStarNode</span> <span class="n">current</span><span class="p">,</span> <span class="n">AStarNode</span> <span class="n">neighbour</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">//</span><span class="err">斜向行走，被夹住时不允许穿越</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">x</span> <span class="o">!=</span> <span class="n">neighbour</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="n">current</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">y</span> <span class="o">!=</span> <span class="n">neighbour</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">nodes</span> <span class="p">[</span><span class="n">current</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">neighbour</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">walkable</span> 
+</span></span><span class="line"><span class="cl">                <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">nodes</span> <span class="p">[</span><span class="n">neighbour</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">walkable</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="bp">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">neighbour</span><span class="o">.</span><span class="n">walkable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="ne">int</span> <span class="n">GetNodeDistance</span><span class="p">(</span><span class="n">AStarNode</span> <span class="n">a</span><span class="p">,</span> <span class="n">AStarNode</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="ne">int</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">Mathf</span><span class="o">.</span><span class="n">Abs</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="ne">int</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">Mathf</span><span class="o">.</span><span class="n">Abs</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">//</span> <span class="err">斜方向，判断到底是那个轴相差的距离更远</span>
+</span></span><span class="line"><span class="cl">        <span class="ne">int</span> <span class="n">totalCost</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">dx</span> <span class="o">&gt;</span> <span class="n">dy</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">totalCost</span> <span class="o">=</span> <span class="n">Diagonal_Cost</span> <span class="o">*</span> <span class="n">dy</span> <span class="o">+</span> <span class="n">Straight_Cost</span> <span class="o">*</span> <span class="p">(</span><span class="n">dx</span> <span class="o">-</span> <span class="n">dy</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">totalCost</span> <span class="o">=</span> <span class="n">Diagonal_Cost</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">+</span> <span class="n">Straight_Cost</span> <span class="o">*</span> <span class="p">(</span><span class="n">dy</span> <span class="o">-</span> <span class="n">dx</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">totalCost</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">void</span> <span class="n">SetWalkable</span> <span class="p">(</span><span class="n">IntVector2</span> <span class="n">point</span><span class="p">,</span> <span class="ne">bool</span> <span class="n">walkable</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">point</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">mapWidth</span> <span class="o">&amp;&amp;</span> <span class="n">point</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">point</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">mapHeight</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">nodes</span> <span class="p">[</span><span class="n">point</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">walkable</span> <span class="o">=</span> <span class="n">walkable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IntVector2</span><span class="o">&gt;</span> <span class="n">FindPath</span><span class="p">(</span><span class="n">IntVector2</span> <span class="n">startPoint</span><span class="p">,</span> <span class="n">IntVector2</span> <span class="n">endPoint</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AStarNode</span> <span class="n">startNode</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">startPoint</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">startPoint</span><span class="o">.</span><span class="n">y</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AStarNode</span> <span class="n">endNode</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">endPoint</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">endPoint</span><span class="o">.</span><span class="n">y</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">List</span><span class="o">&lt;</span><span class="n">AStarNode</span><span class="o">&gt;</span> <span class="n">openList</span> <span class="o">=</span> <span class="n">new</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">AStarNode</span><span class="o">&gt;</span> <span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">List</span><span class="o">&lt;</span><span class="n">AStarNode</span><span class="o">&gt;</span> <span class="n">closedList</span> <span class="o">=</span> <span class="n">new</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">AStarNode</span><span class="o">&gt;</span> <span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">openList</span><span class="o">.</span><span class="n">Add</span> <span class="p">(</span><span class="n">startNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">openList</span><span class="o">.</span><span class="n">Count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="o">//</span><span class="err">如果是优先级队列，就不需要从</span><span class="n">open列表中查找最优节点</span>
+</span></span><span class="line"><span class="cl">            <span class="n">AStarNode</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">openList</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">openList</span><span class="o">.</span><span class="n">Count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">openList</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fCost</span> <span class="o">&lt;=</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">fCost</span> <span class="o">&amp;&amp;</span> <span class="n">openList</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">hCost</span> <span class="o">&lt;</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">hCost</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">currentNode</span> <span class="o">=</span> <span class="n">openList</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">//</span><span class="err">先移出最优节点</span>
+</span></span><span class="line"><span class="cl">            <span class="n">openList</span><span class="o">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">currentNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">closedList</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="n">currentNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">//</span><span class="err">找到目标</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">currentNode</span> <span class="o">==</span> <span class="n">endNode</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">GetPath</span> <span class="p">(</span><span class="n">startNode</span><span class="p">,</span> <span class="n">endNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">//</span><span class="err">判断周围节点，选择一个最优节点</span>
+</span></span><span class="line"><span class="cl">            <span class="n">foreach</span> <span class="p">(</span><span class="k">var</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">GetNeighbours</span><span class="p">(</span><span class="n">currentNode</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="o">//</span><span class="err">如果不可走或者已经在关闭列表中</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">CanWalkToNeighbour</span><span class="p">(</span><span class="n">currentNode</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">||</span> <span class="n">closedList</span><span class="o">.</span><span class="n">Contains</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">//</span><span class="err">计算与开始节点的距离</span>
+</span></span><span class="line"><span class="cl">                <span class="ne">int</span> <span class="n">newCost</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">gCost</span> <span class="o">+</span> <span class="n">GetNodeDistance</span><span class="p">(</span><span class="n">currentNode</span><span class="p">,</span> <span class="n">item</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="o">//</span><span class="err">如果距离更小，或者不在开始列表中</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">newCost</span> <span class="o">&lt;</span> <span class="n">item</span><span class="o">.</span><span class="n">gCost</span> <span class="o">||</span> <span class="o">!</span><span class="n">openList</span><span class="o">.</span><span class="n">Contains</span><span class="p">(</span><span class="n">item</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">item</span><span class="o">.</span><span class="n">gCost</span> <span class="o">=</span> <span class="n">newCost</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">item</span><span class="o">.</span><span class="n">hCost</span> <span class="o">=</span> <span class="n">GetNodeDistance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">endNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">item</span><span class="o">.</span><span class="n">parentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">openList</span><span class="o">.</span><span class="n">Contains</span><span class="p">(</span><span class="n">item</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">openList</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">GetPath</span> <span class="p">(</span><span class="n">startNode</span><span class="p">,</span> <span class="n">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IntVector2</span><span class="o">&gt;</span> <span class="n">GetPath</span><span class="p">(</span><span class="n">AStarNode</span> <span class="n">startNode</span><span class="p">,</span> <span class="n">AStarNode</span> <span class="n">endNode</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">List</span><span class="o">&lt;</span><span class="n">IntVector2</span><span class="o">&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="n">new</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IntVector2</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">endNode</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">AStarNode</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">endNode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="p">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="n">startNode</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">path</span><span class="o">.</span><span class="n">Add</span> <span class="p">(</span><span class="n">temp</span><span class="o">.</span><span class="n">index</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">parentNode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">path</span><span class="o">.</span><span class="n">Reverse</span> <span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">path</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="k">class</span> <span class="n">AStarNode</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="n">AStarNode</span> <span class="n">parentNode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="n">IntVector2</span> <span class="n">index</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="ne">bool</span> <span class="n">walkable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="ne">int</span> <span class="n">gCost</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="ne">int</span> <span class="n">hCost</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="ne">int</span> <span class="n">fCost</span> <span class="p">{</span> <span class="n">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">gCost</span> <span class="o">+</span> <span class="n">hCost</span><span class="p">;</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="n">AStarNode</span><span class="p">(</span><span class="n">IntVector2</span> <span class="n">index</span><span class="p">,</span> <span class="ne">bool</span> <span class="n">walkable</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">this</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">this</span><span class="o">.</span><span class="n">walkable</span> <span class="o">=</span> <span class="n">walkable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">public</span> <span class="n">struct</span> <span class="n">IntVector2</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="ne">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="ne">int</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">IntVector2</span><span class="p">(</span><span class="ne">int</span> <span class="n">x</span><span class="p">,</span> <span class="ne">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">this</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">this</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>测试代码参见<a href="/uploads/algorithm_astar/AStarProject.zip">Unity源工程</a></p>
+<p>另见参考 <a href="/uploads/algorithm_astar/PathFinder_GUI.zip">visual studio 项目</a>
+另见参考 <a href="/uploads/algorithm_astar/AStarProjectFast.zip">Unity 测试工程</a>(包含路径平滑)</p>
+<p>另见参考 <a href="/uploads/algorithm_astar/Pathfinding-2D.zip">Pathfinding-2D</a>
+另见参考 <a href="/uploads/algorithm_astar/Pathfinding-Unity.zip">Unity Pathfinding</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2017-08-31
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/algorithm/">algorithm</a>
+          <a href="/tags/unity3d/">unity3d</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/algorithm_sort/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">排序算法简单总结</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/unity3d_thread/">
+            <span class="next-text nav-default">Unity3D 协程和线程</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/algorithm_astar/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

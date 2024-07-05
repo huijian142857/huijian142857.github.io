@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>常见基础知识 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="为什么栈比堆快 分配和释放：堆在分配和释放时都要调用函数，分配时会到堆空间去寻找足够大小的空间，这些都会花费一定的时间，而栈却不需要这些，栈是" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/common_tips/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/common_tips/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="常见基础知识">
+  <meta property="og:description" content="为什么栈比堆快 分配和释放：堆在分配和释放时都要调用函数，分配时会到堆空间去寻找足够大小的空间，这些都会花费一定的时间，而栈却不需要这些，栈是">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2016-08-21T20:00:00+00:00">
+    <meta property="article:modified_time" content="2016-08-21T20:00:00+00:00">
+    <meta property="article:tag" content="Other">
+
+  <meta itemprop="name" content="常见基础知识">
+  <meta itemprop="description" content="为什么栈比堆快 分配和释放：堆在分配和释放时都要调用函数，分配时会到堆空间去寻找足够大小的空间，这些都会花费一定的时间，而栈却不需要这些，栈是">
+  <meta itemprop="datePublished" content="2016-08-21T20:00:00+00:00">
+  <meta itemprop="dateModified" content="2016-08-21T20:00:00+00:00">
+  <meta itemprop="wordCount" content="1848">
+  <meta itemprop="keywords" content="Other">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="常见基础知识">
+  <meta name="twitter:description" content="为什么栈比堆快 分配和释放：堆在分配和释放时都要调用函数，分配时会到堆空间去寻找足够大小的空间，这些都会花费一定的时间，而栈却不需要这些，栈是">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">常见基础知识</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-08-21 </span>
+        <div class="post-category">
+            <a href="/categories/other/"> other </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#为什么栈比堆快">为什么栈比堆快</a></li>
+        <li><a href="#线程拥有的资源">线程拥有的资源</a></li>
+        <li><a href="#线程间的通信方式">线程间的通信方式</a></li>
+        <li><a href="#线程间的同步方式">线程间的同步方式</a></li>
+        <li><a href="#进程间通信方式">进程间通信方式</a></li>
+        <li><a href="#程序编译过程">程序编译过程</a></li>
+        <li><a href="#大端和小端">大端和小端</a></li>
+        <li><a href="#int类型占多少字节">int类型占多少字节</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="为什么栈比堆快">为什么栈比堆快</h2>
+<ul>
+<li>分配和释放：堆在分配和释放时都要调用函数，分配时会到堆空间去寻找足够大小的空间，这些都会花费一定的时间，而栈却不需要这些，栈是程序一开始就分配好的。</li>
+<li>访问时间：访问堆的一个具体单元，需要两次，第一次得取得指针，第二次才是真正得到数据，而栈只需访问一次。</li>
+</ul>
+<h2 id="线程拥有的资源">线程拥有的资源</h2>
+<p>在多线程环境下，每个线程拥有一个栈和一个程序计数器。栈和程序计数器用来保存线程的执行历史和线程的执行状态，是线程私有的资源。其他的资源（比如堆、地址空间、全局变量）是由同一个进程内的多个线程共享，在操作共享区域的时候才有可能出现同步需要，操作栈不需要同步。</p>
+<!-- more --> 
+<h2 id="线程间的通信方式">线程间的通信方式</h2>
+<ul>
+<li>使用全局变量</li>
+<li>使用消息实现通信,Windows中每一个线程都可以拥有自己的消息队列。</li>
+<li>使用事件实现线程间通信</li>
+</ul>
+<h2 id="线程间的同步方式">线程间的同步方式</h2>
+<p>各个线程可以访问进程中的公共变量，资源，所以使用多线程的过程中需要注意的问题是如何防止两个或两个以上的线程同时访问同一个数据，以免破坏数据的完整性。</p>
+<ul>
+<li>临界区，不是内核对象，所以只能用来同一进程间的线程同步。临界区对应着一个CcriticalSection对象，当线程需要访问保护数据时，调用EnterCriticalSection函数，当对保护数据的操作完成之后，调用LeaveCriticalSection函数释放对临界区对象的拥有权，若未调用，则成为死线程。</li>
+<li>互斥量mutex，是内核对象，确保线程拥有对单个资源的互斥访问权。包含一个使用数量、一个线程ID、一个递归计数器。线程ID标示系统中哪个线程当前拥有互斥对象，递归计数器指明线程拥有互斥对象的次数。如果锁定互斥量的线程在终止前未解除锁定，则互斥量会自动释放。</li>
+<li>信号量Semaphre，是内核对象，信号量的用法和互斥的用法很相似，不同的是它可以同一时刻允许多个线程访问同一个资源。</li>
+<li>事件Event，包含一个使用计数、一个用于指明该事件是个自动重置还是人工重置事件的布尔值。事件能通知一个操作已经完成。</li>
+</ul>
+<h2 id="进程间通信方式">进程间通信方式</h2>
+<ul>
+<li>信号量( semophore )：信号量是一个计数器，可以用来控制多个进程对共享资源的访问。</li>
+<li>消息队列，消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。</li>
+<li>信号 ( signal ) ： 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</li>
+<li>共享内存，共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。</li>
+<li>套接字( socket ) ： 套解口也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同机器间的进程通信。</li>
+<li>管道( pipe )：管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。</li>
+</ul>
+<h2 id="程序编译过程">程序编译过程</h2>
+<ul>
+<li>预处理，处理宏定义，处理注释，处理#include，保留所有的#pragma编译器指令</li>
+<li>编译，把预处理的文件进行词法分析，语法分析，语义分析，优化，最后生成汇编代码</li>
+<li>汇编，将汇编代码转为机器可以执行的命令</li>
+<li>链接，链接程序运行需要的一大堆目标文件，以及所依赖的其它库文件，最后生成可执行文件。</li>
+</ul>
+<p>链接的主要过程包括：地址和空间分配，符号决议，重定位。链接分为静态链接和动态链接。静态链接是指在编译阶段直接把静态库加入到可执行文件中去，这样可执行文件会比较大。而动态链接则是指链接阶段仅仅只加入一些描述信息，而程序执行时再从系统中把相应动态库加载到内存中去。</p>
+<h2 id="大端和小端">大端和小端</h2>
+<p>大端 big-endian 小端 little-endian:
+当数据太大，一个字节存不下的时候，我们就得使用多个字节了，即要考虑字节序，是把值的低位存到低地址，还是把值的高位存到低地址。
+例如一个16bit的short型x，在内存中的地址为0x0010，x的值为0x1122，那么0x11为高字节，0x22为低字节。对于大端模式，就将0x11放在低地址中，即0x0010中，0x22放在高地址中，即0x0011中。小端模式，刚好相反。常用的X86和ARM结构的计算机都使用小端模式。TCP/IP协议规定使用“大端”字节序为网络字节序。</p>
+<p>下面的一段代码可以用来判断计算机是大端的还是小端的，判断的思路是确定一个多字节的值，将其写入内存，然后用指针取其首地址所对应的字节（即低地址的一个字节），判断该字节存放的是高位还是低位，高位说明是Big endian，低位说明是Little endian。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int main()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    unsigned int x = 0x12345678;
+</span></span><span class="line"><span class="cl">    char *c = (char*)&amp;x;
+</span></span><span class="line"><span class="cl">    if (*c == 0x78) {
+</span></span><span class="line"><span class="cl">        printf(&#34;Little endian&#34;);
+</span></span><span class="line"><span class="cl">    } else {
+</span></span><span class="line"><span class="cl">        printf(&#34;Big endian&#34;);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="int类型占多少字节">int类型占多少字节</h2>
+<p>64位编译器：<code>sizeof(int) = 4, sizeof(float) = 4, sizeof(double) = 8, sizeof(long) = 8，sizeof(int*) = 8</code>
+32位编译器：<code>sizeof(int) = 4, sizeof(float) = 4, sizeof(double) = 8, sizeof(long) = 4, sizeof(int*) = 4</code></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-08-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/other/">other</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unity3d_minimap/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Unity3D 小地图</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/csharp_tips/">
+            <span class="next-text nav-default">C#知识点</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/common_tips/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

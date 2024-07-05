@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>C# in Depth - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="The Changing Face of C# Development A Simple Data Type Read-only properties and Weakly typed collections (C# 1)
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 using System.Collections; public class Product { string name; public string Name { get { return name; } } decimal price; public decimal Price { get { return price; } } public Product(string name, decimal price) { this." /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/csharp_in_depth/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/csharp_in_depth/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="C# in Depth">
+  <meta property="og:description" content="The Changing Face of C# Development A Simple Data Type Read-only properties and Weakly typed collections (C# 1)
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 using System.Collections; public class Product { string name; public string Name { get { return name; } } decimal price; public decimal Price { get { return price; } } public Product(string name, decimal price) { this.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2016-09-29T22:00:00+00:00">
+    <meta property="article:modified_time" content="2016-09-29T22:00:00+00:00">
+    <meta property="article:tag" content="Csharp">
+
+  <meta itemprop="name" content="C# in Depth">
+  <meta itemprop="description" content="The Changing Face of C# Development A Simple Data Type Read-only properties and Weakly typed collections (C# 1)
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 using System.Collections; public class Product { string name; public string Name { get { return name; } } decimal price; public decimal Price { get { return price; } } public Product(string name, decimal price) { this.">
+  <meta itemprop="datePublished" content="2016-09-29T22:00:00+00:00">
+  <meta itemprop="dateModified" content="2016-09-29T22:00:00+00:00">
+  <meta itemprop="wordCount" content="6719">
+  <meta itemprop="keywords" content="Csharp">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="C# in Depth">
+  <meta name="twitter:description" content="The Changing Face of C# Development A Simple Data Type Read-only properties and Weakly typed collections (C# 1)
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 using System.Collections; public class Product { string name; public string Name { get { return name; } } decimal price; public decimal Price { get { return price; } } public Product(string name, decimal price) { this.">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">C# in Depth</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-09-29 </span>
+        <div class="post-category">
+            <a href="/categories/csharp/"> csharp </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-changing-face-of-c-development">The Changing Face of C# Development</a>
+      <ul>
+        <li><a href="#a-simple-data-type">A Simple Data Type</a></li>
+        <li><a href="#sorting-and-filtering">Sorting and Filtering</a></li>
+        <li><a href="#querying-collections">Querying collections</a></li>
+        <li><a href="#handling-an-absence-of-data">Handling An Absence of Data</a></li>
+        <li><a href="#linq">LINQ</a></li>
+        <li><a href="#querying-xml">Querying XML</a></li>
+        <li><a href="#linq-to-sql">LINQ to SQL</a></li>
+        <li><a href="#com-and-dynamic-typing">COM and dynamic typing</a></li>
+        <li><a href="#asynchronous-code-without-the-heartache">asynchronous code without the heartache</a></li>
+        <li><a href="#dissecting-the-net-platform">Dissecting the .NET Platform</a></li>
+      </ul>
+    </li>
+    <li><a href="#core-foundations-building-on-c-1">Core foundations: building on C# 1</a>
+      <ul>
+        <li><a href="#delegates">Delegates</a></li>
+        <li><a href="#combining-and-removing-delegates">Combining and removing delegates</a></li>
+        <li><a href="#a-brief-diversion-into-events">A brief diversion into events</a></li>
+        <li><a href="#summary-of-delegates">Summary of delegates</a></li>
+        <li><a href="#type-system-characteristics">Type system characteristics</a></li>
+        <li><a href="#when-is-c-1s-type-system-not-rich-enough">When is C# 1’s type system not rich enough?</a></li>
+        <li><a href="#summary-of-type-system-characteristics">Summary of type system characteristics</a></li>
+        <li><a href="#value-types-and-reference-types">Value types and reference types</a></li>
+        <li><a href="#parameter-passing-in-c">Parameter passing in C#</a></li>
+        <li><a href="#boxing-and-unboxing">Boxing and unboxing</a></li>
+        <li><a href="#summary-of-value-types-and-reference-types">Summary of value types and reference types</a></li>
+        <li><a href="#features-related-to-delegates">Features related to delegates</a></li>
+        <li><a href="#features-related-to-the-type-system">Features related to the type system</a></li>
+        <li><a href="#features-related-to-value-types">Features related to value types</a></li>
+      </ul>
+    </li>
+    <li><a href="#parameterized-typing-with-generics">Parameterized typing with generics</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="the-changing-face-of-c-development">The Changing Face of C# Development</h1>
+<h2 id="a-simple-data-type">A Simple Data Type</h2>
+<p>Read-only properties and Weakly typed collections (C# 1)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">using System.Collections;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">public class Product
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	string name;
+</span></span><span class="line"><span class="cl">	public string Name { get { return name; } }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	decimal price;
+</span></span><span class="line"><span class="cl">	public decimal Price { get { return price; } }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public Product(string name, decimal price)
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		this.name = name;
+</span></span><span class="line"><span class="cl">		this.price = price;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public static ArrayList GetSampleProducts()
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		ArrayList list = new ArrayList();
+</span></span><span class="line"><span class="cl">		list.Add(new Product(&#34;West Side Story&#34;, 9.99m));
+</span></span><span class="line"><span class="cl">		list.Add(new Product(&#34;Assassins&#34;, 14.99m));
+</span></span><span class="line"><span class="cl">		list.Add(new Product(&#34;Frogs&#34;, 13.99m));
+</span></span><span class="line"><span class="cl">		list.Add(new Product(&#34;Sweeney Todd&#34;, 10.99m));
+</span></span><span class="line"><span class="cl">		return list;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public override string ToString()
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		return string.Format(&#34;{0}: {1}&#34;, name, price);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><!-- more --> 
+<p>Strongly typed collections and private setters (C# 2)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public class Product
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	string name;
+</span></span><span class="line"><span class="cl">	public string Name
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		get { return name; }
+</span></span><span class="line"><span class="cl">		private set { name = value; }
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	decimal price;
+</span></span><span class="line"><span class="cl">	public decimal Price
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		get { return price; }
+</span></span><span class="line"><span class="cl">		private set { price = value; }
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public Product(string name, decimal price)
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		Name = name;
+</span></span><span class="line"><span class="cl">		Price = price;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public static List&lt;Product&gt; GetSampleProducts()
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		List&lt;Product&gt; list = new List&lt;Product&gt;();
+</span></span><span class="line"><span class="cl">		list.Add(new Product(&#34;West Side Story&#34;, 9.99m));
+</span></span><span class="line"><span class="cl">		list.Add(new Product(&#34;Assassins&#34;, 14.99m));
+</span></span><span class="line"><span class="cl">		list.Add(new Product(&#34;Frogs&#34;, 13.99m));
+</span></span><span class="line"><span class="cl">		list.Add(new Product(&#34;Sweeney Todd&#34;, 10.99m));
+</span></span><span class="line"><span class="cl">		return list;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public override string ToString()
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		return string.Format(&#34;{0}: {1}&#34;, name, price);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Automatically implemented properties and simpler initialization (C# 3)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">using System.Collections.Generic;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">class Product
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	public string Name { get; private set; }
+</span></span><span class="line"><span class="cl">	public decimal Price { get; private set; }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public Product(string name, decimal price)
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		Name = name;
+</span></span><span class="line"><span class="cl">		Price = price;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	Product() {}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public static List&lt;Product&gt; GetSampleProducts()
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		return new List&lt;Product&gt;
+</span></span><span class="line"><span class="cl">		{
+</span></span><span class="line"><span class="cl">			new Product { Name=&#34;West Side Story&#34;, Price = 9.99m },
+</span></span><span class="line"><span class="cl">			new Product { Name=&#34;Assassins&#34;, Price=14.99m },
+</span></span><span class="line"><span class="cl">			new Product { Name=&#34;Frogs&#34;, Price=13.99m },
+</span></span><span class="line"><span class="cl">			new Product { Name=&#34;Sweeney Todd&#34;, Price=10.99m}
+</span></span><span class="line"><span class="cl">		};
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public override string ToString()
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		return string.Format(&#34;{0}: {1}&#34;, Name, Price);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Named arguments for clear initialization code (C# 4)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">using System.Collections.Generic;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">public class Product
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	readonly string name;
+</span></span><span class="line"><span class="cl">	public string Name { get { return name; } }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	readonly decimal price;
+</span></span><span class="line"><span class="cl">	public decimal Price { get { return price; } }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public Product(string name, decimal price)
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		this.name = name;
+</span></span><span class="line"><span class="cl">		this.price = price;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public static List&lt;Product&gt; GetSampleProducts()
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		return new List&lt;Product&gt;
+</span></span><span class="line"><span class="cl">		{
+</span></span><span class="line"><span class="cl">			new Product( name: &#34;West Side Story&#34;, price: 9.99m),
+</span></span><span class="line"><span class="cl">			new Product( name: &#34;Assassins&#34;, price: 14.99m),
+</span></span><span class="line"><span class="cl">			new Product( name: &#34;Frogs&#34;, price: 13.99m),
+</span></span><span class="line"><span class="cl">			new Product( name: &#34;Sweeney Todd&#34;, price: 10.99m)
+</span></span><span class="line"><span class="cl">		};
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	public override string ToString()
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		return string.Format(&#34;{0}: {1}&#34;, name, price);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="sorting-and-filtering">Sorting and Filtering</h2>
+<p>Sorting an ArrayList using IComparer (C# 1)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class ProductNameComparer : IComparer
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	public int Compare(object x, object y)
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		Product first = (Product)x;
+</span></span><span class="line"><span class="cl">		Product second = (Product)y;
+</span></span><span class="line"><span class="cl">		return first.Name.CompareTo(second.Name);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">ArrayList products = Product.GetSampleProducts();
+</span></span><span class="line"><span class="cl">products.Sort(new ProductNameComparer());
+</span></span><span class="line"><span class="cl">foreach (Product product in products)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	Console.WriteLine (product);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Sorting a List<Product> using IComparer<Product> (C# 2)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class ProductNameComparer : IComparer&lt;Product&gt;
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	public int Compare(Product x, Product y)
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		return x.Name.CompareTo(y.Name);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">List&lt;Product&gt; products = Product.GetSampleProducts();
+</span></span><span class="line"><span class="cl">products.Sort(new ProductNameComparer());
+</span></span><span class="line"><span class="cl">foreach (Product product in products)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	Console.WriteLine(product);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Sorting a List<Product> using Comparison<Product> (C# 2)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">List&lt;Product&gt; products = Product.GetSampleProducts();
+</span></span><span class="line"><span class="cl">products.Sort(delegate(Product x, Product y)
+</span></span><span class="line"><span class="cl">{ 
+</span></span><span class="line"><span class="cl">	return x.Name.CompareTo(y.Name); 
+</span></span><span class="line"><span class="cl">});
+</span></span><span class="line"><span class="cl">foreach (Product product in products)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	Console.WriteLine(product);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Sorting using Comparison<Product> from a lambda expression (C# 3)
+The lambda expression still creates a Comparison<product> delegate.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">List&lt;Product&gt; products = Product.GetSampleProducts();
+</span></span><span class="line"><span class="cl">products.Sort((x, y) =&gt; x.Name.CompareTo(y.Name));
+</span></span><span class="line"><span class="cl">foreach (Product product in products)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	Console.WriteLine(product);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ordering a List<Product> using an extension method (C# 3)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">List&lt;Product&gt; products = Product.GetSampleProducts();
+</span></span><span class="line"><span class="cl">foreach (Product product in products.OrderBy(p =&gt; p.Name) )
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	Console.WriteLine (product);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You’re not actually sorting the list “in place” anymore, just retrieving the contents of the list in a particular order. Sometimes you’ll need to change the actual list; sometimes an ordering without any other side effects is better.</p>
+<h2 id="querying-collections">Querying collections</h2>
+<p>Looping, testing, printing out (C# 1)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ArrayList products = Product.GetSampleProducts();
+</span></span><span class="line"><span class="cl">foreach (Product product in products)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	if (product.Price &gt; 10m)
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		Console.WriteLine(product);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Separating testing from printing (C# 2)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">List&lt;Product&gt; products = Product.GetSampleProducts();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Predicate&lt;Product&gt; test = delegate(Product p) { return p.Price &gt; 10m; };
+</span></span><span class="line"><span class="cl">List&lt;Product&gt; matches = products.FindAll(test);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Action&lt;Product&gt; print = Console.WriteLine;
+</span></span><span class="line"><span class="cl">matches.ForEach(print);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Separating testing from printing redux (C# 2)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">List&lt;Product&gt; products = Product.GetSampleProducts();
+</span></span><span class="line"><span class="cl">products.FindAll(delegate(Product p) { return p.Price &gt; 10;})
+</span></span><span class="line"><span class="cl">	.ForEach(Console.WriteLine);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Testing with a lambda expression (C# 3)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">List&lt;Product&gt; products = Product.GetSampleProducts();
+</span></span><span class="line"><span class="cl">foreach (Product product in products.Where(p =&gt; p.Price &gt; 10))
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	Console.WriteLine(product);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="handling-an-absence-of-data">Handling An Absence of Data</h2>
+<p>In some cases, you may not know the price. If decimal were a reference type, you could just use null to represent the unknown price, but since it’s a value type, you can’t. .NET 2.0 makes matters a lot simpler by introducing the  Nullable<T> structure, and C# 2 provides some additional syntactic sugar.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">decimal? price;
+</span></span><span class="line"><span class="cl">public decimal? Price
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	get { return price; }
+</span></span><span class="line"><span class="cl">	private set { price = value; }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The constructor parameter changes to  decimal? , and then you can pass in null as the argument, or say Price = null; within the class. The meaning of the null changes from “a special reference that doesn’t refer to any object” to “a special value of any nullable type representing the absence of other data,” where all reference types and all Nullable<T> based types count as nullable types.</p>
+<p>To check whether a price is known, you can compare it with  null or use the  HasValue property, so to show all the products with unknown prices in C# 3, you’d write the following code.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// Displaying products with an unknown price
+</span></span><span class="line"><span class="cl">List&lt;Product&gt; products = Product.GetSampleProducts();
+</span></span><span class="line"><span class="cl">foreach (Product product in products.Where(p =&gt; p.Price == null))
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	Console.WriteLine(product.Name);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="linq">LINQ</h2>
+<p>LINQ (Language-Integrated Query) is at the heart of the changes in C# 3. LINQ is all about queries—the aim is to make it easy to write queries against multiple data sources with consistent syntax and features, in a readable and composable fashion.</p>
+<p>First steps with query expressions: filtering a collection</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span> <span class="n">products</span> <span class="o">=</span> <span class="n">Product</span><span class="o">.</span><span class="n">GetSampleProducts</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">filtered</span> <span class="o">=</span>	<span class="n">from</span> <span class="n">Product</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">products</span>
+</span></span><span class="line"><span class="cl">				<span class="n">where</span> <span class="n">p</span><span class="o">.</span><span class="n">Price</span> <span class="o">&gt;</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">				<span class="n">select</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">foreach</span> <span class="p">(</span><span class="n">Product</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">filtered</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">product</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>I’ve snuck in one extra feature here—implicitly typed local variables, which are declared using the var contextual keyword. In this case, the type of filtered is IEnumerable<Product>. Although query expressions aren’t particularly beneficial for simple tasks, they’re very good for more complicated situations. LINQ has borrowed the syntax and some ideas from  SQL , but you needn’t be anywhere near a database in order to use it.</p>
+<p>Joining, filtering, ordering, and projecting (C# 3)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span> <span class="n">products</span> <span class="o">=</span> <span class="n">Product</span><span class="o">.</span><span class="n">GetSampleProducts</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">Supplier</span><span class="o">&gt;</span> <span class="n">suppliers</span> <span class="o">=</span> <span class="n">Supplier</span><span class="o">.</span><span class="n">GetSampleSuppliers</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">filtered</span> <span class="o">=</span> 	<span class="n">from</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">products</span>
+</span></span><span class="line"><span class="cl">				<span class="n">join</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">suppliers</span>
+</span></span><span class="line"><span class="cl">					<span class="n">on</span> <span class="n">p</span><span class="o">.</span><span class="n">SupplierID</span> <span class="n">equals</span> <span class="n">s</span><span class="o">.</span><span class="n">SupplierID</span>
+</span></span><span class="line"><span class="cl">				<span class="n">where</span> <span class="n">p</span><span class="o">.</span><span class="n">Price</span> <span class="o">&gt;</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">				<span class="n">orderby</span> <span class="n">s</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">Name</span>
+</span></span><span class="line"><span class="cl">				<span class="n">select</span> <span class="n">new</span> <span class="p">{</span> <span class="n">SupplierName</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">ProductName</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">Name</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">foreach</span> <span class="p">(</span><span class="k">var</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filtered</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s2">&#34;Supplier={0}; Product={1}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">					<span class="n">v</span><span class="o">.</span><span class="n">SupplierName</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">ProductName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="querying-xml">Querying XML</h2>
+<p>Suppose that instead of hardcoding your suppliers and products, you’d used the following  XML file:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;?xml version=&#34;1.0&#34;?&gt;
+</span></span><span class="line"><span class="cl">&lt;Data&gt;
+</span></span><span class="line"><span class="cl">  &lt;Products&gt;
+</span></span><span class="line"><span class="cl">	&lt;Product Name=&#34;West Side Story&#34; Price=&#34;9.99&#34; SupplierID=&#34;1&#34; /&gt;
+</span></span><span class="line"><span class="cl">	&lt;Product Name=&#34;Assassins&#34; Price=&#34;14.99&#34; SupplierID=&#34;2&#34; /&gt;
+</span></span><span class="line"><span class="cl">	&lt;Product Name=&#34;Frogs&#34; Price=&#34;13.99&#34; SupplierID=&#34;1&#34; /&gt;
+</span></span><span class="line"><span class="cl">	&lt;Product Name=&#34;Sweeney Todd&#34; Price=&#34;10.99&#34; SupplierID=&#34;3&#34; /&gt;
+</span></span><span class="line"><span class="cl">  &lt;/Products&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  &lt;Suppliers&gt;
+</span></span><span class="line"><span class="cl">	&lt;Supplier Name=&#34;Solely Sondheim&#34; SupplierID=&#34;1&#34; /&gt;
+</span></span><span class="line"><span class="cl">	&lt;Supplier Name=&#34;CD-by-CD-by-Sondheim&#34; SupplierID=&#34;2&#34; /&gt;
+</span></span><span class="line"><span class="cl">	&lt;Supplier Name=&#34;Barbershop CDs&#34; SupplierID=&#34;3&#34; /&gt;
+</span></span><span class="line"><span class="cl">  &lt;/Suppliers&gt;
+</span></span><span class="line"><span class="cl">&lt;/Data&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Complex processing of an XML file with LINQ to XML (C# 3)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">XDocument</span> <span class="n">doc</span> <span class="o">=</span> <span class="n">XDocument</span><span class="o">.</span><span class="n">Load</span><span class="p">(</span><span class="s2">&#34;data.xml&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">filtered</span> <span class="o">=</span> 	<span class="n">from</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">Descendants</span><span class="p">(</span><span class="s2">&#34;Product&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="n">join</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">Descendants</span><span class="p">(</span><span class="s2">&#34;Supplier&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">					<span class="n">on</span> <span class="p">(</span><span class="ne">int</span><span class="p">)</span><span class="n">p</span><span class="o">.</span><span class="n">Attribute</span><span class="p">(</span><span class="s2">&#34;SupplierID&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">					<span class="n">equals</span> <span class="p">(</span><span class="ne">int</span><span class="p">)</span><span class="n">s</span><span class="o">.</span><span class="n">Attribute</span><span class="p">(</span><span class="s2">&#34;SupplierID&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="n">where</span> <span class="p">(</span><span class="n">decimal</span><span class="p">)</span><span class="n">p</span><span class="o">.</span><span class="n">Attribute</span><span class="p">(</span><span class="s2">&#34;Price&#34;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">				<span class="n">orderby</span> <span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="n">s</span><span class="o">.</span><span class="n">Attribute</span><span class="p">(</span><span class="s2">&#34;Name&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">					<span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="n">p</span><span class="o">.</span><span class="n">Attribute</span><span class="p">(</span><span class="s2">&#34;Name&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="n">select</span> <span class="n">new</span>
+</span></span><span class="line"><span class="cl">				<span class="p">{</span>
+</span></span><span class="line"><span class="cl">					<span class="n">SupplierName</span> <span class="o">=</span> <span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="n">s</span><span class="o">.</span><span class="n">Attribute</span><span class="p">(</span><span class="s2">&#34;Name&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">					<span class="n">ProductName</span> <span class="o">=</span> <span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="n">p</span><span class="o">.</span><span class="n">Attribute</span><span class="p">(</span><span class="s2">&#34;Name&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">foreach</span> <span class="p">(</span><span class="k">var</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filtered</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s2">&#34;Supplier={0}; Product={1}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">					<span class="n">v</span><span class="o">.</span><span class="n">SupplierName</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">ProductName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="linq-to-sql">LINQ to SQL</h2>
+<p>Applying a query expression to a SQL database (C# 3)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">using</span> <span class="p">(</span><span class="n">LinqDemoDataContext</span> <span class="n">db</span> <span class="o">=</span> <span class="n">new</span> <span class="n">LinqDemoDataContext</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">var</span> <span class="n">filtered</span> <span class="o">=</span> 	<span class="n">from</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">db</span><span class="o">.</span><span class="n">Products</span>
+</span></span><span class="line"><span class="cl">					<span class="n">join</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">db</span><span class="o">.</span><span class="n">Suppliers</span>
+</span></span><span class="line"><span class="cl">						<span class="n">on</span> <span class="n">p</span><span class="o">.</span><span class="n">SupplierID</span> <span class="n">equals</span> <span class="n">s</span><span class="o">.</span><span class="n">SupplierID</span>
+</span></span><span class="line"><span class="cl">					<span class="n">where</span> <span class="n">p</span><span class="o">.</span><span class="n">Price</span> <span class="o">&gt;</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">					<span class="n">orderby</span> <span class="n">s</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">Name</span>
+</span></span><span class="line"><span class="cl">					<span class="n">select</span> <span class="n">new</span> <span class="p">{</span> <span class="n">SupplierName</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">ProductName</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">Name</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">	<span class="n">foreach</span> <span class="p">(</span><span class="k">var</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filtered</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s2">&#34;Supplier={0}; Product={1}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">						<span class="n">v</span><span class="o">.</span><span class="n">SupplierName</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">ProductName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The above code issues a database request, which is basically the query translated into SQL. Even though you’ve expressed the query in C# code, it’s been executed as SQL.</p>
+<h2 id="com-and-dynamic-typing">COM and dynamic typing</h2>
+<p>There are various ways of making data available to Excel, but using  COM to control it gives you the most power and flexibility.</p>
+<p>Saving data to Excel using COM (C# 4)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Application</span> <span class="p">{</span> <span class="n">Visible</span> <span class="o">=</span> <span class="bp">false</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">Workbook</span> <span class="n">workbook</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">Workbooks</span><span class="o">.</span><span class="n">Add</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">Worksheet</span> <span class="n">worksheet</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">ActiveSheet</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">foreach</span> <span class="p">(</span><span class="k">var</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">Product</span><span class="o">.</span><span class="n">GetSampleProducts</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">						<span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="n">p</span> <span class="o">=&gt;</span> <span class="n">p</span><span class="o">.</span><span class="n">Price</span> <span class="o">!=</span> <span class="n">null</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">worksheet</span><span class="o">.</span><span class="n">Cells</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">product</span><span class="o">.</span><span class="n">Name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">worksheet</span><span class="o">.</span><span class="n">Cells</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">product</span><span class="o">.</span><span class="n">Price</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">row</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">workbook</span><span class="o">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="n">Filename</span><span class="p">:</span> <span class="s2">&#34;demo.xls&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="n">FileFormat</span><span class="p">:</span> <span class="n">XlFileFormat</span><span class="o">.</span><span class="n">xlWorkbookNormal</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">Quit</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The  SaveAs call uses named arguments.</p>
+<p>Running IronPython and extracting properties dynamically (C# 4)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ScriptEngine engine = Python.CreateEngine();
+</span></span><span class="line"><span class="cl">ScriptScope scope = engine.ExecuteFile(&#34;FindProducts.py&#34;);
+</span></span><span class="line"><span class="cl">dynamic products = scope.GetVariable(&#34;products&#34;);
+</span></span><span class="line"><span class="cl">foreach (dynamic product in products)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	Console.WriteLine(&#34;{0}: {1}&#34;, product.ProductName, product.Price);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Both  products and  product are declared to be dynamic.</p>
+<h2 id="asynchronous-code-without-the-heartache">asynchronous code without the heartache</h2>
+<p>The following listing shows a single method that handles a button click in a Windows Forms application and displays information about a product, given its  ID.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">private async void CheckProduct(object sender, EventArgs e)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	try
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		productCheckButton.Enabled = false;
+</span></span><span class="line"><span class="cl">		string id = idInput.Text;
+</span></span><span class="line"><span class="cl">		Task&lt;Product&gt; productLookup = directory.LookupProductAsync(id);
+</span></span><span class="line"><span class="cl">		Task&lt;int&gt; stockLookup = warehouse.LookupStockLevelAsync(id);
+</span></span><span class="line"><span class="cl">		Product product = await productLookup;
+</span></span><span class="line"><span class="cl">		if (product == null)
+</span></span><span class="line"><span class="cl">		{
+</span></span><span class="line"><span class="cl">			return;
+</span></span><span class="line"><span class="cl">		}
+</span></span><span class="line"><span class="cl">		nameValue.Text = product.Name;
+</span></span><span class="line"><span class="cl">		priceValue.Text = product.Price.ToString(&#34;c&#34;);
+</span></span><span class="line"><span class="cl">		int stock = await stockLookup;
+</span></span><span class="line"><span class="cl">		stockValue.Text = stock.ToString();
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">	finally
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		productCheckButton.Enabled = true;
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The method has the new async modifier, and there are two  await expressions. It starts off performing lookups on both the product directory and warehouse to find out the product details and current stock. The method then waits until it has the product information, and quits if the directory has no entry for the given ID.</p>
+<p>Both the product and stock lookups are asynchronous—they could be database operations or web service calls. It doesn’t matter—when you await the results, you’re not actually blocking the UI thread, even though all the code in the method runs on that thread. When the results come back, the method continues from where it left off.</p>
+<h2 id="dissecting-the-net-platform">Dissecting the .NET Platform</h2>
+<p>The language of C# is defined by its specification, which describes the format of C# source code, including both syntax and behavior. It doesn’t describe the platform that the compiler output will run on, beyond a few key points where the two interact. In theory, any platform that supports the required features could have a C# compiler targeting it. A runtime could interpret the output of a C# compiler, or convert it all to native code in one step rather than JIT-compiling it.</p>
+<p>The runtime aspect of the .NET platform is the relatively small amount of code that’s responsible for making sure that programs written in Intermediate Language ( IL ) execute according to the Common Language Infrastructure ( CLI ) specification. The runtime part of the CLI is called the Common Language Runtime ( CLR ).</p>
+<p>Libraries provide code that’s available to your programs. The framework libraries in .NET are largely built as IL themselves, with native code used only where necessary. This is a mark of the strength of the runtime: your own code isn’t expected to be a second-class citizen—it can provide the same kind of power and performance as the libraries it utilizes.</p>
+<h1 id="core-foundations-building-on-c-1">Core foundations: building on C# 1</h1>
+<h2 id="delegates">Delegates</h2>
+<p>Essentially, delegates provide a level of indirection: instead of specifying behavior to be executed immediately, the behavior can somehow be “contained” in an object. That object can then be used like any other, and one operation you can perform with it is to execute the encapsulated action. A delegate in C# acts like your will does in the real world—it allows you to specify a sequence of actions to be executed at the appropriate time. Delegates are typically used when the code that wants to execute the actions doesn’t know the details of what those actions should be. For instance, the only reason why the Thread class knows what to run in a new thread when you start it is because you provide the constructor with a ThreadStart or ParameterizedThreadStart delegate instance.</p>
+<p>In order for a delegate to do anything, four things need to happen:</p>
+<ul>
+<li>The delegate type needs to be declared.</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">delegate void StringProcessor(string input);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The code says that if you want to create an instance of StringProcessor, you’ll need a method with one parameter and a void return type. It’s important to understand that StringProcessor really is a type, deriving from System.MulticastDelegate, which in turn derives from System.Delegate. It has methods, you can create instances of it and pass around references to instances, the whole works. Delegates can be misunderstood because the word delegate is often used to describe both a delegate type and a delegate instance.</p>
+<ul>
+<li>The code to be executed must be contained in a method.</li>
+</ul>
+<p>Consider these method signatures as candidates to be used for a  StringProcessor instance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">void PrintString(string x)
+</span></span><span class="line"><span class="cl">void PrintObject(object x)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The first method has everything right, so you can use it to create a delegate instance. The last method would make sense to be able to use it for an instance of StringProcessor, but in C# 1 the delegate must have exactly the same parameter types. C# 2 changes this situation.</p>
+<ul>
+<li>A delegate instance must be created.</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">StringProcessor proc1, proc2;
+</span></span><span class="line"><span class="cl">proc1 = new StringProcessor(StaticMethods.PrintString);
+</span></span><span class="line"><span class="cl">InstanceMethods instance = new InstanceMethods();
+</span></span><span class="line"><span class="cl">proc2 = new StringProcessor(instance.PrintString);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>When the action is a static method, you only need to specify the type name. When the action is an instance method, you need an instance of the type. This object is called the target of the action, and when the delegate instance is invoked, the method will be called on that object. It’s worth being aware that a delegate instance will prevent its target from being garbage collected if the delegate instance itself can’t be collected.</p>
+<ul>
+<li>The delegate instance must be invoked.</li>
+</ul>
+<p><code>proc1(&quot;Hello&quot;);</code> Compiles to&hellip;<br>
+<code>proc1.Invoke(&quot;Hello&quot;);</code> Which at execution time invokes&hellip;
+<code>PrintString(&quot;Hello&quot;);</code></p>
+<p>Using delegates in a variety of simple ways:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">using System;
+</span></span><span class="line"><span class="cl">delegate void StringProcessor(string input);
+</span></span><span class="line"><span class="cl">class Person
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	string name;
+</span></span><span class="line"><span class="cl">	public Person(string name) { this.name = name; }
+</span></span><span class="line"><span class="cl">	public void Say(string message)
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		Console.WriteLine(&#34;{0} says: {1}&#34;, name, message);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">class Background
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	public static void Note(string note)
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		Console.WriteLine(&#34;({0})&#34;, note);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">class SimpleDelegateUse
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	static void Main()
+</span></span><span class="line"><span class="cl">	{
+</span></span><span class="line"><span class="cl">		Person jon = new Person(&#34;Jon&#34;);
+</span></span><span class="line"><span class="cl">		Person tom = new Person(&#34;Tom&#34;);
+</span></span><span class="line"><span class="cl">		StringProcessor jonsVoice, tomsVoice, background;
+</span></span><span class="line"><span class="cl">		jonsVoice = new StringProcessor(jon.Say);
+</span></span><span class="line"><span class="cl">		tomsVoice = new StringProcessor(tom.Say);
+</span></span><span class="line"><span class="cl">		background = new StringProcessor(Background.Note);
+</span></span><span class="line"><span class="cl">		jonsVoice(&#34;Hello, son.&#34;);
+</span></span><span class="line"><span class="cl">		tomsVoice.Invoke(&#34;Hello, Daddy!&#34;);
+</span></span><span class="line"><span class="cl">		background(&#34;An airplane flies past.&#34;);
+</span></span><span class="line"><span class="cl">	}
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Why not just call the methods directly? Often the object that first creates a delegate instance is still alive and well when the delegate instance is invoked. Instead, it’s about specifying some code to be executed at a particular time, when you may not be able (or may not want) to change the code that’s running at that point. If I want something to happen when a button is clicked, I don’t want to have to change the code of the button—I just want to tell the button to call one of my methods, which will take the appropriate action. It’s a matter of adding a level of indirection, as so much of object-oriented programming is. As you’ve seen, this adds complexity but also flexibility.</p>
+<h2 id="combining-and-removing-delegates">Combining and removing delegates</h2>
+<p>A delegate instance actually has a list of actions associated with it called the invocation list. The static Combine and Remove methods of the System.Delegate type are responsible for creating new delegate instances by respectively splicing together the invocation lists of two delegate instances or removing the invocation list of one delegate instance from another.</p>
+<p>DELEGATES ARE IMMUTABLE. Once you’ve created a delegate instance, nothing about it can be changed. This makes it safe to pass around references to delegate instances and combine them with others without worrying about consistency, thread safety, or anyone trying to change their actions. This is like strings, which are also immutable, and  Delegate.Combine is just like String.Concat —they both combine existing instances together to form a new one without changing the original objects at all. Note that if you ever try to combine  null with a delegate instance, the  null is treated as if it were a delegate instance with an empty invocation list.</p>
+<p>You’ll rarely see an explicit call to Delegate.Combine and Delegate.Remove in C# code, usually the - and -= , the + and += operators are used. Delegate.Remove(source, value) creates a new delegate whose invocation list is the one from source , with the list from value having been removed. If the result would have an empty invocation list, null is returned.</p>
+<p>When a delegate instance is invoked, all its actions are executed in order. If the delegate’s signature has a nonvoid return type, the value returned by Invoke is the value returned by the last action executed. It’s rare to see a nonvoid delegate instance with more than one action in its invocation list because it means the return values of all the other actions are never seen unless the invoking code explicitly executes the actions one at a time, using Delegate.GetInvocationList to fetch the list of actions.</p>
+<p>If any of the actions in the invocation list throws an exception, that prevents any of the subsequent actions from being executed.</p>
+<h2 id="a-brief-diversion-into-events">A brief diversion into events</h2>
+<p>It’s helpful to think of events as being similar to properties. To start with, both of them are declared to be of a certain type—an event is forced to be a delegate type. When you subscribe to or unsubscribe from an event, it looks like you’re using a field whose type is a delegate type, with the += and -= operators. Though, you’re actually calling methods (add and remove).</p>
+<p>Field-like events make the implementation of all of this much simpler to look at—a single declaration and you’re done. The compiler turns the declaration into both an event with default add/remove implementations and a private field of the same type. Code inside the class sees the field; code outside the class only sees the event. This makes it look as if you can invoke an event, but what you actually do to call the event handlers is invoke the delegate instance stored in the field.</p>
+<h2 id="summary-of-delegates">Summary of delegates</h2>
+<ul>
+<li>Delegates encapsulate behavior with a particular return type and set of parameters, similar to a single-method interface.</li>
+<li>The type signature described by a delegate type declaration determines which methods can be used to create delegate instances, and the signature for invocation.</li>
+<li>Creating a delegate instance requires a method and (for instance methods) a target to call the method on.</li>
+<li>Delegate instances are immutable.</li>
+<li>Delegate instances each contain an invocation list—a list of actions.</li>
+<li>Delegate instances can be combined with and removed from each other.</li>
+<li>Events aren’t delegate instances—they’re just add/remove method pairs (think property getters/setters).</li>
+</ul>
+<h2 id="type-system-characteristics">Type system characteristics</h2>
+<p>C# 1’s type system is static, explicit, and safe.</p>
+<p>C# 1 is statically typed: each variable is of a particular type, and that type is known at compile time. Only operations that are known for that type are allowed, and this is enforced by the compiler.</p>
+<p>The alternative to static typing is dynamic typing, which can take a variety of guises. The essence of dynamic typing is that variables just have values—they aren’t restricted to particular types, so the compiler can’t perform the same sort of checks. Instead, the execution environment attempts to understand expressions in an appropriate manner for the values involved.</p>
+<p>The distinction between explicit typing and implicit typing is only relevant in statically typed languages. With explicit typing, the type of every variable must be explicitly stated in the declaration. Implicit typing allows the compiler to infer the type of the variable based on its use. For example, implicit typing: <code>var s = &quot;hello&quot;;</code>, explicit typing: <code>string s = &quot;hello&quot;;</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="o">*</span><span class="n">first_arg</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="o">*</span><span class="n">first_arg_as_int</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">first_arg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">printf</span> <span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">*</span><span class="n">first_arg_as_int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you compile and run it with a simple argument of &ldquo;hello&rdquo;, you’ll see a value of 1819043176 —at least on a little-endian architecture with a compiler treating int as 32 bits and  char as 8 bits, and where text is represented in  ASCII or  UTF-8. The code is treating the char pointer as an int pointer, so dereferencing it returns the first 4 bytes of text, treating them as a number. In fact, this tiny example is tame compared with other potential abuses—casting between completely unrelated structs can easily result in total mayhem.</p>
+<p>Fortunately, none of this occurs in C#. Yes, there are plenty of conversions available, but you can’t pretend that data for one particular type of object is actually data for a different type.</p>
+<h2 id="when-is-c-1s-type-system-not-rich-enough">When is C# 1’s type system not rich enough?</h2>
+<p>Broadly speaking, three kinds of collection types are built into .NET 1.1:</p>
+<ul>
+<li>Arrays—strongly typed—in both the language and the runtime</li>
+<li>Weakly typed collections in the System.Collections namespace</li>
+<li>Strongly typed collections in the System.Collections.Specialized namespace</li>
+</ul>
+<p>Arrays are strongly typed, so at compile time you can’t set an element of a string[] to be a FileStream, for instance. But reference type arrays also support covariance, which provides an implicit conversion from one type of array to another, as long as there’s a conversion between the element types.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">string[] strings = new string[5];
+</span></span><span class="line"><span class="cl">object[] objects = strings;
+</span></span><span class="line"><span class="cl">objects[0] = new Button();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you run it, you’ll see that an ArrayTypeMismatchException is thrown. This is because the conversion from string[] to object[] returns the original reference—both strings and objects refer to the same array. The array itself knows it’s a string array and will reject attempts to store references to nonstrings.</p>
+<p>Let’s compare this with the situation that weakly typed collections, such as ArrayList and Hashtable. The API of these collections uses object as the type of keys and values. When you write a method that takes an ArrayList, for example, there’s no way of making sure at compile time that the caller will pass in a list of strings. You can document it, and the type safety of the runtime will enforce it if you cast each element of the list to string , but you don’t get compile-time type safety.</p>
+<p>Finally, consider strongly typed collections, such as  StringCollection. These provide a strongly typed  API , so you can be confident that when you receive a  StringCollection as a parameter or return value, it’ll only contain strings, and you don’t need to cast when fetching elements of the collection. It sounds ideal, but there are two problems. First, it implements IList, so you can still try to add nonstrings to it. Second, it only deals with strings.</p>
+<p>ICloneable is one of the simplest interfaces in the framework. It has a single method, Clone, which should return a copy of the object that the method is called on. Now, leaving aside the issue of whether this should be a deep or shallow copy, let’s look at the signature of the Clone method:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">object Clone()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>It would make sense to be able to override the method with a signature that gives a more accurate description of what the method actually returns. For example, in a Person class it’d be nice to be able to implement  ICloneable with</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public Person Clone()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This feature is called return type covariance but, unfortunately, interface implementation and method overriding don’t support it. Instead, the normal workaround for interfaces is to use explicit interface implementation to achieve the desired effect:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public Person Clone()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	[Implementation goes here]
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">object ICloneable.Clone()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	return Clone();
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The mirror image of this situation also occurs with parameters, where if you had an interface or virtual method with a signature of, say, <code>void Process(string x)</code> , it’d seem logical to be able to implement or override the method with a less demanding signature, such as <code>void Process(object x)</code> . This is called parameter type contravariance; it’s just as unsupported as return type covariance.</p>
+<h2 id="summary-of-type-system-characteristics">Summary of type system characteristics</h2>
+<ul>
+<li>C# 1 is statically typed—the compiler knows what members to let you use.</li>
+<li>C# 1 is explicit—you have to state the type of every variable.</li>
+<li>C# 1 is safe—you can’t treat one type as if it were another unless there’s a genuine conversion available.</li>
+<li>Static typing doesn’t allow a single collection to be a strongly typed list of strings or list of integers without a lot of code duplication for different element types.</li>
+<li>Method overriding and interface implementation don’t allow covariance or contravariance.</li>
+</ul>
+<h2 id="value-types-and-reference-types">Value types and reference types</h2>
+<ul>
+<li>classes (class) are reference types, structures (struct) are value types.</li>
+<li>array types (int[]) are reference types, even if the element type is a value type.</li>
+<li>Enumerations (enum) are value types.</li>
+<li>Delegate types (delegate) are reference types.</li>
+<li>Interface types (interface) are reference types, but they can be implemented by value types.</li>
+</ul>
+<p>The value of a value type expression is the value, plain and simple. The value of a reference type expression, though, is a reference—it’s not the object that the reference refers to. The value of the expression String.Empty is not an empty string—it’s a reference to an empty string. To demonstrate this further, consider a Point type that stores two integers, x and y. This type could be implemented
+as either a struct or a class.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Point p1 = new Point(10, 20);
+</span></span><span class="line"><span class="cl">Point p2 = p1;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>When Point is a reference type, that value is a reference: both  p1 and  p2 refer to the same object. When Point is a value type, the value of  p1 is the whole of the data for a point—the x and y values. Assigning the value of p1 to  p2 copies all of that data.</p>
+<p>Another difference between the two kinds of type is that value types can’t be derived from. One consequence of this is that the value doesn’t need any extra information about what type that value actually is. Compare that with reference types, where each object contains a block of data at the start identifying the type of the object, along with some other information. You can never change the type of an object—when you perform a simple cast, the runtime just takes a reference, checks whether the object it refers to is a valid object of the desired type, and returns the reference if it’s valid or throws an exception otherwise. The reference itself doesn’t know the type of the object, so the same reference value can be used for multiple variables of different types. For instance, consider the following code:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Stream stream = new MemoryStream();
+</span></span><span class="line"><span class="cl">MemoryStream memoryStream = (MemoryStream) stream;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>STRUCTS ARE LIGHTWEIGHT CLASSES — Not Right, the value types and the reference types both can have methods, the reference types have better performance when passing parameter.</p>
+<p>REFERENCE TYPES LIVE ON THE HEAP, VALUE TYPES LIVE ON THE STACK — The first part is correct—an instance of a reference type is always created on the heap. A variable’s value lives wher-
+ever it’s declared, so if you have a class with an instance variable of type  int , that variable’s value for any given object will always be where the rest of the data for the object is—on the heap. Only local variables (variables declared within methods) and method parameters live on the stack. In C# 2 and later, even some local variables don’t really live on the stack.</p>
+<p>OBJECTS ARE PASSED BY REFERENCE IN C# BY DEFAULT — If you pass a variable by reference, the method you’re calling can change the value of the caller’s variable by changing its parameter value. Now, remember that the value of a reference type variable is the reference, not the object itself. You can change the contents of the object that a parameter refers to without the parameter itself being passed by reference. For instance, the following method changes the contents of the  StringBuilder object in question, but the caller’s expression will still refer to the same object as before:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">void AppendHello(StringBuilder builder)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	builder.Append(&#34;hello&#34;);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>When this method is called, the parameter value (a reference to a StringBuilder ) is passed by value. If you were to change the value of the builder variable within the method—for example, with the statement builder = null; —that change wouldn’t be seen by the caller, contrary to the myth.</p>
+<h2 id="parameter-passing-in-c">Parameter passing in C#</h2>
+<p>In .NET (and therefore C#) there are two main sorts of type: reference types and value types. Classes, delegates and interfaces are reference types; structs and enums are value types. They act differently, and a lot of confusion about parameter passing is really down to people not properly understanding the difference between them. A reference type is a type which has as its value a reference to the appropriate data rather than the data itself. For instance, consider the following code:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">StringBuilder sb = new StringBuilder();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Here, we declare a variable sb, create a new StringBuilder object, and assign to sb a reference to the object. The value of sb is not the object itself, it&rsquo;s the reference.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">StringBuilder first = new StringBuilder();
+</span></span><span class="line"><span class="cl">first.Append(&#34;hello&#34;);
+</span></span><span class="line"><span class="cl">StringBuilder second = first;
+</span></span><span class="line"><span class="cl">Console.WriteLine(second); // Prints hello
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We assign to second the value of first. This means that they both refer to the same object. If we modify the contents of the object via another call to first.Append, that change is visible via second:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">StringBuilder first = new StringBuilder();
+</span></span><span class="line"><span class="cl">first.Append(&#34;hello&#34;);
+</span></span><span class="line"><span class="cl">StringBuilder second = first;
+</span></span><span class="line"><span class="cl">first.Append(&#34; world&#34;);
+</span></span><span class="line"><span class="cl">Console.WriteLine(second); // Prints hello world
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>They are still, however, independent variables themselves. Changing the value of first to refer to a completely different object (or indeed changing the value to a null reference) doesn&rsquo;t affect second at all, or the object it refers to:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">StringBuilder first = new StringBuilder();
+</span></span><span class="line"><span class="cl">first.Append(&#34;hello&#34;);
+</span></span><span class="line"><span class="cl">StringBuilder second = first;
+</span></span><span class="line"><span class="cl">first.Append(&#34; world&#34;);
+</span></span><span class="line"><span class="cl">first = new StringBuilder(&#34;goodbye&#34;);
+</span></span><span class="line"><span class="cl">Console.WriteLine(first); // Prints goodbye
+</span></span><span class="line"><span class="cl">Console.WriteLine(second); // Still prints hello world
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To reiterate: class types, interface types, delegate types and array types are all reference types.</p>
+<p>While reference types have a layer of indirection between the variable and the real data, value types don&rsquo;t. Variables of a value type directly contain the data. Assignment of a value type involves the actual data being copied. Take a simple struct, for example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public struct IntHolder
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    public int i;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Wherever there is a variable of type IntHolder, the value of that variable contains all the data.
+Simple types (such as float, int, char), enum types and struct types are all value types.</p>
+<p>Note that many types (such as string) appear in some ways to be value types, but in fact are reference types. These are known as immutable types. This means that once an instance has been constructed, it can&rsquo;t be changed.</p>
+<p>There are four different kinds of parameters in C#: value parameters (the default), reference parameters (which use the ref modifier), output parameters (which use the out modifier), and parameter arrays (which use the params modifier). You can use any of them with both value and reference types. When you hear the words &ldquo;reference&rdquo; or &ldquo;value&rdquo; used (or use them yourself) you should be very clear in your own mind whether you mean that a parameter is a reference or value parameter, or whether you mean that the type involved is a reference or value type.</p>
+<p>By default, parameters are value parameters. This means that a new storage location is created for the variable in the function member declaration. If you change that value, that doesn&rsquo;t alter any variables involved in the invocation. Reference parameters don&rsquo;t pass the values of the variables used in the function member invocation - they use the variables themselves. Rather than creating a new storage location for the variable in the function member declaration, the same storage location is used, so the value of the variable in the function member and the value of the reference parameter will always be the same.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">void Foo (ref StringBuilder x)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    x = null;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">StringBuilder y = new StringBuilder();
+</span></span><span class="line"><span class="cl">y.Append (&#34;hello&#34;);
+</span></span><span class="line"><span class="cl">Foo (ref y);
+</span></span><span class="line"><span class="cl">Console.WriteLine (y==null); // print True
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="boxing-and-unboxing">Boxing and unboxing</h2>
+<p>The value of a reference type variable is always a reference. The value of a value type variable is always a value of that type.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int i = 5;
+</span></span><span class="line"><span class="cl">object o = i;
+</span></span><span class="line"><span class="cl">int j = (int) o;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>boxing: the runtime creates an object (on the heap—it’s a normal object) that contains the value ( 5 ). The value of o is then a reference to that new object. The value in the object is a copy of the original value—changing the value of i won’t change the value in the box at all. The third line performs the reverse operation—unboxing. You have to tell the compiler which type to unbox the object as, and if you use the wrong type, an InvalidCastException is thrown. Again, unboxing copies the value that was in the box.</p>
+<p>The only remaining problem is knowing when boxing and unboxing occur. Unboxing is usually obvious, because the cast is present in the code. Boxing can be more subtle. You’ve seen the simple version, but it can also occur if you call the ToString , Equals , or GetHashCode methods on the value of a type that doesn’t override them, or if you use the value as an interface expression—assigning it to a variable whose type is an interface type or passing it as the value for a parameter with an interface type. For example, the statement  IComparable x = 5; would box the number 5. A single box or unbox operation is cheap, but if you perform hundreds of thousands of them, you not only have the cost of the operations, but you’re also creating a lot of objects, which gives the garbage collector more work to do.</p>
+<h2 id="summary-of-value-types-and-reference-types">Summary of value types and reference types</h2>
+<ul>
+<li>The value of a reference type expression (a variable, for example) is a reference, not an object.</li>
+<li>References are like URLs—they’re small pieces of data that let you access the real information.</li>
+<li>The value of a value type expression is the actual data.</li>
+<li>There are times when value types are more efficient than reference types, and vice versa.</li>
+<li>Reference type objects are always on the heap, but value type values can be on either the stack or the heap, depending on context.</li>
+<li>When a reference type is used as a method parameter, by default the argument is passed by value, but the value itself is a reference.</li>
+<li>Value type values are boxed when reference type behavior is needed; unboxing is the reverse process.</li>
+</ul>
+<h2 id="features-related-to-delegates">Features related to delegates</h2>
+<p>Improvements in delegate instantiation brought in by C# 2</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">static</span> <span class="n">void</span> <span class="n">HandleDemoEvent</span><span class="p">(</span><span class="n">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="s2">&#34;Handled by HandleDemoEvent&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">EventHandler</span> <span class="n">handler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">handler</span> <span class="o">=</span> <span class="n">new</span> <span class="n">EventHandler</span><span class="p">(</span><span class="n">HandleDemoEvent</span><span class="p">);</span> <span class="o">//</span><span class="n">Specifies</span> <span class="n">delegate</span> <span class="n">type</span> <span class="ow">and</span> <span class="n">method</span>
+</span></span><span class="line"><span class="cl"><span class="n">handler</span><span class="p">(</span><span class="n">null</span><span class="p">,</span> <span class="n">EventArgs</span><span class="o">.</span><span class="n">Empty</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">handler</span> <span class="o">=</span> <span class="n">HandleDemoEvent</span><span class="p">;</span> <span class="o">//</span> <span class="n">Implicitly</span> <span class="n">converts</span> <span class="n">to</span> <span class="n">delegate</span> <span class="n">instance</span>
+</span></span><span class="line"><span class="cl"><span class="n">handler</span><span class="p">(</span><span class="n">null</span><span class="p">,</span> <span class="n">EventArgs</span><span class="o">.</span><span class="n">Empty</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">handler</span> <span class="o">=</span> <span class="n">delegate</span><span class="p">(</span><span class="n">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="o">//</span> <span class="n">Specifies</span> <span class="n">action</span> <span class="n">with</span> <span class="n">anonymous</span> <span class="n">method</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="s2">&#34;Handled anonymously&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">handler</span><span class="p">(</span><span class="n">null</span><span class="p">,</span> <span class="n">EventArgs</span><span class="o">.</span><span class="n">Empty</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">handler</span> <span class="o">=</span> <span class="n">delegate</span> <span class="o">//</span> <span class="n">Uses</span> <span class="n">anonymous</span> <span class="n">method</span> <span class="n">shortcut</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="s2">&#34;Handled anonymously again&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">handler</span><span class="p">(</span><span class="n">null</span><span class="p">,</span> <span class="n">EventArgs</span><span class="o">.</span><span class="n">Empty</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">MouseEventHandler</span> <span class="n">mouseHandler</span> <span class="o">=</span> <span class="n">HandleDemoEvent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">Uses</span> <span class="n">delegate</span> <span class="n">contravariance</span>
+</span></span><span class="line"><span class="cl"><span class="n">mouseHandler</span><span class="p">(</span><span class="n">null</span><span class="p">,</span> <span class="n">new</span> <span class="n">MouseEventArgs</span><span class="p">(</span><span class="n">MouseButtons</span><span class="o">.</span><span class="n">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The first part of the main code is just C# 1 code, kept for comparison. The remaining delegates all use new features of C# 2. C# 3 provides special syntax for instantiating delegate types, using lambda expressions.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">Func</span><span class="o">&lt;</span><span class="ne">int</span><span class="p">,</span><span class="ne">int</span><span class="p">,</span><span class="n">string</span><span class="o">&gt;</span> <span class="k">func</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">ToString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="k">func</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="features-related-to-the-type-system">Features related to the type system</h2>
+<p>The primary new feature in C# 2 regarding the type system is the inclusion of generics. C# 3 introduced a wealth of new concepts in the type system, most notably anonymous types, implicitly typed local variables, and extension methods. Demonstration of anonymous types and implicit typing:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">var</span> <span class="n">jon</span> <span class="o">=</span> <span class="n">new</span> <span class="p">{</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&#34;Jon&#34;</span><span class="p">,</span> <span class="n">Age</span> <span class="o">=</span> <span class="mi">31</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">tom</span> <span class="o">=</span> <span class="n">new</span> <span class="p">{</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&#34;Tom&#34;</span><span class="p">,</span> <span class="n">Age</span> <span class="o">=</span> <span class="mi">4</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="s2">&#34;{0} is {1}&#34;</span><span class="p">,</span> <span class="n">jon</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">jon</span><span class="o">.</span><span class="n">Age</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="s2">&#34;{0} is {1}&#34;</span><span class="p">,</span> <span class="n">tom</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">tom</span><span class="o">.</span><span class="n">Age</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The first two lines each show implicit typing (the use of  var ) and anonymous object initializers (the  new {&hellip;} bit), which create instances of anonymous types.</p>
+<p>The first is that C#3 is still statically typed. The C# compiler has declared jon and tom to be of a particular type, just as normal, and when you use the properties of the objects, they’re normal properties—no dynamic lookup is going on. The second point is that we haven’t created two different anonymous types here. The variables jon and tom both have the same type because the compiler uses the property names, types, and order to work out that it can generate just one type and use it for both statements.</p>
+<p>Extension methods are also there for the sake of LINQ but can be useful outside it. Extension methods also let you appear to add methods with implementations to interfaces, and LINQ relies on this heavily, allowing calls to all kinds of methods on IEnumerable<T> that have never previously existed.</p>
+<p>Dynamic typing in C# 4</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">dynamic o = &#34;hello&#34;;
+</span></span><span class="line"><span class="cl">Console.WriteLine(o.Length);
+</span></span><span class="line"><span class="cl">o = new string[] {&#34;hi&#34;, &#34;there&#34;};
+</span></span><span class="line"><span class="cl">Console.WriteLine(o.Length);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>By declaring the variable o as having a static type of dynamic, the compiler handles almost everything to do with o differently, leaving all the binding decisions (such as what Length means) until execution time.</p>
+<h2 id="features-related-to-value-types">Features related to value types</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">int</span><span class="err">?</span> <span class="n">x</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span> <span class="o">//</span> <span class="n">Declares</span><span class="p">,</span> <span class="n">sets</span> <span class="n">nullable</span> <span class="n">variable</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="ne">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">Value</span><span class="p">;</span>  <span class="o">//</span> <span class="n">Obtains</span> <span class="n">real</span> <span class="n">value</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="err">??</span> <span class="mi">10</span><span class="p">;</span> <span class="o">//</span> <span class="n">Uses</span> <span class="n">null</span><span class="o">-</span><span class="n">coalescing</span> <span class="n">operator</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The list of enhancements is smaller this time, but they’re important features in terms of both performance and elegance of expression: Generics, Nullable types.</p>
+<h1 id="parameterized-typing-with-generics">Parameterized typing with generics</h1>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-09-29
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/csharp/">csharp</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/game_programming_patterns/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Game Programming Patterns</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/unity3d_minimap/">
+            <span class="next-text nav-default">Unity3D 小地图</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/csharp_in_depth/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>洗衣店管理系统 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="需求分析 项目背景 随着人们生活水平的不断提高和生活节奏的加快，不少商务人士的收入与衣物越来越多，而精力、时间却越来越少。减轻日常家务劳动，寻找" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/laundry_management_system/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/laundry_management_system/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="洗衣店管理系统">
+  <meta property="og:description" content="需求分析 项目背景 随着人们生活水平的不断提高和生活节奏的加快，不少商务人士的收入与衣物越来越多，而精力、时间却越来越少。减轻日常家务劳动，寻找">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2012-12-27T01:02:00+00:00">
+    <meta property="article:modified_time" content="2012-12-27T01:02:00+00:00">
+    <meta property="article:tag" content="Database">
+
+  <meta itemprop="name" content="洗衣店管理系统">
+  <meta itemprop="description" content="需求分析 项目背景 随着人们生活水平的不断提高和生活节奏的加快，不少商务人士的收入与衣物越来越多，而精力、时间却越来越少。减轻日常家务劳动，寻找">
+  <meta itemprop="datePublished" content="2012-12-27T01:02:00+00:00">
+  <meta itemprop="dateModified" content="2012-12-27T01:02:00+00:00">
+  <meta itemprop="wordCount" content="4176">
+  <meta itemprop="keywords" content="Database">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="洗衣店管理系统">
+  <meta name="twitter:description" content="需求分析 项目背景 随着人们生活水平的不断提高和生活节奏的加快，不少商务人士的收入与衣物越来越多，而精力、时间却越来越少。减轻日常家务劳动，寻找">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">洗衣店管理系统</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2012-12-27 </span>
+        <div class="post-category">
+            <a href="/categories/database/"> database </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#需求分析">需求分析</a>
+      <ul>
+        <li><a href="#项目背景">项目背景</a></li>
+        <li><a href="#功能需求">功能需求</a></li>
+        <li><a href="#界面需求">界面需求</a></li>
+        <li><a href="#技术方案">技术方案</a></li>
+      </ul>
+    </li>
+    <li><a href="#可行性分析">可行性分析</a>
+      <ul>
+        <li><a href="#技术可行性">技术可行性</a></li>
+        <li><a href="#操作可行性">操作可行性</a></li>
+        <li><a href="#安全性保障">安全性保障</a></li>
+      </ul>
+    </li>
+    <li><a href="#业务流程分析">业务流程分析</a>
+      <ul>
+        <li><a href="#业务流程">业务流程</a></li>
+        <li><a href="#数据流图">数据流图</a>
+          <ul>
+            <li><a href="#顶级数据流图">顶级数据流图：</a></li>
+            <li><a href="#一级数据流图">一级数据流图：</a></li>
+            <li><a href="#二级数据流图">二级数据流图：</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#数据库设计">数据库设计</a>
+      <ul>
+        <li><a href="#概念模型设计">概念模型设计</a>
+          <ul>
+            <li><a href="#系统e-r图简化版">系统E-R图（简化版）：</a></li>
+            <li><a href="#逻辑结构设计">逻辑结构设计</a></li>
+          </ul>
+        </li>
+        <li><a href="#数据库实现">数据库实现</a></li>
+      </ul>
+    </li>
+    <li><a href="#详细设计与实现">详细设计与实现</a>
+      <ul>
+        <li><a href="#基础设置">基础设置</a></li>
+        <li><a href="#会员管理">会员管理</a></li>
+        <li><a href="#收衣取衣">收衣取衣</a></li>
+        <li><a href="#统计中心">统计中心</a></li>
+        <li><a href="#系统管理">系统管理</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="需求分析">需求分析</h1>
+<h2 id="项目背景">项目背景</h2>
+<p>随着人们生活水平的不断提高和生活节奏的加快，不少商务人士的收入与衣物越来越多，而精力、时间却越来越少。减轻日常家务劳动，寻找专业洗衣服务，已成为多数人的洗衣选择。虽然洗衣业近几年得到了迅猛的发展，局部地区的洗衣市场发展较快，基本满足了多层次的消费人群；但从全国来看，行业整体发展速度仍落后于市场需求的增长，技术水平偏低，多数洗衣店仍停留在设备简陋、技术粗糙的阶段，尤其中高收入人群的洗衣需求远远没有得到满足。传统洗衣工厂依靠手工记账，不但容易出错而且效率低下，不能为顾客提供更多增值服务，势必会逐渐退出历史舞台。个体洗衣店只有通过添置、更新必要的设备，提高洗衣技术，凭借价格的优势才可以获得广大普通消费者的认可；而专业级洗衣店依托良好的店面形象，先进的设备，专业化的服务，才能赢得追求生活品质的中高收入人群的青睐。面对大量的要管理信息，借助信息技术来提高洗衣店管理水平则是在互联网快速发展的时代的首要选择。利用洗衣店管理软件来管理门店，业务流程更为清晰、可控；收衣时，可以准确地输入衣物的详细资料，减少日后的质量纠纷；取衣时，可以即刻了解衣物所处的状态，提高取衣的速度和准确性；财务结算时，账目更清晰，统计更快捷，让你轻松掌握经营状况。</p>
+<!-- more --> 
+<p>市面上已有一些成熟的洗衣店管理软件，它们都能实现洗衣店所需的的收衣、取衣、会员管理、收入统计等基本功能。但是，这些软件都有一些缺陷，比如很多的软件功能不全，收衣时不提供附加服务；还有一些软件界面华而不实，放一些不常用的功能在界面上。还有一点，这些软件一般都是客户端软件，只能供一人同时使用。本次毕业设计参照了这些软件的大体功能，完美实现了洗衣店常用的功能，做到了界面简洁，操作方便。同时，本系统采用ASP.NET技术与B/S网络应用模型，使用统一的数据库，可以供多人同时使用；并且使用统一的程序版本，比起客户端软件，系统的维护要简单得多。更重要的是，作为毕业设计，我可以使用学过的技术来展示自己的能力，并提升自己的专业技能。</p>
+<h2 id="功能需求">功能需求</h2>
+<p><img src="/uploads/laundry_management_system/functional_diagram_1.png" alt="">
+<img src="/uploads/laundry_management_system/functional_diagram_2.png" alt=""></p>
+<p>收衣取衣</p>
+<p>（1）收衣：营业员收取顾客的衣物，进行收衣操作，先查询出会员的信息，再进行添加衣物、删除衣物，最后产生一条收衣记录，完成收衣结单
+（2）取衣：顾客来领取洗好的衣物，如果不满意，可以重洗、撤销订单或要求退赔，营业员向满意的顾客收取费用，完成取衣结单
+（3）收衣取衣列表：显示所有的洗衣单与详细信息
+（4）返回重洗记录：显示近期内的返回重洗记录
+（5）撤销洗衣单记录：显示近期内的撤销订单记录
+（6）退赔衣物记录：显示近期内的索赔衣物记录</p>
+<p><img src="/uploads/laundry_management_system/functional_diagram_3.png" alt=""></p>
+<p>会员管理</p>
+<p>（1）会员资料：显示会员详细资料列表，可进行添加会员、修改会员资料和删除会员等常见操作
+（2）会员充值：直接对会员卡进行现金充值，同时增加会员卡内余额
+（3）会员消费记录：显示会员的历史消费信息，主要是收取衣物产生的消费
+（4）会员补卡退卡：办理补卡、退卡等</p>
+<p><img src="/uploads/laundry_management_system/functional_diagram_4.png" alt=""></p>
+<p>统计中心</p>
+<p>（1）营业收入统计：对近期的收入做一个详细的统计报表，分析收益情况
+（2）留言薄：统计留言信息，可以增删改查
+（3）便笺：显示历史便笺记录，可以添加、删除、修改</p>
+<p><img src="/uploads/laundry_management_system/functional_diagram_5.png" alt=""></p>
+<p>基础设置</p>
+<p>（1）衣物类型和价格：设置衣物种类及其默认的洗衣单价
+（2）衣物单位：设置条、件、只、套等单位
+（3）衣物品牌：设置常见品牌，如阿迪达斯、波司豋、鄂尔多斯、雅戈尔等
+（4）衣物颜色：设置颜色，如黑色、粉红色、橙色等
+（5）衣物附件：设置衣物附件，如帽子、皮带等
+（6）衣物瑕疵：设置衣物瑕疵类型，如掉色、发黄、划痕、墨渍等
+（7）挂衣号：设置挂衣号码
+（8）会员级别：设置会员级别及其对应的折扣
+（9）服务类型：设置服务类型，如水洗、干洗、皮衣、织补、单烫等
+（10）附加服务：设置附加服务，如加快、配纽扣等</p>
+<p><img src="/uploads/laundry_management_system/functional_diagram_6.png" alt=""></p>
+<p>系统管理</p>
+<p>（1）数据备份恢复与清空：每次退出系统时自动备份，也可手动备份恢复
+（2）系统日志：记录用户操作信息及系统出错信息
+（3）系统用户管理：管理系统用户及其权限
+（4）职员交班：切换系统当前用户，统计当班收入，完成交班
+（5）退出系统：完全退出系统</p>
+<h2 id="界面需求">界面需求</h2>
+<p>考虑到该系统是一个信息管理系统，所以在总体设计上以简洁为主，上方为一个导航栏，下方为具体的子页，采用母板页技术实现。</p>
+<p>（1）导航栏采用CSS+DIV方式来实现，点击不同的Tab面板，可以显示不同的二级菜单。
+（2）系统用户分为管理员与营业员，进入系统后使用同样的界面，但由于营业员只有查看功能，所以有些功能菜单会直接被隐藏掉。
+（3）默认采用全屏设计方式，由于CSS在不同的浏览器中，中的显示效果很难控制，所以为了兼容问题，在设计上尽量不使用绝对定位方式。
+（4）系统中会使用大量的表格来呈现数据，为了简洁美观和快速定位具体功能，主要采用翻页功能，尽量让数据显示的高度不要超过一般屏幕。
+（5）现在使用IE6的用户已经很少了，所以本系统只兼容chrome、firefox、IE9等主流浏览器。</p>
+<h2 id="技术方案">技术方案</h2>
+<p>环境为VS2010+SQL Server2008。使用ASP.NET(C#)作为开发运行环境，利用SQL Server2008进行数据存储与管理，以IIS7作为服务器。用户通过浏览器向服务器请求服务，Web服务器接收客户端的请求后，访问数据库，再把数据经过处理发送回客户端的浏览器。访问数据库工作原理如图所示：</p>
+<p><img src="/uploads/laundry_management_system/technology.jpg" alt=""></p>
+<p>系统采用B/S网络应用模型，主要针对与单机用户，对于使用本系统的用户进行身份审核，只有授权用户才能使用本系统。</p>
+<h1 id="可行性分析">可行性分析</h1>
+<h2 id="技术可行性">技术可行性</h2>
+<p>本系统采用B/S模式，即浏览器/服务器模式，在这种模式下无需安装客户端，只需计算机能够连接到因特网即可进行操作，也可以单机方式运行。开发工具采用visual studio2010，开发语言采用ASP.NET技术。ASP.NET 是一个统一的 Web 开发模型，可以与公共语言运行库 (CLR)的任何语言都具有良好的兼容性。使用ASP.NET语言，可以开发利用公共语言运行库、类型安全、继承等方面优点的应用程序。</p>
+<p>在数据库的选择上，采用SQL Sever2008提供数据库存储服务，SQL Server 2008是目前安全性最高，功能最稳定的数据库开发工具，并且与VS2010和ASP.NET技术紧密相连，使用起来非常方便。在单机用户架设本系统时，首先要附加数据库，然后用户才能登录使用。</p>
+<p>系统开发人员来自信息学院计算机专业学生，已经学习了ASP.NET这门课程，在学习这门课程的同时还学习了一点C#技术，之前的C++学习会给我们带来帮助，这从技术上可以保证系统开发的可行性。</p>
+<h2 id="操作可行性">操作可行性</h2>
+<p>洗衣店管理系统基于传统的B/S模式运行，是一个信息管理平台，后台代码采用强大的C#来实现，只是表现形式采用网页浏览方式。用户无需掌握任何高深的电脑知识与技巧，只需要点击鼠标，像操作Excel表格一样来管理信息。从本质上讲，信息管理系统只是将数据库中的信息进行管理而已，所有操作将被记录在数据库中，良好的界面将给用户带来非常方便的体验。</p>
+<h2 id="安全性保障">安全性保障</h2>
+<p>（1）系统采用安全性较高的数据库管理系统SQL Server 2008来存储和管理数据，对敏感数据进行了加密处理，保证了数据安全。
+（2）ASP.NET本身就有着很高的安全性，将系统部署在IIS服务器上时，还可以利用IIS来对安全性进行更多设置，比如限制IP访问。
+（3）如果系统不是单机使用，还可以利用Windows自带的防火墙来设置，比如关闭不用的端口，连接时要求身份验证。
+（4）系统本身具有用户身份验证与授权功能，只有输入正确的用户名与密码才可以访问系统。</p>
+<h1 id="业务流程分析">业务流程分析</h1>
+<h2 id="业务流程">业务流程</h2>
+<p>使用本系统的主要对象为管理员与营业员，营业员在收衣前先检查顾客是否为会员，如果不是则办理一个会员，也可以不办理会员，如果是会员则从数据库获取顾客的信息。然后，对要收取的衣物进行检查，查看衣物是否有瑕疵，如果有则告知顾客并做相关记录，将收衣信息存入数据库，并打印收衣票据。</p>
+<p>当衣物洗好后，根据已有的资料通知顾客来取衣，同时收取相应的费用，打印收据，相关数据再次流入数据库。收衣取衣是系统主要的功能，其次是会员管理。在统计中心里，主要是从数据库里获取相关信息，分析收入情况。管理员能进行系统用户管理，拥有比营业员更高的权限，完全控制整个系统。业务流程图如下：</p>
+<p><img src="/uploads/laundry_management_system/transaction.jpg" alt=""></p>
+<h2 id="数据流图">数据流图</h2>
+<p>数据流图是描述系统中数据流程的图形工具，它标识一个系统的逻辑输入和逻辑输出，以及把逻辑输入转换为逻辑输出所需要的加工处理。每一次的数据加工，既要有数据的输入同时也要有数据的输出。操作过程是包括数据的采集、存储、加工，生成相应数据表文件。</p>
+<h3 id="顶级数据流图">顶级数据流图：</h3>
+<p><img src="/uploads/laundry_management_system/data_flow_1.jpg" alt=""></p>
+<h3 id="一级数据流图">一级数据流图：</h3>
+<p><img src="/uploads/laundry_management_system/data_flow_2.jpg" alt=""></p>
+<h3 id="二级数据流图">二级数据流图：</h3>
+<ol>
+<li>
+<p>收衣取衣:
+<img src="/uploads/laundry_management_system/data_flow_3.jpg" alt=""></p>
+</li>
+<li>
+<p>会员管理
+<img src="/uploads/laundry_management_system/data_flow_4.jpg" alt=""></p>
+</li>
+<li>
+<p>统计中心
+<img src="/uploads/laundry_management_system/data_flow_5.jpg" alt=""></p>
+</li>
+<li>
+<p>基础设置
+<img src="/uploads/laundry_management_system/data_flow_6.jpg" alt=""></p>
+</li>
+<li>
+<p>系统管理
+<img src="/uploads/laundry_management_system/data_flow_7.jpg" alt=""></p>
+</li>
+</ol>
+<h1 id="数据库设计">数据库设计</h1>
+<h2 id="概念模型设计">概念模型设计</h2>
+<h3 id="系统e-r图简化版">系统E-R图（简化版）：</h3>
+<p><img src="/uploads/laundry_management_system/er.png" alt=""></p>
+<h3 id="逻辑结构设计">逻辑结构设计</h3>
+<p>由于表格过多，此处省略。。。具体信息见最后的附件。</p>
+<h2 id="数据库实现">数据库实现</h2>
+<p>通过SQL Server Management Studio可以很方便地建立数据库，在数据库中定义数据表，建立表问关联关系。在数据处理过程中，可以在基本表的基础上建立查询或视图。通过SQL Server Management Studio 建立数据库的效果图如下图所示：</p>
+<p><img src="/uploads/laundry_management_system/db.png" alt=""></p>
+<p>** 数据库关系图：**</p>
+<p>数据库中的数据表是相互关联的，通过关联关系设计数据的效性规则，可以对数据进行有效管理，各表的关联关系图如下图所示：</p>
+<p><img src="/uploads/laundry_management_system/db_relation.png" alt=""></p>
+<h1 id="详细设计与实现">详细设计与实现</h1>
+<h2 id="基础设置">基础设置</h2>
+<p>该模块包括附加服务设置、衣物类型和价格设置、衣物附件设置、衣物瑕疵设置、衣物品牌设置、衣物颜色设置、衣物单位设置、会员等级设置、挂衣号设置、 服务类型设置等十大功能。衣物类型和价格设置的界面与代码如下：</p>
+<p><img src="/uploads/laundry_management_system/view_1.png" alt=""></p>
+<h2 id="会员管理">会员管理</h2>
+<p>该模块主要包含会员资料、会员充值、会员补卡退卡等功能，以及对会员消费记录的查看。以会员补卡退卡为例来说明，下面是界面截图：</p>
+<p><img src="/uploads/laundry_management_system/view_2.png" alt=""></p>
+<h2 id="收衣取衣">收衣取衣</h2>
+<p>这个模块主要是收衣、取衣、撤销订单、退赔衣物、重洗衣物等操作，其余功能是为了方便查看相关信息。下面以“收衣”功能为例，界面与部分代码如下：</p>
+<p><img src="/uploads/laundry_management_system/view_3.png" alt=""></p>
+<h2 id="统计中心">统计中心</h2>
+<p>基于前面的功能实现，该模块主要完成营业收入的统计，其余次要的统计信息可以在各自页面查看。主要有营业收入统计、留言薄、便笺这三个功能，下面以“营业收入统计”为例介绍，先是界面截图：</p>
+<p><img src="/uploads/laundry_management_system/view_4.png" alt="">
+<img src="/uploads/laundry_management_system/view_5.png" alt=""></p>
+<h2 id="系统管理">系统管理</h2>
+<p>这个模块主要包括数据备份恢复、用户管理、职员交班、系统日志等功能，下面以数据备份、恢复为例进行介绍，界面截图与部分代码如下：</p>
+<p><img src="/uploads/laundry_management_system/view_6.png" alt=""></p>
+<p>这是初学ASP.NET的作品，代码不是很好，就不列在这里了，有兴趣的可以查看源代码与详细文档。<a href="/uploads/laundry_management_system/xiyidian.7z">洗衣店管理系统源代码</a>，可以自由使用，责任自负。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2012-12-27
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/database/">database</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/algorithm_binary_search_array/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">基于数组的折半查找</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/cpp_pointer/">
+            <span class="next-text nav-default">C&#43;&#43; 指针</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/laundry_management_system/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

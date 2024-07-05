@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Game Programming Patterns - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="What is Software Architecture? It’s less about writing code than it is about organizing it. Good architecture makes a huge difference in productivity. But, like all things in life, it doesn’t come free. Good architecture takes real effort and discipline. Every time you make a change or implement a feature, you have to work hard to integrate it gracefully into the rest of the program. You have to think about which parts of the program should be decoupled and introduce abstractions at those points." /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/game_programming_patterns/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/game_programming_patterns/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="Game Programming Patterns">
+  <meta property="og:description" content="What is Software Architecture? It’s less about writing code than it is about organizing it. Good architecture makes a huge difference in productivity. But, like all things in life, it doesn’t come free. Good architecture takes real effort and discipline. Every time you make a change or implement a feature, you have to work hard to integrate it gracefully into the rest of the program. You have to think about which parts of the program should be decoupled and introduce abstractions at those points.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2016-10-16T13:23:00+00:00">
+    <meta property="article:modified_time" content="2016-10-16T13:23:00+00:00">
+    <meta property="article:tag" content="Design">
+
+  <meta itemprop="name" content="Game Programming Patterns">
+  <meta itemprop="description" content="What is Software Architecture? It’s less about writing code than it is about organizing it. Good architecture makes a huge difference in productivity. But, like all things in life, it doesn’t come free. Good architecture takes real effort and discipline. Every time you make a change or implement a feature, you have to work hard to integrate it gracefully into the rest of the program. You have to think about which parts of the program should be decoupled and introduce abstractions at those points.">
+  <meta itemprop="datePublished" content="2016-10-16T13:23:00+00:00">
+  <meta itemprop="dateModified" content="2016-10-16T13:23:00+00:00">
+  <meta itemprop="wordCount" content="2094">
+  <meta itemprop="keywords" content="Design">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Game Programming Patterns">
+  <meta name="twitter:description" content="What is Software Architecture? It’s less about writing code than it is about organizing it. Good architecture makes a huge difference in productivity. But, like all things in life, it doesn’t come free. Good architecture takes real effort and discipline. Every time you make a change or implement a feature, you have to work hard to integrate it gracefully into the rest of the program. You have to think about which parts of the program should be decoupled and introduce abstractions at those points.">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Game Programming Patterns</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-10-16 </span>
+        <div class="post-category">
+            <a href="/categories/design/"> design </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#design-patterns-revisited">Design Patterns Revisited</a>
+      <ul>
+        <li><a href="#command">Command</a>
+          <ul>
+            <li><a href="#configuring-input">Configuring Input</a></li>
+            <li><a href="#undo-and-redo">Undo and Redo</a></li>
+          </ul>
+        </li>
+        <li><a href="#flyweight">Flyweight</a>
+          <ul>
+            <li><a href="#forest-for-the-trees">Forest for the Trees</a></li>
+            <li><a href="#a-place-to-put-down-roots">A Place To Put Down Roots</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>What is Software Architecture? It’s less about writing code than it is about organizing it. Good architecture makes a huge difference in productivity. But, like all things in life, it doesn’t come free. Good architecture takes real effort and discipline. Every time you make a change or implement a feature, you have to work hard to integrate it gracefully into the rest of the program. You have to think about which parts of the program should be decoupled and introduce abstractions at those points. If there is any method that eases these constraints, it’s simplicity.</p>
+<!-- more --> 
+<h1 id="design-patterns-revisited">Design Patterns Revisited</h1>
+<h2 id="command">Command</h2>
+<p>A command is a reified method call. “Reify”, in case you’ve never heard it, means “make real”. Both terms mean taking some concept and turning it into a piece of data — an object — that you can stick in a variable, pass to a function, etc. So by saying the Command pattern is a “reified method call”, what I mean is that it’s a method call wrapped in an object.</p>
+<p>That sounds a lot like a “callback”, “first-class function”, “function pointer”, “closure”, or “partially applied function” depending on which language you’re coming from, and indeed those are all in the same ballpark. The Gang of Four later says: Commands are an object-oriented replacement for callbacks.</p>
+<h3 id="configuring-input">Configuring Input</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">void InputHandler::handleInput()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  if (isPressed(BUTTON_X)) jump();
+</span></span><span class="line"><span class="cl">  else if (isPressed(BUTTON_Y)) fireGun();
+</span></span><span class="line"><span class="cl">  else if (isPressed(BUTTON_A)) swapWeapon();
+</span></span><span class="line"><span class="cl">  else if (isPressed(BUTTON_B)) lurchIneffectively();
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This function typically gets called once per frame by the game loop. This code works if we’re willing to hardwire user inputs to game actions, but many games let the user configure how their buttons are mapped. To support that, we need to turn those direct calls to jump() and fireGun() into something that we can swap out. We define a base class that represents a triggerable game command:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class Command
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">public:
+</span></span><span class="line"><span class="cl">  virtual ~Command() {}
+</span></span><span class="line"><span class="cl">  virtual void execute() = 0;
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then we create subclasses for each of the different game actions:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class JumpCommand : public Command
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">public:
+</span></span><span class="line"><span class="cl">  virtual void execute() { jump(); }
+</span></span><span class="line"><span class="cl">};
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">class FireCommand : public Command
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">public:
+</span></span><span class="line"><span class="cl">  virtual void execute() { fireGun(); }
+</span></span><span class="line"><span class="cl">};
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// You get the idea...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>In our input handler, we store a pointer to a command for each button:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class InputHandler
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">public:
+</span></span><span class="line"><span class="cl">  void handleInput();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  // Methods to bind commands...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">private:
+</span></span><span class="line"><span class="cl">  Command* buttonX_;
+</span></span><span class="line"><span class="cl">  Command* buttonY_;
+</span></span><span class="line"><span class="cl">  Command* buttonA_;
+</span></span><span class="line"><span class="cl">  Command* buttonB_;
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now the input handling just delegates to those:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">void InputHandler::handleInput()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  if (isPressed(BUTTON_X)) buttonX_-&gt;execute();
+</span></span><span class="line"><span class="cl">  else if (isPressed(BUTTON_Y)) buttonY_-&gt;execute();
+</span></span><span class="line"><span class="cl">  else if (isPressed(BUTTON_A)) buttonA_-&gt;execute();
+</span></span><span class="line"><span class="cl">  else if (isPressed(BUTTON_B)) buttonB_-&gt;execute();
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Where each input used to directly call a function, now there’s a layer of indirection. This is the Command pattern in a nutshell.</p>
+<p>The only thing the JumpCommand can make jump is the player. Instead of calling functions that find the commanded object themselves, we’ll pass in the object that we want to order around:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class Command
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">public:
+</span></span><span class="line"><span class="cl">  virtual ~Command() {}
+</span></span><span class="line"><span class="cl">  virtual void execute(GameActor&amp; actor) = 0;
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Here, GameActor is our “game object” class that represents a character in the game world. We pass it in to execute() so that the derived command can invoke methods on an actor of our choice, like so:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class JumpCommand : public Command
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">public:
+</span></span><span class="line"><span class="cl">  virtual void execute(GameActor&amp; actor)
+</span></span><span class="line"><span class="cl">  {
+</span></span><span class="line"><span class="cl">    actor.jump();
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We’re just missing a piece between the input handler and the command that takes the command and invokes it on the right object. First, we change handleInput() so that it returns commands:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Command* InputHandler::handleInput()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  if (isPressed(BUTTON_X)) return buttonX_;
+</span></span><span class="line"><span class="cl">  if (isPressed(BUTTON_Y)) return buttonY_;
+</span></span><span class="line"><span class="cl">  if (isPressed(BUTTON_A)) return buttonA_;
+</span></span><span class="line"><span class="cl">  if (isPressed(BUTTON_B)) return buttonB_;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  // Nothing pressed, so do nothing.
+</span></span><span class="line"><span class="cl">  return NULL;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>It can’t execute the command immediately since it doesn’t know what actor to pass in. Here’s where we take advantage of the fact that the command is a reified call — we can delay when the call is executed. Then, we need some code that takes that command and runs it on the actor representing the player. Something like:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Command* command = inputHandler.handleInput();
+</span></span><span class="line"><span class="cl">if (command)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  command-&gt;execute(actor);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Adding a layer of indirection between the command and the actor that performs it has given us a neat little ability: we can let the player control any actor in the game now by changing the actor we execute the commands on.</p>
+<h3 id="undo-and-redo">Undo and Redo</h3>
+<p>We’re conveniently already using commands to abstract input handling, so every move the player makes is already encapsulated in them. For example, moving a unit may look like:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class MoveUnitCommand : public Command
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">public:
+</span></span><span class="line"><span class="cl">  MoveUnitCommand(Unit* unit, int x, int y)
+</span></span><span class="line"><span class="cl">  : unit_(unit),
+</span></span><span class="line"><span class="cl">    x_(x),
+</span></span><span class="line"><span class="cl">    y_(y)
+</span></span><span class="line"><span class="cl">  {}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  virtual void execute()
+</span></span><span class="line"><span class="cl">  {
+</span></span><span class="line"><span class="cl">    unit_-&gt;moveTo(x_, y_);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">private:
+</span></span><span class="line"><span class="cl">  Unit* unit_;
+</span></span><span class="line"><span class="cl">  int x_, y_;
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Our earlier input handler held on to a single command object and called its execute() method anytime the right button was pressed. Here, the commands are more specific. They represent a thing that can be done at a specific point in time. This means that the input handling code will be creating an instance of this every time the player chooses a move. Something like:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Command* handleInput()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  Unit* unit = getSelectedUnit();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  if (isPressed(BUTTON_UP)) {
+</span></span><span class="line"><span class="cl">    // Move the unit up one.
+</span></span><span class="line"><span class="cl">    int destY = unit-&gt;y() - 1;
+</span></span><span class="line"><span class="cl">    return new MoveUnitCommand(unit, unit-&gt;x(), destY);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  if (isPressed(BUTTON_DOWN)) {
+</span></span><span class="line"><span class="cl">    // Move the unit down one.
+</span></span><span class="line"><span class="cl">    int destY = unit-&gt;y() + 1;
+</span></span><span class="line"><span class="cl">    return new MoveUnitCommand(unit, unit-&gt;x(), destY);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  // Other moves...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  return NULL;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To make commands undoable, we define another operation each command class needs to implement:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class Command
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">public:
+</span></span><span class="line"><span class="cl">  virtual ~Command() {}
+</span></span><span class="line"><span class="cl">  virtual void execute() = 0;
+</span></span><span class="line"><span class="cl">  virtual void undo() = 0;
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>An undo() method reverses the game state changed by the corresponding execute() method. Here’s our previous move command with undo support:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class MoveUnitCommand : public Command
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">public:
+</span></span><span class="line"><span class="cl">  MoveUnitCommand(Unit* unit, int x, int y)
+</span></span><span class="line"><span class="cl">  : unit_(unit),
+</span></span><span class="line"><span class="cl">    xBefore_(0),
+</span></span><span class="line"><span class="cl">    yBefore_(0),
+</span></span><span class="line"><span class="cl">    x_(x),
+</span></span><span class="line"><span class="cl">    y_(y)
+</span></span><span class="line"><span class="cl">  {}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  virtual void execute()
+</span></span><span class="line"><span class="cl">  {
+</span></span><span class="line"><span class="cl">    // Remember the unit&#39;s position before the move
+</span></span><span class="line"><span class="cl">    // so we can restore it.
+</span></span><span class="line"><span class="cl">    xBefore_ = unit_-&gt;x();
+</span></span><span class="line"><span class="cl">    yBefore_ = unit_-&gt;y();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    unit_-&gt;moveTo(x_, y_);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  virtual void undo()
+</span></span><span class="line"><span class="cl">  {
+</span></span><span class="line"><span class="cl">    unit_-&gt;moveTo(xBefore_, yBefore_);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">private:
+</span></span><span class="line"><span class="cl">  Unit* unit_;
+</span></span><span class="line"><span class="cl">  int xBefore_, yBefore_;
+</span></span><span class="line"><span class="cl">  int x_, y_;
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>When a unit moves, it forgets where it used to be. If we want to be able to undo that move, we have to remember the unit’s previous position ourselves. Supporting multiple levels of undo isn’t much harder. Instead of remembering the last command, we keep a list of commands and a reference to the “current” one. When the player executes a command, we append it to the list and point “current” at it.</p>
+<p>When the player chooses “Undo”, we undo the current command and move the current pointer back. When they choose “Redo”, we advance the pointer and then execute that command. If they choose a new command after undoing some, everything in the list after the current command is discarded.</p>
+<p>In some ways, the Command pattern is a way of emulating closures in languages that don’t have them. For example, if we were building a game in JavaScript, we could create a move unit command just like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">function makeMoveUnitCommand(unit, x, y) {
+</span></span><span class="line"><span class="cl">  // This function here is the command object:
+</span></span><span class="line"><span class="cl">  return function() {
+</span></span><span class="line"><span class="cl">    unit.moveTo(x, y);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We could add support for undo as well using a pair of closures:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">function</span> <span class="n">makeMoveUnitCommand</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">var</span> <span class="n">xBefore</span><span class="p">,</span> <span class="n">yBefore</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">execute</span><span class="p">:</span> <span class="n">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">xBefore</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">x</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="n">yBefore</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">y</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="n">unit</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">undo</span><span class="p">:</span> <span class="n">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">unit</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">xBefore</span><span class="p">,</span> <span class="n">yBefore</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="flyweight">Flyweight</h2>
+<h3 id="forest-for-the-trees">Forest for the Trees</h3>
+<p>We’re talking thousands of trees, each with detailed geometry containing thousands of polygons. Each tree has a bunch of bits associated with it:</p>
+<ul>
+<li>A mesh of polygons that define the shape of the trunk, branches, and greenery.</li>
+<li>Textures for the bark and leaves.</li>
+<li>Its location and orientation in the forest.</li>
+<li>Tuning parameters like size and tint so that each tree looks different.</li>
+</ul>
+<p>If you were to sketch it out in code, you’d have something like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class Tree
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">private:
+</span></span><span class="line"><span class="cl">  Mesh mesh_;
+</span></span><span class="line"><span class="cl">  Texture bark_;
+</span></span><span class="line"><span class="cl">  Texture leaves_;
+</span></span><span class="line"><span class="cl">  Vector position_;
+</span></span><span class="line"><span class="cl">  double height_;
+</span></span><span class="line"><span class="cl">  double thickness_;
+</span></span><span class="line"><span class="cl">  Color barkTint_;
+</span></span><span class="line"><span class="cl">  Color leafTint_;
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The key observation is that even though there may be thousands of trees in the forest, they mostly look similar. They will likely all use the same mesh and textures. That means most of the fields in these objects are the same between all of those instances. We can model that explicitly by splitting the object in half. First, we pull out the data that all trees have in common and move it into a separate class:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class TreeModel
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">private:
+</span></span><span class="line"><span class="cl">  Mesh mesh_;
+</span></span><span class="line"><span class="cl">  Texture bark_;
+</span></span><span class="line"><span class="cl">  Texture leaves_;
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The game only needs a single one of these, since there’s no reason to have the same meshes and textures in memory a thousand times. Then, each instance of a tree in the world has a reference to that shared TreeModel. What remains in Tree is the state that is instance-specific:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class Tree
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">private:
+</span></span><span class="line"><span class="cl">  TreeModel* model_;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Vector position_;
+</span></span><span class="line"><span class="cl">  double height_;
+</span></span><span class="line"><span class="cl">  double thickness_;
+</span></span><span class="line"><span class="cl">  Color barkTint_;
+</span></span><span class="line"><span class="cl">  Color leafTint_;
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We provide two streams of data. The first is the blob of common data that will be rendered multiple times — the mesh and textures. The second is the list of instances and their parameters that will be used to vary that first chunk of data each time it’s drawn. With a single draw call, an entire forest grows.</p>
+<p>The Flyweight Pattern separate out an object’s data into two kinds. The first kind of data is the stuff that’s not specific to a single instance of that object and can be shared across all of them. The Gang of Four calls this the intrinsic state. The rest of the data is the extrinsic state, the stuff that is unique to that instance.</p>
+<h3 id="a-place-to-put-down-roots">A Place To Put Down Roots</h3>
+<p>We’ll make the ground tile-based: the surface of the world is a huge grid of tiny tiles. Each tile is covered in one kind of terrain. Each terrain type has a number of properties that affect gameplay:</p>
+<ul>
+<li>A movement cost that determines how quickly players can move through it.</li>
+<li>A flag for whether it’s a watery terrain that can be crossed by boats.</li>
+<li>A texture used to render it.</li>
+</ul>
+<p>A common approach is to use an enum for terrain types:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">enum</span> <span class="n">Terrain</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">TERRAIN_GRASS</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">TERRAIN_HILL</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">TERRAIN_RIVER</span>
+</span></span><span class="line"><span class="cl">  <span class="o">//</span> <span class="n">Other</span> <span class="n">terrains</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then the world maintains a huge grid of those:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class World
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">private:
+</span></span><span class="line"><span class="cl">  Terrain tiles_[WIDTH][HEIGHT];
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To actually get the useful data about a tile, we do something like:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int World::getMovementCost(int x, int y)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  switch (tiles_[x][y])
+</span></span><span class="line"><span class="cl">  {
+</span></span><span class="line"><span class="cl">    case TERRAIN_GRASS: return 1;
+</span></span><span class="line"><span class="cl">    case TERRAIN_HILL:  return 3;
+</span></span><span class="line"><span class="cl">    case TERRAIN_RIVER: return 2;
+</span></span><span class="line"><span class="cl">      // Other terrains...
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">bool World::isWater(int x, int y)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  switch (tiles_[x][y])
+</span></span><span class="line"><span class="cl">  {
+</span></span><span class="line"><span class="cl">    case TERRAIN_GRASS: return false;
+</span></span><span class="line"><span class="cl">    case TERRAIN_HILL:  return false;
+</span></span><span class="line"><span class="cl">    case TERRAIN_RIVER: return true;
+</span></span><span class="line"><span class="cl">      // Other terrains...
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>I think of movement cost and wetness as data about a terrain, but here that’s embedded in code. Worse, the data for a single terrain type is smeared across a bunch of methods. It would be really nice to keep all of that encapsulated together. After all, that’s what objects are designed for. It would be great if we could have an actual terrain class, like:</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-10-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/design/">design</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unity3d_object_pool/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Unity3D 对象池</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/csharp_in_depth/">
+            <span class="next-text nav-default">C# in Depth</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/game_programming_patterns/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

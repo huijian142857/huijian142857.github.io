@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Android开发错误信息收集 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="android sdk 无法更新或更新太慢 备注信息：sdk manager中加入mirrors.opencas.org，强迫http方式；或者下载nvidia提供" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/android_errors/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/android_errors/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="Android开发错误信息收集">
+  <meta property="og:description" content="android sdk 无法更新或更新太慢 备注信息：sdk manager中加入mirrors.opencas.org，强迫http方式；或者下载nvidia提供">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2013-10-28T11:44:00+00:00">
+    <meta property="article:modified_time" content="2013-10-28T11:44:00+00:00">
+    <meta property="article:tag" content="Android">
+
+  <meta itemprop="name" content="Android开发错误信息收集">
+  <meta itemprop="description" content="android sdk 无法更新或更新太慢 备注信息：sdk manager中加入mirrors.opencas.org，强迫http方式；或者下载nvidia提供">
+  <meta itemprop="datePublished" content="2013-10-28T11:44:00+00:00">
+  <meta itemprop="dateModified" content="2013-10-28T11:44:00+00:00">
+  <meta itemprop="wordCount" content="1060">
+  <meta itemprop="keywords" content="Android">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Android开发错误信息收集">
+  <meta name="twitter:description" content="android sdk 无法更新或更新太慢 备注信息：sdk manager中加入mirrors.opencas.org，强迫http方式；或者下载nvidia提供">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Android开发错误信息收集</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2013-10-28 </span>
+        <div class="post-category">
+            <a href="/categories/android/"> android </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><font color=red>android sdk 无法更新或更新太慢</font>
+备注信息：sdk manager中加入mirrors.opencas.org，强迫http方式；或者下载nvidia提供的CodeWorksforAndroid工具。
+ADT下载地址：http://dl.google.com/android/ADT-23.0.6.zip</p>
+<p><font color=red>远程调试android程序</font>
+进入android sdk/platform-tools目录，保证被调试手机开启可调试选项，并且可以ping通手机，执行如下命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">adb shell
+</span></span><span class="line"><span class="cl">adb connect IP
+</span></span><span class="line"><span class="cl">top -m 10 -s cpu
+</span></span><span class="line"><span class="cl">dumpsys meminfo PID
+</span></span><span class="line"><span class="cl">dumpsys meminfo &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">kill PID
+</span></span></code></pre></td></tr></table>
+</div>
+</div><!-- more --> 
+<p>插入usb调试时，不用进入shell，可以执行如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">adb push/pull
+</span></span><span class="line"><span class="cl">adb install/uninstall com.android.example
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><font color=red>Unity3D导出工程作为Android工程库使用时，在启动时退出</font>
+错误原因：没有在xml配置文件中设置android:screenOrientation=&ldquo;landscape&rdquo;</p>
+<p><font color=red>Conversion to Dalvik format failed: Unable to execute dex: Multiple dex files define &hellip;</font>
+错误原因：在项目中出现了多个相同的jar包，需要删掉多余的jar文件
+备注信息：在Unity3d项目移植到Eclipse中时，不需要手动添加Unity安装目录中的class.jar文件</p>
+<p><font color=red>java.lang.UnsatisfiedLinkError: Couldn&rsquo;t load lib&hellip;&hellip; findLibrary returned null</font>
+错误原因：使用了System.loadLibrary(&ldquo;filename&rdquo;)，但找不到需要链接的库文件
+备注信息：Eclipse中libs目录下的armeabi文件夹需要改名为armeabi-v7a，需要与Unity3d导出工程中的libs目录下文件夹名一致</p>
+<p><font color=red>android中一个程序出现两个相同的图标</font>
+错误原因：如下所示，在AndroidManifest.xml文件中出现了多个android.intent.action.MAIN，可能存在于不同的Activity中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;intent-filter&gt;
+</span></span><span class="line"><span class="cl">&lt;action android:name=&#34;android.intent.action.MAIN&#34; /&gt;
+</span></span><span class="line"><span class="cl">&lt;category android:name=&#34;android.intent.category.LAUNCHER&#34; /&gt;
+</span></span><span class="line"><span class="cl">&lt;/intent-filter&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><font color=red>JNI使用GetStringUTFChars导致程序崩溃</font>
+错误原因：要转换jstring到const char*，使用函数GetStringUTFChars可能返回一个NULL对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">const</span> <span class="n">char</span><span class="o">*</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetStringUTFChars</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nb">str</span> <span class="o">==</span> <span class="n">NULL</span><span class="p">){</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">env</span><span class="o">-&gt;</span><span class="n">ReleaseStringUTFChars</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><font color=red>HttpConnection调用GetResponseCode()出现EOFException</font>
+错误原因：客户端使用了已经被服务器关闭的连接。下面的修正方法并不是很好，效率低。
+最好的解决办法是，不使用HttpConnection，而是使用HttpClient来避免这个bug。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">System.setProperty(&#34;http.keepAlive&#34;, &#34;false&#34;);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><font color=red>希望用Int得到Float类型的值</font>
+这个错误属于再犯了，下面的代码正确吗？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DisplayMetrics dm = new DisplayMetrics();
+</span></span><span class="line"><span class="cl">getWindowManager().getDefaultDisplay().getMetrics(dm);
+</span></span><span class="line"><span class="cl">final int screenWidth = dm.widthPixels;
+</span></span><span class="line"><span class="cl">final int screenHeight = dm.heightPixels;
+</span></span><span class="line"><span class="cl">final float screenScale = screenHeight / 720;
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2013-10-28
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/android/">android</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unity3d_android_interaction/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">将Unity3D游戏移植到Android平台上</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/algorithm_binary_search_array/">
+            <span class="next-text nav-default">基于数组的折半查找</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/android_errors/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

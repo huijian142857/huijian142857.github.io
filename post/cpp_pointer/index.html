@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>C&#43;&#43; 指针 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="什么是指针呢？指针就是一个变量。从过去的经验知道，如果将变量声明为某个数据类型，那么这个变量就可以存储这种数据类型。int变量可以存储整型，" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/cpp_pointer/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/cpp_pointer/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="C&#43;&#43; 指针">
+  <meta property="og:description" content="什么是指针呢？指针就是一个变量。从过去的经验知道，如果将变量声明为某个数据类型，那么这个变量就可以存储这种数据类型。int变量可以存储整型，">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2012-12-23T10:21:00+00:00">
+    <meta property="article:modified_time" content="2012-12-23T10:21:00+00:00">
+    <meta property="article:tag" content="Cpp">
+
+  <meta itemprop="name" content="C&#43;&#43; 指针">
+  <meta itemprop="description" content="什么是指针呢？指针就是一个变量。从过去的经验知道，如果将变量声明为某个数据类型，那么这个变量就可以存储这种数据类型。int变量可以存储整型，">
+  <meta itemprop="datePublished" content="2012-12-23T10:21:00+00:00">
+  <meta itemprop="dateModified" content="2012-12-23T10:21:00+00:00">
+  <meta itemprop="wordCount" content="2925">
+  <meta itemprop="keywords" content="Cpp">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="C&#43;&#43; 指针">
+  <meta name="twitter:description" content="什么是指针呢？指针就是一个变量。从过去的经验知道，如果将变量声明为某个数据类型，那么这个变量就可以存储这种数据类型。int变量可以存储整型，">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">C&#43;&#43; 指针</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2012-12-23 </span>
+        <div class="post-category">
+            <a href="/categories/cpp/"> cpp </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>什么是指针呢？指针就是一个变量。从过去的经验知道，如果将变量声明为某个数据类型，那么这个变量就可以存储这种数据类型。int变量可以存储整型，char变量可以存储字符，等等。那么指针可以存储什么呢？指针可以存储地址，地址就是操作系统用来表示RAM存储单元的二进制数，就好像个人的地址标识他的居住地一样。每个存储单元都有一个地址。内存是按字节编址的，这意味着每个字节的内存就有一个地址，但是每位内存没有。</p>
+<!-- more --> 
+<p>指针用来存储变量的地址，或者数据类型是用来声明指针的对象的地址。例如，存储一个整型地址的指针的声明如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int *ptr;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而存储一个字符地址的指针的声明如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">char *chptr;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>声明的第一部分是变量或对象的数据类型，而对象的地址可由指针存储。接着是一个星号，指针的前面必须有一个星号。最后，就是为指针指定的名称。通常，程序员按下述方式声明指针：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int* ptr;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>他们将星号紧挨着数据类型，就好像数据类型和星号共同构成一个指针数据类型一样。编译器认可这种编码方式，但是就我个人而言，我不认同这种表示方法，因为它容易引起误解。为了在同一行中声明多个指针，则需要使用多个星号：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int *ptr, *ptr2;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>另外，在同一行中还可以同时声明指针和其他变量，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int *ptr, x, y, *ptr2, z;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在这个代码中，x、y 和 z 是整型变量，而ptr和ptr2是整型指针。</p>
+<p>现在，我们讨论如何将地址赋予指针。取地址运算符&amp;可以用来将变量的地址赋予指针。例如， &amp;x 就是一个运算，它得到的是x的地址。大家是否还记得，在编程方面的第一门功课中讲到，定义为内存中某个位置的变量，它的值可由程序员改变？在那个时候，你或许还没有思考能够将变量看成某个位置的重要性。或许大家早已忘记了这一定义。如果这样，那么请大家准备改变这一想法。当在x上使用取地址运算符时，它实际上指的是内存中保存x的位置的地址。因此，在有上述声明的前提下，可以使用下述代码将x的地址存放在ptr中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ptr = &amp;x;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当ptr中存放内存中保存x的位置的地址时，我们就可以说ptr指向了x。 在下图中，指针以箭头表示。上述代码的结果如下图所示，而另一幅图显示了内存中的情况。</p>
+<p><img src="/uploads/cpp_pointer/ptr_1.jpg" alt="">
+<img src="/uploads/cpp_pointer/ptr_2.jpg" alt=""></p>
+<p>当谈论指针时，区分变量名称、位置、某位置处的值和位置的地址这些概念非常重要，下图描述了这些区别。</p>
+<p><img src="/uploads/cpp_pointer/variable.jpg" alt=""></p>
+<p>大家一定要记住变量就是位置。当在代码中使用位置时，它们的行为取决于它们位于代码的什么地方。如果它们出现在=赋值运算符的左边，那么它们的行为和出现在其他地方的行为大相径庭。如果它们没有出现在赋值运算符的左边，那么这个位置将被该位置上的值取代。例如，如果x为3，那么在表达式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">y = x + 5;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>中，x被它的位置（或内存单元）上的值取代，即3，然后得到8并赋予y。但是，如果位置出现在赋值运算符的左边，它就不被该位置上的值取代。例如，如果y为10，那么上述表达式将不会替换为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">10 = x + 5;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果真是如此，那就麻烦了！相反，上述表达式的行为完全不同：当在赋值左边使用位置时，位置仅仅只是位置（不是位置处的值）。因此，位置将所赋的结果值赋给赋值的右边。</p>
+<p>取指针内容运算符*可以应用于指针。该运算的结果是一个位置。大多数运算的结果是某种类型的值。结果位置是解析地址的位置。因此，如果将x的地址赋予ptr，即：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ptr = &amp;x;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>那么*ptr将是为x保留的位置。</p>
+<p>取指针内容运算符<em>看上去也用于指针的声明。但是，指针的声明中不使用运算符。这样只是声明指针所必需的表示方法。既然取指针内容运算符</em>可以获得位置作为结果，所以它的行为取决于它在代码中的位置。请看下述示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int x, *ptr;
+</span></span><span class="line"><span class="cl">x = 3;
+</span></span><span class="line"><span class="cl">ptr = &amp;x;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在这一段代码之后，如果不在赋值运算符的左边使用*ptr， 那么它仅是一个变量（位置），提供在结果位置处存储的值。在表达式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">y = *ptr + 5;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>中，运算<em>ptr得到保存x的位置。因此，运算</em>ptr将被值3（之前赋给x的值）取代。如果*ptr出现在赋值运算符的左边，如表达式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">*ptr = 10 + z;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>中所示，那么它就只是赋值左边的一个变量（位置）：它只被用作一个位置，而10 + z的结果将存储在为x保留的位置上。但是这里要注意：通过指针，x的值可以由前面的代码修改。如果z为5，那么x的值将变更为15，而且如果执行下述代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cout &lt;&lt; x &lt;&lt; endl;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将输出15。下图描述了这段代码的执行过程。</p>
+<p><img src="/uploads/cpp_pointer/cout.jpg" alt=""></p>
+<p>在使用指针的过程中需要牢记以下几个方面：</p>
+<p>（1）变量就是位置
+（2）当在地址上应用取指针内容运算符时，结果就是该地址的位置；取指针内容运算符可以应用于指针（因为指针存储地址），也可应用于能生成地址结果的表达式。
+（3）根据位置是出现在赋值的左边还是代码的其他地方，位置的行为不同。如果位置出现在赋值的左边，那么它就是位置。如果出现在代码的其他地方，那么它使用的是该位置处的值。</p>
+<p>如果对一个没有存储位置地址的指针使用取指针运算符*，编译器无法捕捉这种错误；该错误是一个运行时错误。因此，为了避免发生运行时错误，请一定要确保在使用取指针内容运算符时，应用取指针内容运算符的指针已经赋予了一个地址。</p>
+<p>在编写代码时，有时候会将指针初始化为NULL，如下代码所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">float *ptr = NULL;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在iostream文件中，NULL定义为0，它是一个不能赋值的位置的地址。如果将指针设为NULL，那么当执行在这个指针上应用取指针内容运算符的代码时会提示一个运行时错误。今后，在编写代码的过程中，如果无法确保某个指针是否赋予了地址，则可以通过下述方式测试指针：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">if ( ptr != NULL)
+</span></span><span class="line"><span class="cl">　　*ptr = 3.14;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过使用这样的代码可以帮助防止“指针中没有存储有效地址”这样的运行时错误。</p>
+<p>当在类函数中使用NULL时，要注意NULL定义在iostream头文件中这一事实。所以类实现文件中的顶部应该包含<code>#include &lt;iostream&gt;</code>以及<code>using namespace std;</code>这样的代码。</p>
+<p>在数据结构中，指针几乎总是用来存放数组的地址或者对象的地址。我们首先讨论数组，对象留在后面。为了声明一个用来存放数组地址的指针，我们仅需用数组的数据类型声明它即可。例如，为了声明一个存放整型数组的地址的指针，则需要采用下述形式声明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int *ptrToArray;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这与以前使用的表示法完全相同。原因在于指针是用来存储数组第一个元素的地址，而在这种情况下即是一个整型数。在存储数组第一个元素的过程中，指针实际上存储的是整个数组的地址。</p>
+<p>下面我们讨论数组，这里有可能比过去的习惯做法要稍微深入一点。首先，在单独使用数组的名称时，数组名称存储的是数组的地址（即数组第一个元素的地址）。因此，对于下述整型数组：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int num[5];
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以用下述代码将num赋予指针：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ptrToArray = num;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为num存储的是数组的地址，而现在地址已经赋予了ptrToArray，所以ptrToArray存储的也是数组的地址。当ptrToArray存放了数组的地址时，就可以说ptrToArray指向数组。</p>
+<p>那么num是指针吗？它存储地址，但是意识到数组的名称并不是指针非常重要。num不是指针的原因在于指针定义为一个存储地址的变量。名称“变量”暗含着它的值是可以改变的。但是我们不能在num中存储一个不同的地址；如果试图去这样做，编译器就会报错。如果愿意，在ptrToArray中可以存储一个不同的地址，所以它是指针。</p>
+<p>注：本文摘自《C++类和数据结构》一书，（美）Jeffrey S. Childs，推荐新手去看看这本书。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2012-12-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/cpp/">cpp</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/laundry_management_system/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">洗衣店管理系统</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/student_management_system/">
+            <span class="next-text nav-default">数据库课程设计-学生学籍管理信息系统</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/cpp_pointer/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

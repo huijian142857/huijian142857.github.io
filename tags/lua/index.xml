@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lua on 挥剑对风尘</title>
+    <link>https://huijian142857.gitee.io/tags/lua/</link>
+    <description>Recent content in Lua on 挥剑对风尘</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 28 Mar 2014 14:14:00 +0000</lastBuildDate>
+    <atom:link href="https://huijian142857.gitee.io/tags/lua/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>编译并使用Lua语言</title>
+      <link>https://huijian142857.gitee.io/post/lua_compile/</link>
+      <pubDate>Fri, 28 Mar 2014 14:14:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/lua_compile/</guid>
+      <description>Lua是一个小巧的脚本语言，该语言设计的目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。 可扩展性。Lua的扩展性非常卓越，</description>
+    </item>
+  </channel>
+</rss>

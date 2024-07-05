@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>用Intellij Idea创建简单的Servlet - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="Servlet作为Java服务端程序，使用起来还是挺方便的，下面是具体配置过程，我用的是Intellij Idea。 1.做好必要准备，Inte" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/java_servlet_idea/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/java_servlet_idea/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="用Intellij Idea创建简单的Servlet">
+  <meta property="og:description" content="Servlet作为Java服务端程序，使用起来还是挺方便的，下面是具体配置过程，我用的是Intellij Idea。 1.做好必要准备，Inte">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2014-07-06T15:07:00+00:00">
+    <meta property="article:modified_time" content="2014-07-06T15:07:00+00:00">
+    <meta property="article:tag" content="Java">
+
+  <meta itemprop="name" content="用Intellij Idea创建简单的Servlet">
+  <meta itemprop="description" content="Servlet作为Java服务端程序，使用起来还是挺方便的，下面是具体配置过程，我用的是Intellij Idea。 1.做好必要准备，Inte">
+  <meta itemprop="datePublished" content="2014-07-06T15:07:00+00:00">
+  <meta itemprop="dateModified" content="2014-07-06T15:07:00+00:00">
+  <meta itemprop="wordCount" content="2072">
+  <meta itemprop="keywords" content="Java">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="用Intellij Idea创建简单的Servlet">
+  <meta name="twitter:description" content="Servlet作为Java服务端程序，使用起来还是挺方便的，下面是具体配置过程，我用的是Intellij Idea。 1.做好必要准备，Inte">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">用Intellij Idea创建简单的Servlet</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2014-07-06 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> java </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Servlet作为Java服务端程序，使用起来还是挺方便的，下面是具体配置过程，我用的是Intellij Idea。</p>
+<p>1.做好必要准备，Intellij Idea（或者Eclipse for J2EE）、JDK、Tomcat这些工具一个都不能少</p>
+<p>2.新建一个Web项目，IDE会帮我们自动生成src、web、web-inf这些文件目录，还有配置文件web.xml。我们的后端java代码一般放在src下面，JSP文件放在web目录下，jar包这些额外的库文件放在WEB-INF/lib目录下（lib目录是我自己新建的，然后右键add as library），web.xml直接放在WEB-INF下面。</p>
+<!-- more --> 
+<p><img src="/uploads/java_servlet_idea/v1.png" alt=""></p>
+<p>3.首先，我们要配合tomcat，让index.jsp可以跑起来。打开index.jsp，右键点击run &lsquo;index.jsp&rsquo;，如果没有这个选项，说明你还没配置好tomcat这个应用容器。要配置tomcat，打开File-&gt;Setting，进入设置界面，搜索‘server’，找到application server，然后就可以添加tomcat了。然后打开项目属性设置界面，这里是点击项目，按下F4即可。在Intellij idea中是选择左侧的modules，右侧查看dependencies，点击add-&gt;library可以添加tomcat，这里也可以添加第三方jar包。添加好了tomcat和jdk，index.jsp就可以run了。</p>
+<p><img src="/uploads/java_servlet_idea/v2.png" alt=""></p>
+<p>4.jsp只是简单的网页嵌入了java代码，最终还是被编译成了Servlet实例。而我们要做的Servlet作为J2EE的重要部分，简单的理解就是一个java类，可以有很多实例，负责响应用户请求。当然，也有用JavaBean的，我这里暂且不说，毕竟复杂的java应用都会选用一些成熟的框架。</p>
+<p>5.好了，如果一切无误，就对准src文件目录新建一个package，然后新建一个Servlet类，IDE会自动生成doPost和doGet方法。新建好Servlet后，IDE还修改了web.xml文件，我们还要添加servlet-mapping节点，下面是配置好的web.xml文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+</span></span><span class="line"><span class="cl">&lt;web-app xmlns=&#34;http://xmlns.jcp.org/xml/ns/javaee&#34;
+</span></span><span class="line"><span class="cl">         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+</span></span><span class="line"><span class="cl">         xsi:schemaLocation=&#34;http://xmlns.jcp.org/xml/ns/javaee 
+</span></span><span class="line"><span class="cl">         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&#34;
+</span></span><span class="line"><span class="cl">         version=&#34;3.1&#34;&gt;
+</span></span><span class="line"><span class="cl">    &lt;!-- 处理支付回调 --&gt;
+</span></span><span class="line"><span class="cl">    &lt;servlet-mapping&gt;
+</span></span><span class="line"><span class="cl">        &lt;servlet-name&gt;PayCallBackServlet&lt;/servlet-name&gt;
+</span></span><span class="line"><span class="cl">        &lt;url-pattern&gt;/PayCallback&lt;/url-pattern&gt;
+</span></span><span class="line"><span class="cl">    &lt;/servlet-mapping&gt;
+</span></span><span class="line"><span class="cl">    &lt;servlet&gt;
+</span></span><span class="line"><span class="cl">        &lt;servlet-name&gt;PayCallBackServlet&lt;/servlet-name&gt;
+</span></span><span class="line"><span class="cl">        &lt;servlet-class&gt;com.sh.server.PayCallBackServlet&lt;/servlet-class&gt;
+</span></span><span class="line"><span class="cl">    &lt;/servlet&gt;
+</span></span><span class="line"><span class="cl">&lt;/web-app&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>首先看到servlet-mapping，这里的url-pattern就是用户访问方式了，这里是<code>http://localhost:8080/PayCallback</code>。当tomcat接收到这样的http请求时，就去web.xml查找url-pattern，如果有这个/PayCallback，那么对应的servlet-name就找到了，再按照它查找到servlet-class是com&hellip;..PayCallBackServlet这个类。所以，我们要怎么处理请求，就在这个类的doPost和doGet方法里做就行了，这两个方法的区别自己查吧。</p>
+<p>6.如果是做实验，可以在doGet方法中加入以下代码查看效果。要重启tomcat或点击更新才能看到新内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PrintWriter out =response.getWriter();
+</span></span><span class="line"><span class="cl">out.println(&#34;&lt;html&gt;&#34;);
+</span></span><span class="line"><span class="cl">out.println(&#34;&lt;head&gt;&lt;title&gt;Servlet展示页&lt;/title&gt;&lt;/head&gt;&#34;);
+</span></span><span class="line"><span class="cl">out.println(&#34;&lt;body&gt;name:&#34; + &#34;&lt;br/&gt; sex: &#34; +&#34;&lt;/body&gt;&#34;);
+</span></span><span class="line"><span class="cl">out.println(&#34;&lt;/html&gt;&#34;);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>7.通常我们都需要操作数据库，这里以MariaDB或者MySQL为例，下面是一个封装好的jdbc工具，但前提是你要导入用于jdbc的jar包，我这里用的是MariaDB版的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public class JDBCUtil {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    //private final static String DB_DRIVER = &#34;com.mysql.jdbc.Driver&#34;;
+</span></span><span class="line"><span class="cl">    private final static String DB_DRIVER = &#34;org.mariadb.jdbc.Driver&#34;;
+</span></span><span class="line"><span class="cl">    private final static String DB_URL = &#34;jdbc:mysql://localhost:3306/&#34;;
+</span></span><span class="line"><span class="cl">    private final static String DB_NAME = &#34;root&#34;;
+</span></span><span class="line"><span class="cl">    private final static String DB_PWd = &#34;admin&#34;;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    static {
+</span></span><span class="line"><span class="cl">        try {
+</span></span><span class="line"><span class="cl">            Class.forName(DB_DRIVER);
+</span></span><span class="line"><span class="cl">        } catch (ClassNotFoundException e) {
+</span></span><span class="line"><span class="cl">            e.printStackTrace();
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    public static Connection getConnection() {
+</span></span><span class="line"><span class="cl">        Connection conn = null;
+</span></span><span class="line"><span class="cl">        try {
+</span></span><span class="line"><span class="cl">            conn = DriverManager.getConnection(DB_URL, DB_NAME, DB_PWd);
+</span></span><span class="line"><span class="cl">        } catch (SQLException e) {
+</span></span><span class="line"><span class="cl">            e.printStackTrace();
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        return conn;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    public static Statement getStatement(Connection conn) {
+</span></span><span class="line"><span class="cl">        Statement stmt = null;
+</span></span><span class="line"><span class="cl">        try {
+</span></span><span class="line"><span class="cl">            stmt = conn.createStatement();
+</span></span><span class="line"><span class="cl">        } catch (SQLException e) {
+</span></span><span class="line"><span class="cl">            e.printStackTrace();
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        return stmt;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    public static PreparedStatement getPreparedStatement(Connection conn, String sql) {
+</span></span><span class="line"><span class="cl">        PreparedStatement pstmt = null;
+</span></span><span class="line"><span class="cl">        try {
+</span></span><span class="line"><span class="cl">            pstmt = conn.prepareStatement(sql);
+</span></span><span class="line"><span class="cl">        } catch (SQLException e) {
+</span></span><span class="line"><span class="cl">            e.printStackTrace();
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        return pstmt;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    public static ResultSet getRs(Statement stmt, String sql) {
+</span></span><span class="line"><span class="cl">        ResultSet rs = null;
+</span></span><span class="line"><span class="cl">        try {
+</span></span><span class="line"><span class="cl">            rs = stmt.executeQuery(sql);
+</span></span><span class="line"><span class="cl">        } catch (SQLException e) {
+</span></span><span class="line"><span class="cl">            e.printStackTrace();
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        return rs;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    public static void close(Statement stmt) {
+</span></span><span class="line"><span class="cl">        if (stmt != null) {
+</span></span><span class="line"><span class="cl">            try {
+</span></span><span class="line"><span class="cl">                stmt.close();
+</span></span><span class="line"><span class="cl">            } catch (SQLException e) {
+</span></span><span class="line"><span class="cl">                e.printStackTrace();
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    public static void close(ResultSet rs) {
+</span></span><span class="line"><span class="cl">        if (rs != null) {
+</span></span><span class="line"><span class="cl">            try {
+</span></span><span class="line"><span class="cl">                rs.close();
+</span></span><span class="line"><span class="cl">            } catch (SQLException e) {
+</span></span><span class="line"><span class="cl">                e.printStackTrace();
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    public static void close(Connection conn) {
+</span></span><span class="line"><span class="cl">        if (conn != null) {
+</span></span><span class="line"><span class="cl">            try {
+</span></span><span class="line"><span class="cl">                conn.close();
+</span></span><span class="line"><span class="cl">            } catch (SQLException e) {
+</span></span><span class="line"><span class="cl">                e.printStackTrace();
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>8.现在试着用这个JDBCUtil工具来做点实际的操作吧，前提是你安装好了数据库，下面是个创建新表的例子，其实就是执行sql语句。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">public</span> <span class="n">void</span> <span class="n">createTable</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="ne">String</span> <span class="n">sql_drop</span> <span class="o">=</span> <span class="s2">&#34;drop table if exists &#34;</span> <span class="o">+</span> <span class="n">DBNAME</span> <span class="o">+</span> <span class="s2">&#34;.&#34;</span> <span class="o">+</span> <span class="n">TABLENAME</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="ne">String</span> <span class="n">sql_create</span> <span class="o">=</span> <span class="s2">&#34;create table &#34;</span><span class="o">+</span> <span class="n">DBNAME</span> <span class="o">+</span> <span class="s2">&#34;.&#34;</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">    	<span class="n">TABLENAME</span><span class="o">+</span><span class="s2">&#34;(id varchar(10) primary key,name varchar(10))&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">JDBCUtil</span><span class="o">.</span><span class="n">getConnection</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Statement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="n">JDBCUtil</span><span class="o">.</span><span class="n">getStatement</span><span class="p">(</span><span class="n">conn</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">stmt</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql_drop</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">stmt</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql_create</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">e</span><span class="o">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="n">finally</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">JDBCUtil</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">conn</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">JDBCUtil</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">stmt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是建好表后，插入一行的代码。这里可以根据参数，批量插入不同的数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">String sql_add = &#34;insert into &#34;+ DBNAME + &#34;.&#34; +TABLENAME + &#34; values(?,?)&#34;;
+</span></span><span class="line"><span class="cl">Connection conn = JDBCUtil.getConnection();
+</span></span><span class="line"><span class="cl">PreparedStatement pstmt = JDBCUtil.getPreparedStatement(conn, sql_add);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">try {
+</span></span><span class="line"><span class="cl">    pstmt.setString(1, &#34;0&#34;);
+</span></span><span class="line"><span class="cl">    pstmt.setString(2, &#34;q&#34;);
+</span></span><span class="line"><span class="cl">    conn.setAutoCommit(false);//若改为true 插入中遇到主键冲突还会继续插入，具体看需求
+</span></span><span class="line"><span class="cl">    pstmt.addBatch();
+</span></span><span class="line"><span class="cl">    pstmt.executeBatch();
+</span></span><span class="line"><span class="cl">    conn.commit();
+</span></span><span class="line"><span class="cl">} catch (SQLException e) {
+</span></span><span class="line"><span class="cl">    e.printStackTrace();
+</span></span><span class="line"><span class="cl">}finally {
+</span></span><span class="line"><span class="cl">    JDBCUtil.close(conn);
+</span></span><span class="line"><span class="cl">    JDBCUtil.close(pstmt);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2014-07-06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">java</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unity3d_math/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Unity3D 数学相关</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/unity3d_time_countdown/">
+            <span class="next-text nav-default">Unity3D-简单的倒计时</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/java_servlet_idea/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

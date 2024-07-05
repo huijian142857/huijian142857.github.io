@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Design on 挥剑对风尘</title>
+    <link>https://huijian142857.gitee.io/categories/design/</link>
+    <description>Recent content in Design on 挥剑对风尘</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 22 Aug 2021 10:00:00 +0000</lastBuildDate>
+    <atom:link href="https://huijian142857.gitee.io/categories/design/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>重构-改善既有代码的设计 笔记</title>
+      <link>https://huijian142857.gitee.io/post/refactoring_improving_the_design/</link>
+      <pubDate>Sun, 22 Aug 2021 10:00:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/refactoring_improving_the_design/</guid>
+      <description>重构 改善既有代码的设计（Refactoring Improving the Design of Existing Code） 笔记 重构（refactoring）可以定义为，在不改变代码外在行为的前提下</description>
+    </item>
+    <item>
+      <title>常见编程方法</title>
+      <link>https://huijian142857.gitee.io/post/common_design/</link>
+      <pubDate>Wed, 09 May 2018 22:08:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/common_design/</guid>
+      <description>一些常见的编程方法汇总 单例模式 确保一个类只有一个实例，有几个要素：私有构造方法、指向自身实例的静态引用、以自身实例为返回值的静态共有方法。单</description>
+    </item>
+    <item>
+      <title>Game Programming Patterns</title>
+      <link>https://huijian142857.gitee.io/post/game_programming_patterns/</link>
+      <pubDate>Sun, 16 Oct 2016 13:23:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/game_programming_patterns/</guid>
+      <description>What is Software Architecture? It’s less about writing code than it is about organizing it. Good architecture makes a huge difference in productivity. But, like all things in life, it doesn’t come free. Good architecture takes real effort and discipline. Every time you make a change or implement a feature, you have to work hard to integrate it gracefully into the rest of the program. You have to think about which parts of the program should be decoupled and introduce abstractions at those points.</description>
+    </item>
+  </channel>
+</rss>

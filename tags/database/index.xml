@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Database on 挥剑对风尘</title>
+    <link>https://huijian142857.gitee.io/tags/database/</link>
+    <description>Recent content in Database on 挥剑对风尘</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 27 Dec 2012 01:02:00 +0000</lastBuildDate>
+    <atom:link href="https://huijian142857.gitee.io/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>洗衣店管理系统</title>
+      <link>https://huijian142857.gitee.io/post/laundry_management_system/</link>
+      <pubDate>Thu, 27 Dec 2012 01:02:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/laundry_management_system/</guid>
+      <description>需求分析 项目背景 随着人们生活水平的不断提高和生活节奏的加快，不少商务人士的收入与衣物越来越多，而精力、时间却越来越少。减轻日常家务劳动，寻找</description>
+    </item>
+    <item>
+      <title>数据库课程设计-学生学籍管理信息系统</title>
+      <link>https://huijian142857.gitee.io/post/student_management_system/</link>
+      <pubDate>Wed, 19 Dec 2012 15:50:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/student_management_system/</guid>
+      <description>概述 项目背景 随着我国教育体制改革的深入进行，教育系统得到了前所未有的发展。学生管理正在逐步迈向管理信息现代化。但是我国的学生管理信息化水平还</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>数据库课程设计-学生学籍管理信息系统 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="概述 项目背景 随着我国教育体制改革的深入进行，教育系统得到了前所未有的发展。学生管理正在逐步迈向管理信息现代化。但是我国的学生管理信息化水平还" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/student_management_system/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/student_management_system/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="数据库课程设计-学生学籍管理信息系统">
+  <meta property="og:description" content="概述 项目背景 随着我国教育体制改革的深入进行，教育系统得到了前所未有的发展。学生管理正在逐步迈向管理信息现代化。但是我国的学生管理信息化水平还">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2012-12-19T15:50:00+00:00">
+    <meta property="article:modified_time" content="2012-12-19T15:50:00+00:00">
+    <meta property="article:tag" content="Database">
+
+  <meta itemprop="name" content="数据库课程设计-学生学籍管理信息系统">
+  <meta itemprop="description" content="概述 项目背景 随着我国教育体制改革的深入进行，教育系统得到了前所未有的发展。学生管理正在逐步迈向管理信息现代化。但是我国的学生管理信息化水平还">
+  <meta itemprop="datePublished" content="2012-12-19T15:50:00+00:00">
+  <meta itemprop="dateModified" content="2012-12-19T15:50:00+00:00">
+  <meta itemprop="wordCount" content="11381">
+  <meta itemprop="keywords" content="Database">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="数据库课程设计-学生学籍管理信息系统">
+  <meta name="twitter:description" content="概述 项目背景 随着我国教育体制改革的深入进行，教育系统得到了前所未有的发展。学生管理正在逐步迈向管理信息现代化。但是我国的学生管理信息化水平还">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">数据库课程设计-学生学籍管理信息系统</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2012-12-19 </span>
+        <div class="post-category">
+            <a href="/categories/database/"> database </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a>
+      <ul>
+        <li><a href="#项目背景">项目背景</a></li>
+        <li><a href="#编写目的">编写目的</a></li>
+        <li><a href="#软件定义">软件定义</a></li>
+        <li><a href="#开发环境">开发环境</a></li>
+      </ul>
+    </li>
+    <li><a href="#需求分析">需求分析</a>
+      <ul>
+        <li><a href="#问题陈述">问题陈述</a></li>
+        <li><a href="#系统主要功能">系统主要功能</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据库概念结构设计">数据库概念结构设计</a></li>
+    <li><a href="#数据库逻辑结构设计">数据库逻辑结构设计</a>
+      <ul>
+        <li><a href="#关系表">关系表</a></li>
+        <li><a href="#定义视图">定义视图</a></li>
+        <li><a href="#定义索引">定义索引</a></li>
+        <li><a href="#定义权限">定义权限</a></li>
+        <li><a href="#定义触发器">定义触发器</a></li>
+        <li><a href="#定义存储过程">定义存储过程</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据流图及程序结构框图">数据流图及程序结构框图</a>
+      <ul>
+        <li><a href="#顶级数据流图">顶级数据流图：</a></li>
+        <li><a href="#一级数据流图">一级数据流图：</a></li>
+        <li><a href="#二级数据流图">二级数据流图：</a></li>
+        <li><a href="#程序结构框图">程序结构框图：</a></li>
+      </ul>
+    </li>
+    <li><a href="#程序源代码及其说明">程序源代码及其说明</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="概述">概述</h1>
+<h2 id="项目背景">项目背景</h2>
+<p>随着我国教育体制改革的深入进行，教育系统得到了前所未有的发展。学生管理正在逐步迈向管理信息现代化。但是我国的学生管理信息化水平还处在初级阶段，主要表现在对学生的学籍信息管理还是采用原有的人工管理方式。学校的规模不断扩大,学生数量急剧增加,有关学生的各种信息量也成倍增长。由于大学生类别和专业的设置的多样化，大学生的学籍管理历来是非常繁琐和复杂的的工作。面对庞大的信息量, 这时的人工管理几乎无法实现，在这种情况下用数据库进行管理变的尤为必要，这可以发挥计算机的优势来提高学生管理工作的效率。通过这样的系统,可以做到信息的规范管理,科学统计和快速的查询,从而减少管理方面的工作量和人为错误。</p>
+<!-- more --> 
+<h2 id="编写目的">编写目的</h2>
+<p>学生学籍管理系统是应对学生人数增多、信息量增大的问题，实现管理的现代化、化，逐步摆脱当前学生成绩管理的人工管理方式，提高成绩管理效率而开发的。望该开发程序能够解决学生信息存储、学生各种信息查询等一系列功能。</p>
+<h2 id="软件定义">软件定义</h2>
+<p>学生信息管理系统是针对学校人事处的大量业务处理工作而开发的管理软件，主要用于学校学生信息管理，总体任务是实现学生信息关系的系统化、科学化、规范化和自动化，其主要任务是用计算机对学生各种信息进行日常管理，如查询、修改、增加、删除，另外还考虑到学生选课，针对这些要求设计了学生信息管理系统。</p>
+<h2 id="开发环境">开发环境</h2>
+<p>开发环境：Windows XP、VC6.0
+辅助工具：PowerDesigner 15
+数据库管理系统：SQL Server 2000
+运行环境：Windows 2000/XP/2003</p>
+<h1 id="需求分析">需求分析</h1>
+<h2 id="问题陈述">问题陈述</h2>
+<p>进行数据库设计首先必须准确了解用户需求，目的是为学籍管理数据库系统的设计打下牢牢的基础，是数据库开发的重要文件依据，主要为数据库设计人员使用，是用户和系统分析员的项目依据文件。需求分析是否做得充分与准确，它决定了在其上构建数据库大厦的速度和质量。</p>
+<h2 id="系统主要功能">系统主要功能</h2>
+<p>(1)学生档案的管理，即录入、修改、查询、输出学生档案信息，这些信息包括学生基本情况、学生简历情况、学生奖励情况、学生处分情况、学生家庭信息、学生体检情况。
+(2)学生学籍管理，录入、修改、查询、输出学生学籍信息，这些信息包括学生奖贷学金情况、学生注册、学生异动情况、学生军训情况、学生毕业情况。
+(3)学生成绩管理，录入修改、查询、输出学生入校成绩，各学期、各门课程的成绩信息，并支持按年级、班级等条件的统计、查询、报表输出。</p>
+<p>简要分析：</p>
+<p>(1)学生简历情况和学生基本情况可以合为一张学生信息表
+(2)学生奖励情况和处分情况可以合为一张表，增加一项用于表示“奖励”或“处罚”
+(3)学生军训情况可以作为一门课程，放入课程表中，无需单独设一张表
+(4)学生毕业信息可以在学生表中增加一项简单表示，无需单设一张表</p>
+<p>经过分析，为了表示要求的信息，本学生学籍信息管理系统可以抽象出8个主要实体：学生、奖励或处罚、家庭、体检、贷款、注册、异动、课程。</p>
+<h1 id="数据库概念结构设计">数据库概念结构设计</h1>
+<p>系统E-R图
+<img src="/uploads/student_management_system/er.jpg" alt=""></p>
+<p>下面是用PowerDesingner 15 设计出的系统CDM图，既概念模型图：
+<img src="/uploads/student_management_system/cdm.jpg" alt=""></p>
+<p>下面是用PowerDesingner 15 从CDM图直接导出的PDM图，即物理结构图：
+<img src="/uploads/student_management_system/pdm.jpg" alt=""></p>
+<h1 id="数据库逻辑结构设计">数据库逻辑结构设计</h1>
+<p>逻辑结构设计就是把概念结构设计阶段设计好的基本E-R图转换为与选用DBMS产品所支持的数据模型相符合的逻辑结构。</p>
+<h2 id="关系表">关系表</h2>
+<p>通过上一步画出的E-R图即可得到对应的关系表，我们采用PowerDesigner直接得出对应的PDM图，双击PDM图中某个实体，在Preview中可以得到对应的Sql语句，在Sql Server 2000中打开查询分析器即可用相应的Sql语句即可得到初步的关系表。(此处省略。。。具体定义在最后的源码中)</p>
+<h2 id="定义视图">定义视图</h2>
+<p>在设计表时，考虑到数据冗余，本系统只保留“学号”作为表间的连接。为了方便用户使用，可以把这些详细的信息用视图来表示，并且不会产生冗余，从而方便了用户的查询；由于本系统信息对管理员和学生都不是什么保密信息，所以无需考虑系统安全性而为不同级别用户再定义相应的视图；此外，为了符合用户习惯，我们在视图中使用中文别名。</p>
+<p>(1)学生基本信息视图：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">USE Student
+</span></span><span class="line"><span class="cl">GO
+</span></span><span class="line"><span class="cl">CREATE VIEW StudentInfo
+</span></span><span class="line"><span class="cl">AS
+</span></span><span class="line"><span class="cl">  SELECT  StuNo 学号,StuName  姓名,StuSex  性别,StuBirthTime 出生日期,
+</span></span><span class="line"><span class="cl">          StuProvince  籍贯,StuNation 民族,StuFace 政治面貌,
+</span></span><span class="line"><span class="cl">          StuFromWhere 来源地区,StuBirthPlace 出生地,StuCollege 学院,
+</span></span><span class="line"><span class="cl">          StuMajor 专业,StuClass 行政班级,StuStudyTime 学制,
+</span></span><span class="line"><span class="cl">          StuSchoolTime 入学时间,StuCurrentClass 当前所在年级,
+</span></span><span class="line"><span class="cl">          StuDormitory 宿舍,StuEMail 电子邮件,StuPhone 联系电话,
+</span></span><span class="line"><span class="cl">          StuPost 邮编,StuID 身份证号,StuIsGraduate 是否毕业,
+</span></span><span class="line"><span class="cl">          StuGraduateDate 毕业日期
+</span></span><span class="line"><span class="cl">  FROM student
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(2)学生异动信息视图:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">USE Student
+</span></span><span class="line"><span class="cl">GO
+</span></span><span class="line"><span class="cl">CREATE VIEW StuChangeInfo
+</span></span><span class="line"><span class="cl">AS
+</span></span><span class="line"><span class="cl">  SELECT  StuChangeID 异动记录号,StuChange.StuNo 学号,StuName 姓名,
+</span></span><span class="line"><span class="cl">          StuCollege 学院,StuClass 班级,StuMajor 专业,StuChangeKind
+</span></span><span class="line"><span class="cl">          异动类型,StuChangeDate 异动日期,StuChangeDetail 异动详细描述
+</span></span><span class="line"><span class="cl">  FROM Student,StuChange
+</span></span><span class="line"><span class="cl">  where Student.StuNo=StuChange.StuNo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(3)学生课程信息视图：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">USE Student
+</span></span><span class="line"><span class="cl">GO
+</span></span><span class="line"><span class="cl">CREATE VIEW  StuCourseInfo
+</span></span><span class="line"><span class="cl">AS
+</span></span><span class="line"><span class="cl">  SELECT  StuCourseNo 课程编号,StuCourse.StuNo 学号,StuName 姓名,
+</span></span><span class="line"><span class="cl">          StuCollege 学院,StuClass 班级,StuMajor 专业,
+</span></span><span class="line"><span class="cl">          StuCourseYear 学年,StuCourseTerm 学期,
+</span></span><span class="line"><span class="cl">          StuCourseName 课程名,StuCourseScore 分数,
+</span></span><span class="line"><span class="cl">          StuCredit 已获学分,StuCourseJiDian 已获绩点,
+</span></span><span class="line"><span class="cl">          StuCourseKind 课程性质,StuReStudyFlag 重修标记,
+</span></span><span class="line"><span class="cl">          StuReStudyScore 重修分数,StuReTestFlag 补考标记,
+</span></span><span class="line"><span class="cl">          StuReTestScore 补考分数,StuCourseGS 课程归属,
+</span></span><span class="line"><span class="cl">          StuFXFlag 辅修标记
+</span></span><span class="line"><span class="cl">  FROM Student,StuCourse
+</span></span><span class="line"><span class="cl">  where Student.StuNo=StuCourse.StuNo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(4)学生体检信息视图：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">USE Student
+</span></span><span class="line"><span class="cl">GO
+</span></span><span class="line"><span class="cl">CREATE VIEW  StuHealthCheckInfo
+</span></span><span class="line"><span class="cl">AS
+</span></span><span class="line"><span class="cl">  SELECT  StuCheckID 体检编号,Student.StuNo 学号,StuName 姓名,
+</span></span><span class="line"><span class="cl">          StuSex 性别,StuCollege 学院,StuClass 班级,StuMajor 专业,
+</span></span><span class="line"><span class="cl">          StuPhone 联系电话,StuCheckYear 体检学年,StuCheckTerm
+</span></span><span class="line"><span class="cl">          体检学期,StuHeight 身高,StuWeight 体重,StuEye 视力,
+</span></span><span class="line"><span class="cl">          StuLungC 肺活量,StuBloodP 血压,StuLiver 肝功能,
+</span></span><span class="line"><span class="cl">          StuBlood 血常规,StuHeartLung 心肺功能,StuDiseaseItem
+</span></span><span class="line"><span class="cl">          异常项目,CheckConclusion 体检结果
+</span></span><span class="line"><span class="cl">  FROM Student,StudentHealthCheck
+</span></span><span class="line"><span class="cl">  where Student.StuNo=StudentHealthCheck.StuNo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(5)学生家庭信息视图：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">USE Student
+</span></span><span class="line"><span class="cl">GO
+</span></span><span class="line"><span class="cl">CREATE VIEW  StuFamilyInfo
+</span></span><span class="line"><span class="cl">AS
+</span></span><span class="line"><span class="cl">  SELECT  StuFamilyID 家庭编号,Student.StuNo 学号,StuName 姓名,
+</span></span><span class="line"><span class="cl">          StuCollege 学院,StuClass 班级,StuMajor 专业,
+</span></span><span class="line"><span class="cl">          StuFamilyAddress 家庭地址,StuFatherName 父亲姓名,
+</span></span><span class="line"><span class="cl">          StuFatherWP 父亲工作单位,StuFatherWPPost 父亲单位邮编,
+</span></span><span class="line"><span class="cl">          StuFatherPhone 父亲电话,StuMotherName 母亲姓名,
+</span></span><span class="line"><span class="cl">          StuMotherWP 母亲工作单位,StuMotherWPPost 母亲单位邮编,
+</span></span><span class="line"><span class="cl">          StuMotherPhone 母亲电话
+</span></span><span class="line"><span class="cl">  FROM Student,StuFamily
+</span></span><span class="line"><span class="cl">  where Student.StuNo=StuFamily.StuNo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(6)学生贷款信息视图：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">USE Student
+</span></span><span class="line"><span class="cl">GO
+</span></span><span class="line"><span class="cl">CREATE VIEW  StuLoanInfo
+</span></span><span class="line"><span class="cl">AS
+</span></span><span class="line"><span class="cl">  SELECT  StuLoanID 贷款编号,Student.StuNo 学号,StuName 姓名,
+</span></span><span class="line"><span class="cl">          StuCollege 学院,StuClass 班级,StuMajor 专业,
+</span></span><span class="line"><span class="cl">          StuLoanDate 贷款日期,StuLoanR 贷款原因,
+</span></span><span class="line"><span class="cl">          StuLoanNum 贷款数目,StuLoanBackNum 已还贷款数目,
+</span></span><span class="line"><span class="cl">          StuLoanIsBack 是否还清
+</span></span><span class="line"><span class="cl">  FROM Student,StuLoan
+</span></span><span class="line"><span class="cl">  where Student.StuNo=StuLoan.StuNo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(7)学生注册信息视图：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">USE Student
+</span></span><span class="line"><span class="cl">GO
+</span></span><span class="line"><span class="cl">CREATE VIEW  StuRegisterInfo
+</span></span><span class="line"><span class="cl">AS
+</span></span><span class="line"><span class="cl">  SELECT  StuRegisterID 注册编号,Student.StuNo 学号,StuName 姓名,
+</span></span><span class="line"><span class="cl">          StuCollege 学院,StuClass 班级,StuMajor 专业,
+</span></span><span class="line"><span class="cl">          StuCurrentClass 当前所在年级,StuRegisterYear 注册学年,
+</span></span><span class="line"><span class="cl">          StuRegisterTerm 注册学期,StuIsRegister 是否注册
+</span></span><span class="line"><span class="cl">  FROM Student,StuRegister
+</span></span><span class="line"><span class="cl">  where Student.StuNo=StuRegister.StuNo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(8)学生奖励或处罚视图：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">USE Student
+</span></span><span class="line"><span class="cl">GO
+</span></span><span class="line"><span class="cl">CREATE VIEW  StuRewardPunishInfo
+</span></span><span class="line"><span class="cl">AS
+</span></span><span class="line"><span class="cl">  SELECT  StuRPID 奖励或处罚记录号,Student.StuNo 学号,StuName 姓名,
+</span></span><span class="line"><span class="cl">          StuCollege 学院,StuClass 班级,StuMajor 专业,StuFace
+</span></span><span class="line"><span class="cl">          政治面貌,StuRPKind 奖励或处罚类型,StuRPDate 奖励或处罚日期,
+</span></span><span class="line"><span class="cl">          StuRPR 奖励或处罚原因,StuRP 奖励或处罚标记
+</span></span><span class="line"><span class="cl">  FROM Student,StuRewardPunish
+</span></span><span class="line"><span class="cl">  where Student.StuNo=StuRewardPunish.StuNo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="定义索引">定义索引</h2>
+<p>(1)所有表中的主键自动被设为索引项
+(2)由于属性“学号”经常在连接操作中出现，所以在每张表中建立“学号”的索引
+(3)课程表中的“分数”经常作为最大最小值被查询，可以建立相应索引</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">create index StuCourseScoreIndex on StuCourse(StuCourseScore)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="定义权限">定义权限</h2>
+<p>(1)当前用户为dbo,是系统管理员，可以通过sql语句赋予dbo对数据库Student中表student的所有特权，不过这是默认的，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">grant all privileges
+</span></span><span class="line"><span class="cl">on Student
+</span></span><span class="line"><span class="cl">to dbo
+</span></span><span class="line"><span class="cl">with grant option
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(2)先在管理器中建立一个登录用户，再在Student数据库中建立一个用户sh,假设他是一名学生，则可以赋予他对所有表的select权限。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">grant select on StuChange to sh;
+</span></span><span class="line"><span class="cl">grant select on StuCourse to sh;
+</span></span><span class="line"><span class="cl">grant select on Student to sh;
+</span></span><span class="line"><span class="cl">grant select on StudentHealthCheck to sh;
+</span></span><span class="line"><span class="cl">grant select on StuFamily to sh;
+</span></span><span class="line"><span class="cl">grant select on StuLoan to sh;
+</span></span><span class="line"><span class="cl">grant select on StuRegister to sh;
+</span></span><span class="line"><span class="cl">grant select on StuRewardPunish to sh;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="定义触发器">定义触发器</h2>
+<p>各表之间只用“学号”作为连接，并已经用管理器建立了关系，无需再建立“学号”上的触发器，即无论在哪里修改“学号”，都会因为这种主键与外键的关系而失败，学生表中的“学号”总是与其他表中的“学号”保持一致的。</p>
+<p>(1)课程表StuCourse</p>
+<p>表中的重修、补考标记可能会与重修分数、补考分数不一致，即重修标记为“否”，但分数却有值，这是check约束无法约束的；同时，如果分数&gt;=60，则重修和补考标记都应为“否”。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CREATE trigger CourseReStudyTestFlag
+</span></span><span class="line"><span class="cl">on StuCourse
+</span></span><span class="line"><span class="cl">after insert,update
+</span></span><span class="line"><span class="cl">as
+</span></span><span class="line"><span class="cl">   if exists(select StuNo,StuCourseNo from StuCourse where
+</span></span><span class="line"><span class="cl">     StuReStudyFlag=&#39;否&#39; or StuReTestFlag=&#39;否&#39; or StuCourseScore&gt;=60)
+</span></span><span class="line"><span class="cl">     begin
+</span></span><span class="line"><span class="cl">       update StuCourse set StuReStudyScore=null
+</span></span><span class="line"><span class="cl">       where StuReStudyFlag=&#39;否&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       update StuCourse set StuReTestScore=null
+</span></span><span class="line"><span class="cl">       where StuReTestFlag=&#39;否&#39; 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       update StuCourse set StuReTestFlag=&#39;否&#39;
+</span></span><span class="line"><span class="cl">       where StuCourseScore&gt;=60
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       update StuCourse set StuReStudyFlag=&#39;否&#39;
+</span></span><span class="line"><span class="cl">       where StuCourseScore&gt;=60
+</span></span><span class="line"><span class="cl">     end
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(2)学生表Student</p>
+<p>如果学生没有毕业，“毕业日期”一项应为空</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CREATE trigger StuGraduate
+</span></span><span class="line"><span class="cl">on Student
+</span></span><span class="line"><span class="cl">for insert,update
+</span></span><span class="line"><span class="cl">as
+</span></span><span class="line"><span class="cl">   if  exists (select StuNo from Student where StuIsGraduate=&#39;否&#39; )
+</span></span><span class="line"><span class="cl">      begin
+</span></span><span class="line"><span class="cl">        update Student set StuGraduateDate=null
+</span></span><span class="line"><span class="cl">        where StuIsGraduate=&#39;否&#39;
+</span></span><span class="line"><span class="cl">      End
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(3)学生贷款表StuLoan</p>
+<p>如果已还贷款数目=贷款数目，“是否还清”一项应为“是”</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">create trigger StuLoanBack
+</span></span><span class="line"><span class="cl">on StuLoan
+</span></span><span class="line"><span class="cl">for insert,update
+</span></span><span class="line"><span class="cl">as
+</span></span><span class="line"><span class="cl">   if (select StuLoanBackNum from StuLoan)=
+</span></span><span class="line"><span class="cl">      (select StuLoanNum from StuLoan)
+</span></span><span class="line"><span class="cl">      begin
+</span></span><span class="line"><span class="cl">        update StuLoan set StuLoanIsBack=&#39;是&#39;
+</span></span><span class="line"><span class="cl">      End
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="定义存储过程">定义存储过程</h2>
+<p>(1)查询学生档案信息，包括学生基本情况、学生奖励情况、学生处分情况、学生家庭信息、学生体检情况。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">create procedure SelectDangAn
+</span></span><span class="line"><span class="cl">(@xuehao char(20))
+</span></span><span class="line"><span class="cl">As
+</span></span><span class="line"><span class="cl">   Begin
+</span></span><span class="line"><span class="cl">      select *
+</span></span><span class="line"><span class="cl">      from Student,StuRewardPunish,StuFamily,StudentHealthCheck
+</span></span><span class="line"><span class="cl">      where Student.StuNo=StuRewardPunish.StuNo and
+</span></span><span class="line"><span class="cl">      StuRewardPunish.StuNo=StuFamily.StuNo and
+</span></span><span class="line"><span class="cl">      StuFamily.StuNo=StudentHealthCheck.StuNo and
+</span></span><span class="line"><span class="cl">      StudentHealthCheck.StuNo=@xuehao
+</span></span><span class="line"><span class="cl">   End
+</span></span><span class="line"><span class="cl">Go
+</span></span><span class="line"><span class="cl">exec SelectDangAn @xuehao=&#39;20091602310073&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(2)查询学生学籍信息，包括学生贷款情况、学生注册情况、学生异动情况、学生毕业情况。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">create procedure SelectXueJi
+</span></span><span class="line"><span class="cl">(@xuehao char(20))
+</span></span><span class="line"><span class="cl">as
+</span></span><span class="line"><span class="cl">   begin
+</span></span><span class="line"><span class="cl">      select *
+</span></span><span class="line"><span class="cl">      from Student,StuLoan,StuRegister,StuChange
+</span></span><span class="line"><span class="cl">      where Student.StuNo=StuLoan.StuNo and
+</span></span><span class="line"><span class="cl">      StuLoan.StuNo=StuRegister.StuNo and
+</span></span><span class="line"><span class="cl">      StuRegister.StuNo=StuChange.StuNo and
+</span></span><span class="line"><span class="cl">      StuChange.StuNo=@xuehao
+</span></span><span class="line"><span class="cl">   end
+</span></span><span class="line"><span class="cl">go
+</span></span><span class="line"><span class="cl">exec SelectXueJi @xuehao=&#39;20091602310073&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(3)查询学生各门课成绩，支持按年级和班级条件查询。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">create procedure SelectChengJi1
+</span></span><span class="line"><span class="cl">(@xuehao char(20))
+</span></span><span class="line"><span class="cl">as
+</span></span><span class="line"><span class="cl">   begin
+</span></span><span class="line"><span class="cl">      select *
+</span></span><span class="line"><span class="cl">      from Student,StuCourse
+</span></span><span class="line"><span class="cl">      where Student.StuNo=StuCourse.StuNo and
+</span></span><span class="line"><span class="cl">      StuCourse.StuNo=@xuehao
+</span></span><span class="line"><span class="cl">   end
+</span></span><span class="line"><span class="cl">go
+</span></span><span class="line"><span class="cl">exec SelectChengJi @xuehao=&#39;20091602310073&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">create procedure SelectChengJi2
+</span></span><span class="line"><span class="cl">(@class char(30))
+</span></span><span class="line"><span class="cl">as
+</span></span><span class="line"><span class="cl">   begin
+</span></span><span class="line"><span class="cl">      select *
+</span></span><span class="line"><span class="cl">      from Student,StuCourse
+</span></span><span class="line"><span class="cl">      where Student.StuNo=StuCourse.StuNo and
+</span></span><span class="line"><span class="cl">      Student.StuClass=@class
+</span></span><span class="line"><span class="cl">   end
+</span></span><span class="line"><span class="cl">go
+</span></span><span class="line"><span class="cl">exec SelectChengJi2 @class=&#39;计算机科学与技术0903班&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="数据流图及程序结构框图">数据流图及程序结构框图</h1>
+<h2 id="顶级数据流图">顶级数据流图：</h2>
+<p><img src="/uploads/student_management_system/data_flow_1.jpg" alt=""></p>
+<h2 id="一级数据流图">一级数据流图：</h2>
+<p><img src="/uploads/student_management_system/data_flow_2.jpg" alt=""></p>
+<h2 id="二级数据流图">二级数据流图：</h2>
+<p><img src="/uploads/student_management_system/data_flow_3.jpg" alt=""></p>
+<h2 id="程序结构框图">程序结构框图：</h2>
+<p><img src="/uploads/student_management_system/program_structure.jpg" alt=""></p>
+<h1 id="程序源代码及其说明">程序源代码及其说明</h1>
+<p>(1)引入ADO组件类型库，初始化组件</p>
+<p>直接在Stdafx.h文件中加入下面语句来实现引入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#import &#34;C:\Program Files\Common Files\System\ado\msado15.dll&#34;no_namespace rename(&#34;EOF&#34;,&#34;adoEOF&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>语句no_namespace说明ADO对象不使用命名空间，rename (&ldquo;EOF&rdquo;, &ldquo;adoEOF&rdquo;)说明将ADO中结束标志EOF改为adoEOF，以避免和其它库中命名相冲突。</p>
+<p>建立工作区Student,在CStudentApp类中的InitInstance()中初始化COM，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CoInitialize(NULL);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在类CStudentApp中新建虚函数virtual int ExitInstance()用于关闭COM,如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int CStudentApp::ExitInstance()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    CoUninitialize();
+</span></span><span class="line"><span class="cl">    return CWinApp::ExitInstance();
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>接着就可以直接使用Ado提供的指针m_pConnection,m_pRecordset操作数据库了</p>
+<p>(2)初始化界面</p>
+<p>学生管理信息系统的程序结构中主要有三大组成部分：档案管理、学籍管理、成绩管理，其中每个模块都要实现相同的功能：录入、修改、查询、删除、输出，而“用户管理”模块可以忽略，故主要选择其中“档案管理”的“学生基本信息管理”来介绍代码部分。</p>
+<p>主界面——学生档案管理界面：
+<img src="/uploads/student_management_system/view_1.jpg" alt=""></p>
+<p>学生基本信息界面：
+<img src="/uploads/student_management_system/view_2.jpg" alt=""></p>
+<p>说明：在主界面中，可以看到学生的整体档案信息，但必须是基本信息、奖励或处罚信息、家庭信息、体检信息都有才能显示；通过主界面的下面四个按钮可以将学生档案信息分开管理。</p>
+<p>先在“学生基本信息”类中添加如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> _RecordsetPtr m_pRecordset; //创建记录集对象
+</span></span><span class="line"><span class="cl">_ConnectionPtr m_pConnection;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>初始化“学生基本信息”界面中List控件函数Refresh()如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">void</span> <span class="n">CStuBasicInfo</span><span class="p">::</span><span class="n">Refresh</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">连接数据库</span><span class="p">,</span><span class="n">ADO方法</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">假设</span><span class="n">m_pConnection是我们已经建立好的连接</span><span class="err">，我们使用</span><span class="n">_RecordsetPtr接口的Open方法打开表的记录集</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">_variant_t</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CString</span> <span class="n">da</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">da</span><span class="o">=</span><span class="s2">&#34;select * from StudentInfo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">try</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">CoInitialize</span><span class="p">(</span><span class="n">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pConnection</span><span class="o">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">_uuidof</span><span class="p">(</span><span class="n">Connection</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pRecordset</span><span class="o">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">_uuidof</span><span class="p">(</span><span class="n">Recordset</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">m_pConnection</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">((</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">scon</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="n">adModeUnknown</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">((</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">da</span><span class="p">,</span><span class="n">m_pConnection</span><span class="o">.</span><span class="n">GetInterfacePtr</span><span class="p">(),</span><span class="n">adOpenDynamic</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">adLockOptimistic</span><span class="p">,</span><span class="n">adCmdText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">catch</span> <span class="p">(</span><span class="n">_com_error</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MessageBox</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">ErrorMessage</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">在</span><span class="n">list控件中初始化档案信息</span>
+</span></span><span class="line"><span class="cl">    <span class="n">try</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">BOF</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">MoveFirst</span><span class="p">();</span><span class="o">//</span><span class="err">记录指针移到第一行（第一条记录）</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">AfxMessageBox</span><span class="p">(</span><span class="s2">&#34;数据库中没有数据！&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="ne">int</span> <span class="n">count</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="o">//</span><span class="err">记录列数</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="o">//</span><span class="err">在</span><span class="n">listctrl中添加数据</span>
+</span></span><span class="line"><span class="cl">        <span class="o">//</span><span class="err">如果没有遇到表结束标志</span><span class="n">adoEOF</span><span class="err">，则用</span><span class="n">GetCollect</span><span class="p">(</span><span class="err">字段名</span><span class="p">)</span><span class="err">来获取当前记录</span>
+</span></span><span class="line"><span class="cl">        <span class="o">//</span><span class="err">指针所指的字段值，然后再用</span><span class="n">MoveNext</span><span class="p">()</span><span class="err">方法移动到下一条记录位置</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">adoEOF</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;学号&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">InsertItem</span><span class="p">(</span><span class="n">count</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;姓名&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">1</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;性别&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">2</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;出生日期&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">3</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;籍贯&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">4</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;民族&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">5</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;政治面貌&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">6</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;来源地区&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">7</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;出生地&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">8</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;学院&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">9</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;专业&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">10</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;行政班级&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">11</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;学制&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">12</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;入学时间&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">13</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;当前年级&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">14</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;宿舍&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">15</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;电子邮件&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">vt</span><span class="o">==</span><span class="n">VT_NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">16</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;联系电话&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">vt</span><span class="o">==</span><span class="n">VT_NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">17</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;邮编&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">vt</span><span class="o">==</span><span class="n">VT_NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">18</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;身份证号&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">19</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;是否毕业&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">20</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">value</span> <span class="o">=</span> <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">GetCollect</span><span class="p">(</span><span class="s2">&#34;毕业日期&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">vt</span><span class="o">==</span><span class="n">VT_NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_list</span><span class="o">.</span><span class="n">SetItemText</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="mi">21</span><span class="p">,(</span><span class="n">LPCSTR</span><span class="p">)(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">value</span><span class="p">);</span>            
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">MoveNext</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">catch</span> <span class="p">(</span><span class="n">_com_error</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AfxMessageBox</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">ErrorMessage</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(3)添加新纪录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">void</span> <span class="n">CStuBasicInfo</span><span class="p">::</span><span class="n">OnBUTTONAdd</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">TODO</span><span class="p">:</span> <span class="n">Add</span> <span class="n">your</span> <span class="n">control</span> <span class="n">notification</span> <span class="n">handler</span> <span class="n">code</span> <span class="n">here</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">连接数据库</span><span class="p">,</span><span class="n">ADO方法</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">假设</span><span class="n">m_pConnection是我们已经建立好的连接</span><span class="err">，我们使用</span><span class="n">_RecordsetPtr接口的Open方法打开表的记录集</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">_variant_t</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CString</span> <span class="n">da</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">da</span><span class="o">=</span><span class="s2">&#34;select * from StudentInfo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">try</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">CoInitialize</span><span class="p">(</span><span class="n">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pConnection</span><span class="o">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">_uuidof</span><span class="p">(</span><span class="n">Connection</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pRecordset</span><span class="o">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">_uuidof</span><span class="p">(</span><span class="n">Recordset</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">m_pConnection</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">((</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">scon</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="n">adModeUnknown</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">((</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">da</span><span class="p">,</span><span class="n">m_pConnection</span><span class="o">.</span><span class="n">GetInterfacePtr</span><span class="p">(),</span><span class="n">adOpenDynamic</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">adLockOptimistic</span><span class="p">,</span><span class="n">adCmdText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">catch</span> <span class="p">(</span><span class="n">_com_error</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MessageBox</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">ErrorMessage</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">写入数据</span>
+</span></span><span class="line"><span class="cl">    <span class="n">try</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">UpdateData</span><span class="p">(</span><span class="bp">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">MoveLast</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">AddNew</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">_variant_t</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">b</span><span class="o">.</span><span class="n">vt</span><span class="o">=</span><span class="n">NULL</span><span class="p">;</span><span class="o">//</span><span class="err">空指针，用于向数据库中插入</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;学号&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_1</span><span class="p">);</span>     
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;姓名&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_2</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;性别&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_3</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;出生日期&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_4</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;籍贯&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_5</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;民族&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_6</span><span class="p">);</span>            
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;政治面貌&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_7</span><span class="p">);</span>     
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;来源地区&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_8</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;出生地&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_9</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;学院&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_10</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;专业&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_11</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;行政班级&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_12</span><span class="p">);</span>        
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;学制&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_13</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;入学时间&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_14</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;当前年级&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_15</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;宿舍&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">m_17</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;电子邮件&#34;</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;电子邮件&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_17</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">m_18</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;联系电话&#34;</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;联系电话&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_18</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">m_19</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;邮编&#34;</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>    
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;邮编&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_19</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;身份证号&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;是否毕业&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_21</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">m_22</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;毕业日期&#34;</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;毕业日期&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_22</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">catch</span> <span class="p">(</span><span class="n">_com_error</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AfxMessageBox</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">ErrorMessage</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_list</span><span class="o">.</span><span class="n">DeleteAllItems</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Refresh</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(4)修改记录部分</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">selRow</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">CStuBasicInfo</span><span class="p">::</span><span class="n">OnBUTTONModify</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">TODO</span><span class="p">:</span> <span class="n">Add</span> <span class="n">your</span> <span class="n">control</span> <span class="n">notification</span> <span class="n">handler</span> <span class="n">code</span> <span class="n">here</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="ne">int</span> <span class="n">nItemSelected</span><span class="o">=</span><span class="n">m_list</span><span class="o">.</span><span class="n">GetSelectedCount</span><span class="p">();</span><span class="o">//</span><span class="err">所选表项数</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">nItemSelected</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MessageBox</span><span class="p">(</span><span class="s2">&#34;请先选择你要修改的项目&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">nItemSelected</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MessageBox</span><span class="p">(</span><span class="s2">&#34;只能同时修改一项&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">selRow</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetNextItem</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">LVNI_ALL</span><span class="o">|</span><span class="n">LVNI_SELECTED</span><span class="p">);</span><span class="o">//</span><span class="err">当前选取行号</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">m_1</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_2</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_3</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_4</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_5</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_6</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_7</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_8</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_9</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_10</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">9</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_11</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_12</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">11</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_13</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">12</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_14</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">13</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_15</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">14</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_16</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">15</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_17</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_18</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">17</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_19</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">18</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_20</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">19</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_21</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_22</span> <span class="o">=</span> <span class="n">m_list</span><span class="o">.</span><span class="n">GetItemText</span><span class="p">(</span><span class="n">selRow</span><span class="p">,</span><span class="mi">21</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">UpdateData</span><span class="p">(</span><span class="bp">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">m_modifyOK</span><span class="o">.</span><span class="n">EnableWindow</span><span class="p">(</span><span class="bp">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">CStuBasicInfo</span><span class="p">::</span><span class="n">OnBUTTONModifyOK</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">TODO</span><span class="p">:</span> <span class="n">Add</span> <span class="n">your</span> <span class="n">control</span> <span class="n">notification</span> <span class="n">handler</span> <span class="n">code</span> <span class="n">here</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">TODO</span><span class="p">:</span> <span class="n">Add</span> <span class="n">your</span> <span class="n">control</span> <span class="n">notification</span> <span class="n">handler</span> <span class="n">code</span> <span class="n">here</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">连接数据库</span><span class="p">,</span><span class="n">ADO方法</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">假设</span><span class="n">m_pConnection是我们已经建立好的连接</span><span class="err">，</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">我们使用</span><span class="n">_RecordsetPtr接口的Open方法打开表的记录集</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">_variant_t</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CString</span> <span class="n">da</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">da</span><span class="o">=</span><span class="s2">&#34;select * from StudentInfo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">try</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">CoInitialize</span><span class="p">(</span><span class="n">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pConnection</span><span class="o">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">_uuidof</span><span class="p">(</span><span class="n">Connection</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pRecordset</span><span class="o">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">_uuidof</span><span class="p">(</span><span class="n">Recordset</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">m_pConnection</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">((</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">scon</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="n">adModeUnknown</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">((</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">da</span><span class="p">,</span><span class="n">m_pConnection</span><span class="o">.</span><span class="n">GetInterfacePtr</span><span class="p">(),</span><span class="n">adOpenDynamic</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">adLockOptimistic</span><span class="p">,</span><span class="n">adCmdText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">catch</span> <span class="p">(</span><span class="n">_com_error</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MessageBox</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">ErrorMessage</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">写入数据</span>
+</span></span><span class="line"><span class="cl">    <span class="n">try</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">UpdateData</span><span class="p">(</span><span class="bp">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">Move</span><span class="p">(</span><span class="n">selRow</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">_variant_t</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">b</span><span class="o">.</span><span class="n">vt</span><span class="o">=</span><span class="n">NULL</span><span class="p">;</span><span class="o">//</span><span class="err">空指针，用于向数据库中插入</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;学号&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_1</span><span class="p">);</span>     
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;姓名&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_2</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;性别&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_3</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;出生日期&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_4</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;籍贯&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_5</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;民族&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_6</span><span class="p">);</span>            
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;政治面貌&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_7</span><span class="p">);</span>     
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;来源地区&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_8</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;出生地&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_9</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;学院&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_10</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;专业&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_11</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;行政班级&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_12</span><span class="p">);</span>        
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;学制&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_13</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;入学时间&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_14</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;当前年级&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_15</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;宿舍&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">m_17</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;电子邮件&#34;</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;电子邮件&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_17</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">m_18</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;联系电话&#34;</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;联系电话&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_18</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">m_19</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;邮编&#34;</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>    
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;邮编&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_19</span><span class="p">);</span>    
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;身份证号&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;是否毕业&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_21</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">m_22</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;毕业日期&#34;</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">PutCollect</span><span class="p">(</span><span class="s2">&#34;毕业日期&#34;</span><span class="p">,(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">m_22</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">catch</span> <span class="p">(</span><span class="n">_com_error</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AfxMessageBox</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">ErrorMessage</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">m_list</span><span class="o">.</span><span class="n">DeleteAllItems</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Refresh</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">OnBUTTONClear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m_modifyOK</span><span class="o">.</span><span class="n">EnableWindow</span><span class="p">(</span><span class="bp">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(5)删除部分</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">void</span> <span class="n">CStuBasicInfo</span><span class="p">::</span><span class="n">OnBUTTONDel</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">TODO</span><span class="p">:</span> <span class="n">Add</span> <span class="n">your</span> <span class="n">control</span> <span class="n">notification</span> <span class="n">handler</span> <span class="n">code</span> <span class="n">here</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">连接数据库</span><span class="p">,</span><span class="n">ADO方法</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">假设</span><span class="n">m_pConnection是我们已经建立好的连接</span><span class="err">，我们使用</span><span class="n">_RecordsetPtr接口的Open方法打开表的记录集</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">_variant_t</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CString</span> <span class="n">da</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">da</span><span class="o">=</span><span class="s2">&#34;select * from StudentInfo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">try</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">CoInitialize</span><span class="p">(</span><span class="n">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pConnection</span><span class="o">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">_uuidof</span><span class="p">(</span><span class="n">Connection</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pRecordset</span><span class="o">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">_uuidof</span><span class="p">(</span><span class="n">Recordset</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">m_pConnection</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">((</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">scon</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="n">adModeUnknown</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">((</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">da</span><span class="p">,</span><span class="n">m_pConnection</span><span class="o">.</span><span class="n">GetInterfacePtr</span><span class="p">(),</span><span class="n">adOpenDynamic</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">adLockOptimistic</span><span class="p">,</span><span class="n">adCmdText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">catch</span> <span class="p">(</span><span class="n">_com_error</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MessageBox</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">ErrorMessage</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="ne">int</span> <span class="n">i</span><span class="p">,</span><span class="n">iState</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="ne">int</span> <span class="n">nItemSelected</span><span class="o">=</span><span class="n">m_list</span><span class="o">.</span><span class="n">GetSelectedCount</span><span class="p">();</span><span class="o">//</span><span class="err">所选表项数</span>
+</span></span><span class="line"><span class="cl">   <span class="ne">int</span> <span class="n">nItemCount</span><span class="o">=</span><span class="n">m_list</span><span class="o">.</span><span class="n">GetItemCount</span><span class="p">();</span><span class="o">//</span><span class="err">表项总数</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">if</span><span class="p">(</span><span class="n">nItemSelected</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">       <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">nItemCount</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">--</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">iState</span><span class="o">=</span><span class="n">m_list</span><span class="o">.</span><span class="n">GetItemState</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">LVIS_SELECTED</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span><span class="p">(</span><span class="n">iState</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">try</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">Move</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">(</span><span class="n">adAffectCurrent</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_pRecordset</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">catch</span><span class="p">(</span><span class="n">_com_error</span> <span class="o">*</span><span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">             <span class="n">AfxMessageBox</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">ErrorMessage</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="n">m_list</span><span class="o">.</span><span class="n">DeleteAllItems</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">   <span class="n">Refresh</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(6)查询部分</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">void CStuBasicInfo::OnBUTTONSearch() 
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    // TODO: Add your control notification handler code here
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    UpdateData(true);
+</span></span><span class="line"><span class="cl">    if(m_1==&#34;&#34;)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        MessageBox(&#34;请输入学号进行查询&#34;);
+</span></span><span class="line"><span class="cl">        return;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    else
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        int nn=m_list.GetItemCount();
+</span></span><span class="line"><span class="cl">        CString str;
+</span></span><span class="line"><span class="cl">        for(int i=0;i&lt;nn;i++)
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            str=m_list.GetItemText(i,0);
+</span></span><span class="line"><span class="cl">            str.Replace(&#34; &#34;,&#34;&#34;);
+</span></span><span class="line"><span class="cl">            m_1.Replace(&#34; &#34;,&#34;&#34;);
+</span></span><span class="line"><span class="cl">            if(m_1==str)
+</span></span><span class="line"><span class="cl">            {    
+</span></span><span class="line"><span class="cl">            m_1 = m_list.GetItemText(i,0);
+</span></span><span class="line"><span class="cl">            m_2 = m_list.GetItemText(i,1);
+</span></span><span class="line"><span class="cl">            m_3 = m_list.GetItemText(i,2);
+</span></span><span class="line"><span class="cl">            m_4 = m_list.GetItemText(i,3);
+</span></span><span class="line"><span class="cl">            m_5 = m_list.GetItemText(i,4);
+</span></span><span class="line"><span class="cl">            m_6 = m_list.GetItemText(i,5);
+</span></span><span class="line"><span class="cl">            m_7 = m_list.GetItemText(i,6);
+</span></span><span class="line"><span class="cl">            m_8 = m_list.GetItemText(i,7);
+</span></span><span class="line"><span class="cl">            m_9 = m_list.GetItemText(i,8);
+</span></span><span class="line"><span class="cl">            m_10 = m_list.GetItemText(i,9);
+</span></span><span class="line"><span class="cl">            m_11 = m_list.GetItemText(i,10);
+</span></span><span class="line"><span class="cl">            m_12 = m_list.GetItemText(i,11);
+</span></span><span class="line"><span class="cl">            m_13 = m_list.GetItemText(i,12);
+</span></span><span class="line"><span class="cl">            m_14 = m_list.GetItemText(i,13);
+</span></span><span class="line"><span class="cl">            m_15 = m_list.GetItemText(i,14);
+</span></span><span class="line"><span class="cl">            m_16 = m_list.GetItemText(i,15);
+</span></span><span class="line"><span class="cl">            m_17 = m_list.GetItemText(i,16);
+</span></span><span class="line"><span class="cl">            m_18 = m_list.GetItemText(i,17);
+</span></span><span class="line"><span class="cl">            m_19 = m_list.GetItemText(i,18);
+</span></span><span class="line"><span class="cl">            m_20 = m_list.GetItemText(i,19);
+</span></span><span class="line"><span class="cl">            m_21 = m_list.GetItemText(i,20);
+</span></span><span class="line"><span class="cl">            m_22 = m_list.GetItemText(i,21);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            UpdateData(false);
+</span></span><span class="line"><span class="cl">            return;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        MessageBox(&#34;找不到记录！&#34;);
+</span></span><span class="line"><span class="cl">        OnBUTTONClear();
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="总结">总结</h1>
+<p>本次课程设计历时两周，现在很高兴完成了，真的学到了不少。完成之后，才发现数据库设计部分，从抽象实体到寻找关系，从学习PowerDesigner到优化触发器才是最难的部分。对于编程，其实核心代码很少，就用到Ado中的两个指针而已，但是通过编程现在终于会连接数据库了，以后可能还会学习ODBC,JDBC,DAO等，同时学习了一下VC的控件使用方法。总之，此次数据库课程设计算是对本学期实验的一次综合实践吧，不过的确花了我们很多的时间，毕竟时间有限，所以前台系统也只是粗略完成了部分功能，数据表项也许还存在不足之处有待完善。同时在此感谢老师一学期的悉心教诲，谢谢。</p>
+<h1 id="参考文献">参考文献</h1>
+<p>[1] 王珊，萨师煊．《数据库系统概论》．高等教育出版社.2010
+[2] 刘刀桂，孟繁晶.《Visual C++实践与提高 数据库篇》.中国铁道出版社.2001
+[3] 启明工作室.《Visual C++ + SQLServer数据库应用系统开发与实例》.人民邮电出版社.2004</p>
+<p><a href="/uploads/student_management_system/Student.zip">学生管理信息系统源码(VC6)</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2012-12-19
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/database/">database</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/cpp_pointer/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">C&#43;&#43; 指针</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/student_management_system/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

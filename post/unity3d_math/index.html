@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Unity3D 数学相关 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="点积 点积，又称为点乘，a.b，是向量对应分量乘积的和，结果为一个标量。 代数定义：[x,y,z].[a,b,c] = ax&#43;by&#43;cz。 几何定义：" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/unity3d_math/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/unity3d_math/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="Unity3D 数学相关">
+  <meta property="og:description" content="点积 点积，又称为点乘，a.b，是向量对应分量乘积的和，结果为一个标量。 代数定义：[x,y,z].[a,b,c] = ax&#43;by&#43;cz。 几何定义：">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2014-07-09T15:02:00+00:00">
+    <meta property="article:modified_time" content="2014-07-09T15:02:00+00:00">
+    <meta property="article:tag" content="Unity3d">
+
+  <meta itemprop="name" content="Unity3D 数学相关">
+  <meta itemprop="description" content="点积 点积，又称为点乘，a.b，是向量对应分量乘积的和，结果为一个标量。 代数定义：[x,y,z].[a,b,c] = ax&#43;by&#43;cz。 几何定义：">
+  <meta itemprop="datePublished" content="2014-07-09T15:02:00+00:00">
+  <meta itemprop="dateModified" content="2014-07-09T15:02:00+00:00">
+  <meta itemprop="wordCount" content="1349">
+  <meta itemprop="keywords" content="Unity3d">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Unity3D 数学相关">
+  <meta name="twitter:description" content="点积 点积，又称为点乘，a.b，是向量对应分量乘积的和，结果为一个标量。 代数定义：[x,y,z].[a,b,c] = ax&#43;by&#43;cz。 几何定义：">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Unity3D 数学相关</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2014-07-09 </span>
+        <div class="post-category">
+            <a href="/categories/unity3d/"> unity3d </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#点积">点积</a></li>
+        <li><a href="#向量积">向量积</a></li>
+        <li><a href="#旋转">旋转</a></li>
+        <li><a href="#坐标系">坐标系</a></li>
+        <li><a href="#矩阵">矩阵</a></li>
+        <li><a href="#四元素">四元素</a></li>
+        <li><a href="#傅立叶变换">傅立叶变换</a></li>
+        <li><a href="#卷积">卷积</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="点积">点积</h2>
+<p>点积，又称为点乘，a.b，是向量对应分量乘积的和，结果为一个标量。
+代数定义：[x,y,z].[a,b,c] = ax+by+cz。
+几何定义：a.b = |a||b|cos(夹角)。
+点积描述了向量的相似程度，结果值越大，向量越相近。</p>
+<h2 id="向量积">向量积</h2>
+<p>向量积，又称为叉乘，结果为一个向量，且不满足交换律。
+公式：[x,y,z]x[a,b,c] = [yc-zb,za-xc,xb-ya]。
+几何解释：向量积得到的向量垂直于原来的两个向量。叉乘的结果方向遵守坐标系规则。
+a x b = c，如果左手坐标系，当左手从 a 以不超过180度的转角转向 b 时，竖起的大拇指指向的就是 c 的方向。
+Unity使用的是左手坐标系，因为z轴朝向前方。所以 (1, 0, 0) 点乘 (0, 0, 1) 等于 (0, -1, 0)。</p>
+<!-- more --> 
+<h2 id="旋转">旋转</h2>
+<p>Transform.rotation：对象在世界坐标系下的旋转；
+Transform.localRotation：对象在父对象的局部坐标系下的旋转。
+两个变量的类型均为四元素。</p>
+<ul>
+<li>
+<p>得到游戏对象当前旋转的角-轴表示
+transform.rotation.ToAngleAxis(angle, axis);</p>
+</li>
+<li>
+<p>旋转归零，局部坐标系的坐标轴与世界坐标系的坐标轴平行
+transform.rotation = Quaternion.identity;</p>
+</li>
+<li>
+<p>使对象朝向target</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">relativePos = target.position - transform.position;
+</span></span><span class="line"><span class="cl">rotation = Quaternion.LookRotation(relativePos);
+</span></span><span class="line"><span class="cl">transform.rotation = rotation;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>将对象的旋转从from平滑差值到to，可以用来模拟相机的观察方向从物体a过渡到物体b的效果。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">transform.rotation = Quaternion.Slerp(from.rotation, to.rotation, Time.deltaTime*speed)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="坐标系">坐标系</h2>
+<p>常用的坐标系有世界坐标系、局部坐标系、相机坐标系、屏幕坐标系。Transform.TransformPoint可以将坐标点从局部坐标系转换到世界坐标系，Transform.InverseTransformPoint可以将坐标点从世界坐标系转换到局部坐标系；Transform.TransformDirection和Transform.InverseTransformDirection对向量在世界坐标系和局部坐标系之间转换。例如，将对象位置转换为相机坐标系下的坐标：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cam = Camera.main.transform;
+</span></span><span class="line"><span class="cl">CameraRelative = cam.InverseTransformPoint(transform.position)
+</span></span><span class="line"><span class="cl">if (CameraRelative.z &gt; 0)
+</span></span><span class="line"><span class="cl">    Debug.log(&#34;The object is in front of Camera&#34;);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="矩阵">矩阵</h2>
+<p>一组元素，以n个数为一段，分成m段，按顺序排列为m行，可以构成一个矩阵。
+矩阵形如矩形，当 m==n 时形如正方形，称为n阶方阵。
+矩阵乘以一个常数，就是所有位置都乘以这个数。
+两个矩阵可以相乘，条件：左矩阵的列数必须等于右矩阵的行数。
+左矩阵每行与右矩阵每列的对应的数进行相乘然后相加得到一个数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 2 3     1 1     10 8
+</span></span><span class="line"><span class="cl">1 2 0  x  0 2  =  1  5
+</span></span><span class="line"><span class="cl">          3 1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>转置矩阵：将 mxn 的矩阵的行和列互换，得到 nxm 的矩阵。
+逆矩阵：对于一个n阶方阵A，如果存在一个n阶方阵B，使得 AxB=BxA=E，那么互为逆矩阵，E为单位矩阵。
+单位矩阵：单位矩阵E就是对角线上全为1，其它为0。AxE=A。
+如果一个数为g，有gxA=C，那么为了求g，可以使用逆矩阵，gxAx(A的逆矩阵)=Cx(A的逆矩阵)，g=Cx(A的逆矩阵)。</p>
+<p>一个点的坐标乘以一个矩阵，可以对改点进行缩放、旋转操作。如果要表示平移，需要添加一列元素，所以通常用 4x4 的矩阵对 vector3 表示的点坐标进行各种变换。</p>
+<h2 id="四元素">四元素</h2>
+<p>$i^2 = j^2 = k^2 = ijk = -1$
+其中i,j,k都为虚数，虽然虚数是不存在的，但是可以把一次旋转90度看作是乘以一个i，转180度即乘以 $i^2$，正好反向。复数是实数和虚数的和，而四元素源于复数，四元素的一般形式，用4个数表示：
+$q = [s, xi + yj + zk]$
+由于四元素计算公式复杂，通常在Unity中用欧拉角来创建四元素，而非直接使用。</p>
+<h2 id="傅立叶变换">傅立叶变换</h2>
+<h2 id="卷积">卷积</h2>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2014-07-09
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/unity3d/">unity3d</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unity3d_shader_base/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Unity3D中的Shader</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/java_servlet_idea/">
+            <span class="next-text nav-default">用Intellij Idea创建简单的Servlet</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/unity3d_math/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

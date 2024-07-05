@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Other on 挥剑对风尘</title>
+    <link>https://huijian142857.gitee.io/categories/other/</link>
+    <description>Recent content in Other on 挥剑对风尘</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 01 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://huijian142857.gitee.io/categories/other/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>计算机程序的构造和解释</title>
+      <link>https://huijian142857.gitee.io/post/structure_and_interpretation/</link>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/structure_and_interpretation/</guid>
+      <description>计算机程序的构造和解释（原书第2版）中文版 Structure and Interpretation of Computer Programs 程序必须写得能够供人们阅读，偶尔地去供计算机执行。 每个计算机程序都是现实中或者精神中的</description>
+    </item>
+    <item>
+      <title>游戏音乐</title>
+      <link>https://huijian142857.gitee.io/post/game_music/</link>
+      <pubDate>Sat, 27 Mar 2021 13:44:36 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/game_music/</guid>
+      <description>游戏音频：音乐，音效，语音，技术 音乐 游戏音乐类型： 界面音乐（登录、胜利失败等） 场景音乐 （游戏bgm、玩法音乐等） 战斗音乐 （副本音乐、战斗音乐</description>
+    </item>
+    <item>
+      <title>Hugo 安装和使用</title>
+      <link>https://huijian142857.gitee.io/post/hugo/</link>
+      <pubDate>Mon, 08 Mar 2021 17:28:36 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/hugo/</guid>
+      <description>安装 直接下载 hugo 即可，然后随便把 hugo.exe 放到哪里，设置好环境变量 Path，使得可以在命令窗口中使用 再安装好 golang 语言 创建博客 1 2 3 hugo new site MyBlog cd MyBlog git init 安装主</description>
+    </item>
+    <item>
+      <title>点滴记录</title>
+      <link>https://huijian142857.gitee.io/post/other_tips/</link>
+      <pubDate>Wed, 12 Apr 2017 17:07:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/other_tips/</guid>
+      <description>读过的书： C++ Primer 5th C++类和数据结构，Jeffrey S. Childs著 GPGPU编程技术：图形渲染管线、CUDA OpenGL编程指南 Androi</description>
+    </item>
+    <item>
+      <title>常见基础知识</title>
+      <link>https://huijian142857.gitee.io/post/common_tips/</link>
+      <pubDate>Sun, 21 Aug 2016 20:00:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/common_tips/</guid>
+      <description>为什么栈比堆快 分配和释放：堆在分配和释放时都要调用函数，分配时会到堆空间去寻找足够大小的空间，这些都会花费一定的时间，而栈却不需要这些，栈是</description>
+    </item>
+    <item>
+      <title>使用Hexo来构建静态博客</title>
+      <link>https://huijian142857.gitee.io/post/other_hexo/</link>
+      <pubDate>Thu, 05 Nov 2015 21:16:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/other_hexo/</guid>
+      <description>Hexo介绍 Hexo是一个基于Node.js的静态博客生成器，功能类似Jekyll。我们只需要写好MarkDown文件，便可利用它生成静态的</description>
+    </item>
+    <item>
+      <title>Git学习笔记</title>
+      <link>https://huijian142857.gitee.io/post/other_git_note/</link>
+      <pubDate>Sun, 05 Jul 2015 22:07:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/other_git_note/</guid>
+      <description>记录一些常用的 Git 命令，太容易忘了。。。 配置email地址和名字 1 2 git config --global user.name &amp;#34;Your Name&amp;#34; git config --global user.email &amp;#34;email@example.com&amp;#34; 把当前目录变为git仓库，建好后会多出一个.git目</description>
+    </item>
+  </channel>
+</rss>

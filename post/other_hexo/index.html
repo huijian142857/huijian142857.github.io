@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用Hexo来构建静态博客 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="Hexo介绍 Hexo是一个基于Node.js的静态博客生成器，功能类似Jekyll。我们只需要写好MarkDown文件，便可利用它生成静态的" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/other_hexo/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/other_hexo/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="使用Hexo来构建静态博客">
+  <meta property="og:description" content="Hexo介绍 Hexo是一个基于Node.js的静态博客生成器，功能类似Jekyll。我们只需要写好MarkDown文件，便可利用它生成静态的">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2015-11-05T21:16:00+00:00">
+    <meta property="article:modified_time" content="2015-11-05T21:16:00+00:00">
+    <meta property="article:tag" content="Other">
+
+  <meta itemprop="name" content="使用Hexo来构建静态博客">
+  <meta itemprop="description" content="Hexo介绍 Hexo是一个基于Node.js的静态博客生成器，功能类似Jekyll。我们只需要写好MarkDown文件，便可利用它生成静态的">
+  <meta itemprop="datePublished" content="2015-11-05T21:16:00+00:00">
+  <meta itemprop="dateModified" content="2015-11-05T21:16:00+00:00">
+  <meta itemprop="wordCount" content="2009">
+  <meta itemprop="keywords" content="Other">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="使用Hexo来构建静态博客">
+  <meta name="twitter:description" content="Hexo介绍 Hexo是一个基于Node.js的静态博客生成器，功能类似Jekyll。我们只需要写好MarkDown文件，便可利用它生成静态的">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用Hexo来构建静态博客</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2015-11-05 </span>
+        <div class="post-category">
+            <a href="/categories/other/"> other </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#hexo介绍">Hexo介绍</a></li>
+    <li><a href="#安装git">安装Git</a></li>
+    <li><a href="#安装nodejs">安装Node.js</a></li>
+    <li><a href="#安装hexo">安装Hexo</a></li>
+    <li><a href="#用hexo创建博客项目">用Hexo创建博客项目</a></li>
+    <li><a href="#安装主题">安装主题</a></li>
+    <li><a href="#配置评论">配置评论</a></li>
+    <li><a href="#配置统计">配置统计</a></li>
+    <li><a href="#配置站内搜索">配置站内搜索</a></li>
+    <li><a href="#配置rss和站点地图">配置RSS和站点地图</a></li>
+    <li><a href="#部署到github或其它站点">部署到GitHub或其它站点</a></li>
+    <li><a href="#常见问题">常见问题</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="hexo介绍">Hexo介绍</h1>
+<p><a href="https://hexo.io/">Hexo</a>是一个基于Node.js的静态博客生成器，功能类似Jekyll。我们只需要写好<a href="http://www.appinn.com/markdown/">MarkDown</a>文件，便可利用它生成静态的html网页，然后把这些静态网页部署到<a href="https://pages.github.com/">GitHub Pages</a>上便能拥有自己的免费博客了。在国内的话，也可以把博客部署在<a href="https://gitcafe.com/">GitCafe</a>上。</p>
+<!-- more --> 
+<h1 id="安装git">安装Git</h1>
+<p>在windows下，只需要安装<a href="http://www.git-scm.com/download/">Git</a>便可。安装完成后，打开Git Gui程序，在上面的Help菜单中点击Show SSH Key，然后点击Generate Key可以生成一段SSH公钥。如果你需要把博客部署到GitHub上，你可以先看看<a href="https://pages.github.com/">GitHub Pages</a>上的指导，你需要拥有一个Github账号并创建一个和账号同名的项目。当你用Git来操作你的远程项目时，如果你在GitHub个人设置中加入了刚才那段本地生成的秘钥，你就不必输入用户名和密码来验证身份了。</p>
+<h1 id="安装nodejs">安装Node.js</h1>
+<p>要使用Hexo来构建博客首先要安装<a href="https://nodejs.org/">Node.js</a>。</p>
+<h1 id="安装hexo">安装Hexo</h1>
+<p>右键点击Git Bash可以打开命令窗口，执行以下命令用于安装Hexo，这里使用的是Hexo3.x版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install hexo-cli -g
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="用hexo创建博客项目">用Hexo创建博客项目</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo init blog
+</span></span><span class="line"><span class="cl">cd blog
+</span></span><span class="line"><span class="cl">npm install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>博客项目被放在了blog目录下，默认已经有文章存在于source/_posts目录下了。现在，我们来创建一篇博客:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo new &#34;hexo&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后会多出一个文件，我们只需要编写hexo.md这个MarkDown文件，然后利用以下命令即可生成静态网页：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo generate
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>生成后会在blog目录下多出一个public目录用于存放这些网页，我们要本地预览只需要执行以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo server
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后在浏览器中<a href="http://localhost:4000/">预览</a>即可。在命令窗口按Ctrl + C可以关闭server。如果要清理生成的静态网页，执行以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo clean
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="安装主题">安装主题</h1>
+<p>默认主题不是很好，我们一般需要安装其它主题。Hexo的主题官网有，也可以百度搜索，这里推荐<a href="https://github.com/iissnan/hexo-theme-next">Next</a>主题，<a href="http://theme-next.iissnan.com/five-minutes-setup.html">Next主题使用方法</a>。</p>
+<p>下面是我的主题安装记录：</p>
+<ol>
+<li>从gitHub获取主题，在blog目录执行以下命令：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone https://github.com/iissnan/hexo-theme-next themes/next
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>
+<p>启用主题，编辑主目录的站点配置文件_config.yml，把<code>theme</code>字段设为主题名。</p>
+</li>
+<li>
+<p>预览主题效果，只需要执行下面几个命令：</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo g
+</span></span><span class="line"><span class="cl">hexo s
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>配置博客信息，编辑站点配置文件：</li>
+</ol>
+<ul>
+<li>title: 博客名</li>
+<li>description: 博客描述，比如“我的博客”</li>
+<li>author: 博客作者</li>
+<li>language: zh-Hans</li>
+</ul>
+<ol start="5">
+<li>若要实现首页显示M篇文章，而归档页面显示N篇文章的需求，需要两个设定。首先安装Hexo插件：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install hexo-generator-index --save
+</span></span><span class="line"><span class="cl">npm install hexo-generator-archive --save
+</span></span><span class="line"><span class="cl">npm install hexo-generator-tag --save
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装完成后，在站点配置文件中添加如下设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">index_generator:
+</span></span><span class="line"><span class="cl"> per_page: 10
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">archive_generator:
+</span></span><span class="line"><span class="cl"> per_page: 100
+</span></span><span class="line"><span class="cl"> yearly: true
+</span></span><span class="line"><span class="cl"> monthly: true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">tag_generator:
+</span></span><span class="line"><span class="cl"> per_page: 10
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="配置评论">配置评论</h1>
+<p>Next主题使用的是多说评论，所以先去<a href="http://duoshuo.com/">多说</a>注册一个账号。然后<a href="http://duoshuo.com/create-site/">创建站点</a>。之后就能进入后台管理，在工具界面可以获取通用代码。这个主题已经把通用代码配好了，我们只需要修改主题配置文件中的duoshuo_shortname选项即可。duoshuo_shortname即为通用代码中的short_name。</p>
+<h1 id="配置统计">配置统计</h1>
+<p>这里使用百度统计，所以先在<a href="http://tongji.baidu.com/web/welcome/login">百度统计</a>注册账号，填写信息完后可以获取代码。然后修改主题配置文件中baidu_analytics为自己的统计代码中的值。</p>
+<h1 id="配置站内搜索">配置站内搜索</h1>
+<p>目前使用Swiftype比较好。首先去<a href="https://swiftype.com">Swiftype</a>注册账号，然后创建一个搜索引擎engine。做这个搜索前最好先部署完博客到线上，因为swiftype需要检查你的网站是否可以访问。创建完engine后，swiftype会自动抓取你网站上的文章，在OverView界面可以直接点击Preview按钮来预览搜索结果。我们的博客一般都有搜索框，所以不用做什么配置了。到swiftype的install界面，可以看到我们需要的key。然后修改主题配置文件，设置好swiftype_key字段。</p>
+<h1 id="配置rss和站点地图">配置RSS和站点地图</h1>
+<p>hexo提供了RSS和站点地图生成插件，需要手动安装和设置。步骤如下：</p>
+<ol>
+<li>安装生成插件：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install hexo-generator-feed --save
+</span></span><span class="line"><span class="cl">npm install hexo-generator-sitemap --save
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>开启功能，编辑主目录配置文件，添加如下代码：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">feed:
+</span></span><span class="line"><span class="cl">  type: atom
+</span></span><span class="line"><span class="cl">  path: atom.xml
+</span></span><span class="line"><span class="cl">  limit: 20
+</span></span><span class="line"><span class="cl">sitemap:
+</span></span><span class="line"><span class="cl">    path: sitemap.xml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配好后，主题目录中可能也需要设置是否显示RSS，即在主题配置文件中取消rss的注释。而站点地图是给搜索引擎用的，不用做其它配置。</p>
+<h1 id="部署到github或其它站点">部署到GitHub或其它站点</h1>
+<p>先安装部署插件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install hexo-deployer-git --save
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>打开主目录下的配置文件，修改deploy选项为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">deploy:
+</span></span><span class="line"><span class="cl">  type: git
+</span></span><span class="line"><span class="cl">  repo: git@gitcafe.com:name/name.git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>记得把以上代码中的name替换为自己的项目名。GitCafe需要使用gitcafe-pages分支作为展示界面，GitHub使用master做分支。这里不用设置分支，因为我们安装的插件会自动识别GitHub和GitCafe, 若是其它站点，可能还需要添加参数<code>branch: master</code>。弄好后执行以下命令就能访问自己的网站了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo deploy
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="常见问题">常见问题</h1>
+<ol>
+<li>默认情况，git不会提交node_modules文件夹，所以当重装node.js后，需要在blog文件主目录下执行如下命令：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install hexo-cli -g
+</span></span><span class="line"><span class="cl">npm install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>Node.js的npm下载速度慢，可以指定国内镜像：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm config set registry https://registry.npm.taobao.org
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2015-11-05
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/other/">other</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/java_bytes_to_int/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">java中byte[]和int之间的转换</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/cpp_primer_part_3/">
+            <span class="next-text nav-default">C&#43;&#43; Primer 第五版 学习笔记 Part III</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/other_hexo/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>C#中使用DLL文件 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="首先，我们需要在C&#43;&#43;程序中导出DLL文件。我使用的是Visual Studio开发，把项目&amp;quot;属性&amp;quot;中的“配置类型”改为&amp;" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/csharp_dll/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/csharp_dll/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="C#中使用DLL文件">
+  <meta property="og:description" content="首先，我们需要在C&#43;&#43;程序中导出DLL文件。我使用的是Visual Studio开发，把项目&#34;属性&#34;中的“配置类型”改为&amp;">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2013-11-11T18:14:00+00:00">
+    <meta property="article:modified_time" content="2013-11-11T18:14:00+00:00">
+    <meta property="article:tag" content="Csharp">
+
+  <meta itemprop="name" content="C#中使用DLL文件">
+  <meta itemprop="description" content="首先，我们需要在C&#43;&#43;程序中导出DLL文件。我使用的是Visual Studio开发，把项目&#34;属性&#34;中的“配置类型”改为&amp;">
+  <meta itemprop="datePublished" content="2013-11-11T18:14:00+00:00">
+  <meta itemprop="dateModified" content="2013-11-11T18:14:00+00:00">
+  <meta itemprop="wordCount" content="992">
+  <meta itemprop="keywords" content="Csharp">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="C#中使用DLL文件">
+  <meta name="twitter:description" content="首先，我们需要在C&#43;&#43;程序中导出DLL文件。我使用的是Visual Studio开发，把项目&#34;属性&#34;中的“配置类型”改为&amp;">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">C#中使用DLL文件</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2013-11-11 </span>
+        <div class="post-category">
+            <a href="/categories/csharp/"> csharp </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>首先，我们需要在C++程序中导出DLL文件。我使用的是Visual Studio开发，把项目&quot;属性&quot;中的“配置类型”改为&quot;动态库dll&quot;，然后添加如下导出代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">extern</span> <span class="s2">&#34;C&#34;</span> <span class="n">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span> <span class="n">void</span> <span class="n">AS3911FindTag</span><span class="p">(</span><span class="n">Tag</span> <span class="n">tags</span><span class="p">[],</span> <span class="ne">int</span> <span class="o">&amp;</span><span class="n">tagNum</span><span class="p">,</span> <span class="ne">int</span> <span class="n">slot</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">extern</span> <span class="s2">&#34;C&#34;</span> <span class="n">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span> <span class="ne">bool</span> <span class="n">GetTagInformation</span><span class="p">(</span><span class="n">Tag</span><span class="o">&amp;</span> <span class="n">tag</span><span class="p">);</span><span class="o">//</span><span class="n">get</span> <span class="n">tag</span> <span class="n">information</span>
+</span></span><span class="line"><span class="cl"><span class="n">extern</span> <span class="s2">&#34;C&#34;</span> <span class="n">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span> <span class="ne">int</span> <span class="n">usbDeviceAttached</span><span class="p">(</span><span class="ne">int</span> <span class="n">waitTime</span><span class="p">);</span><span class="o">//</span><span class="n">initialize</span> <span class="n">usb</span> <span class="n">connect</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后运行程序，可以找到生成的DLL文件。在C#项目中使用，把DLL文件和生成的exe文件放在一起即可，然后C#中添加头部引用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">using System.Runtime.InteropServices;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><!-- more --> 
+<p>类中声明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[DllImport(&#34;AS3911Test.dll&#34;, CallingConvention = CallingConvention.Cdecl)]
+</span></span><span class="line"><span class="cl">public static extern void AS3911FindTag(IntPtr tags, ref int tagNum, int slot);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[DllImport(&#34;AS3911Test.dll&#34;, CallingConvention = CallingConvention.Cdecl)]
+</span></span><span class="line"><span class="cl">public static extern bool GetTagInformation(ref Tag tag);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[DllImport(&#34;AS3911Test.dll&#34;, CallingConvention = CallingConvention.Cdecl)]
+</span></span><span class="line"><span class="cl">public static extern int usbDeviceAttached(int waitTime);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>声明后，可以直接使用这些方法了。不过要注意一点，C#和C++的交互，最麻烦的是数据类型的转换。我这里在参数中使用了Tag这个结构体，在C++中如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">struct Tag
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    char id[20];
+</span></span><span class="line"><span class="cl">    char dsfid[4];
+</span></span><span class="line"><span class="cl">    char afi[4];
+</span></span><span class="line"><span class="cl">    unsigned int blockNum;
+</span></span><span class="line"><span class="cl">    unsigned int bytesPerBlock;
+</span></span><span class="line"><span class="cl">    char info[1024];
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在C#中对应的声明如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public struct Tag
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">/// char[]
+</span></span><span class="line"><span class="cl">[System.Runtime.InteropServices.MarshalAsAttribute(
+</span></span><span class="line"><span class="cl">	System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 20)]
+</span></span><span class="line"><span class="cl">public string id;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// char[]
+</span></span><span class="line"><span class="cl">[System.Runtime.InteropServices.MarshalAsAttribute(
+</span></span><span class="line"><span class="cl">	System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 4)]
+</span></span><span class="line"><span class="cl">public string dsfid;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// char[]
+</span></span><span class="line"><span class="cl">[System.Runtime.InteropServices.MarshalAsAttribute(
+</span></span><span class="line"><span class="cl">	System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 4)]
+</span></span><span class="line"><span class="cl">public string afi;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// unsigned int
+</span></span><span class="line"><span class="cl">public uint blockNum;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// unsigned int
+</span></span><span class="line"><span class="cl">public uint bytesPerBlock;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// char[]
+</span></span><span class="line"><span class="cl">[System.Runtime.InteropServices.MarshalAsAttribute(
+</span></span><span class="line"><span class="cl">	System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 1024)]
+</span></span><span class="line"><span class="cl">public string info;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意C#中参数部分的ref，相当于C++中指针。涉及到数据类型对应转换时，可以借助<a href="/uploads/csharp_dll/CLRInsideOut.zip">CLRInsideOut</a>这个工具。下面以AS3911FindTag(IntPtr tags, ref int tagNum, int slot)这个函数为例，看看如何使用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">static void FindTag()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    ComInit();
+</span></span><span class="line"><span class="cl">    usbDeviceAttached(500);
+</span></span><span class="line"><span class="cl">    ISO15693Init();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    int num = 0;
+</span></span><span class="line"><span class="cl">    int size = Marshal.SizeOf(typeof(Tag)) * Max_Tag_Num;
+</span></span><span class="line"><span class="cl">    IntPtr pBuff = Marshal.AllocHGlobal(size);
+</span></span><span class="line"><span class="cl">    Tag[] mytag = new Tag[Max_Tag_Num];
+</span></span><span class="line"><span class="cl">    AS3911FindTag(pBuff, ref num, 16);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    for (int i = 0; i &lt; num; i++)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        IntPtr p = new IntPtr(pBuff.ToInt64() + Marshal.SizeOf(typeof(Tag)) * i);
+</span></span><span class="line"><span class="cl">        mytag[i] = (Tag)Marshal.PtrToStructure(p, typeof(Tag));
+</span></span><span class="line"><span class="cl">        Console.WriteLine(mytag[i].id);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    Marshal.FreeHGlobal(pBuff);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    ISO15693DeInit();
+</span></span><span class="line"><span class="cl">    usbDeviceDeAttached();
+</span></span><span class="line"><span class="cl">    ComDeInit();
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>直接看到AS3911FindTag(pBuff, ref num, 16)这段代码，这里的pBuff是C#中的引用，然后用Marshal.AllocHGlobal(size)分配了一块内存，传入函数的是一块内存的引用。第二个参数比较简单，表示通过该函数给num赋值。AS3911FindTag这个函数运行完后，pBuff所指向的内存块会被赋值，我们下面就试着取出数据。我们使用了结构体Tag并声明了大小，所以可以从这里着手解决问题。看到for循环中第二行代码，这里的p表示从何处读取数据，最后做类型转换可。Marshal.PtrToStructure这个函数可以将数据从非托管内存块封送到新分配的指定类型的托管对象，这里从DLL中的非托管内存封送到当前C#托管内存。最后，用Marshal.FreeHGlobal(pBuff)释放内存。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2013-11-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/csharp/">csharp</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/android_skill_points/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Android知识点</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/unity3d_android_interaction/">
+            <span class="next-text nav-default">将Unity3D游戏移植到Android平台上</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/csharp_dll/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

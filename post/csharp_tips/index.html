@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>C#知识点 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="C# 继承结构 通过继承一个现有的类，新创建的类可以不需要写任何代码， 就可以按照继承来的父类中的合适的访问权限直接拥有所继承的类的功能， 同时还可以" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/csharp_tips/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/csharp_tips/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="C#知识点">
+  <meta property="og:description" content="C# 继承结构 通过继承一个现有的类，新创建的类可以不需要写任何代码， 就可以按照继承来的父类中的合适的访问权限直接拥有所继承的类的功能， 同时还可以">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2016-08-14T20:00:00+00:00">
+    <meta property="article:modified_time" content="2016-08-14T20:00:00+00:00">
+    <meta property="article:tag" content="Csharp">
+
+  <meta itemprop="name" content="C#知识点">
+  <meta itemprop="description" content="C# 继承结构 通过继承一个现有的类，新创建的类可以不需要写任何代码， 就可以按照继承来的父类中的合适的访问权限直接拥有所继承的类的功能， 同时还可以">
+  <meta itemprop="datePublished" content="2016-08-14T20:00:00+00:00">
+  <meta itemprop="dateModified" content="2016-08-14T20:00:00+00:00">
+  <meta itemprop="wordCount" content="12717">
+  <meta itemprop="keywords" content="Csharp">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="C#知识点">
+  <meta name="twitter:description" content="C# 继承结构 通过继承一个现有的类，新创建的类可以不需要写任何代码， 就可以按照继承来的父类中的合适的访问权限直接拥有所继承的类的功能， 同时还可以">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">C#知识点</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-08-14 </span>
+        <div class="post-category">
+            <a href="/categories/csharp/"> csharp </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#c-继承结构">C# 继承结构</a></li>
+        <li><a href="#c方法的-重载-重写-隐藏">C#方法的 重载 重写 隐藏</a></li>
+        <li><a href="#c-重载--和-">C# 重载 == 和 !=</a></li>
+        <li><a href="#c--和-defaultt">C# ? 和 default(T)</a></li>
+        <li><a href="#c-闭包">C# 闭包</a></li>
+        <li><a href="#c-不定长参数">C# 不定长参数</a></li>
+        <li><a href="#c-二维数组和交叉数组">C# 二维数组和交叉数组</a></li>
+        <li><a href="#c-访问修饰符">C# 访问修饰符</a></li>
+        <li><a href="#c-多态">C# 多态</a></li>
+        <li><a href="#c-抽象类和接口">C# 抽象类和接口</a></li>
+        <li><a href="#c-static和const不能一起使用">C# static和const不能一起使用</a></li>
+        <li><a href="#c-readonly-const">C# readonly const</a></li>
+        <li><a href="#c-struct与class的区别">C# Struct与Class的区别</a></li>
+        <li><a href="#c-构造函数和析构函数">C# 构造函数和析构函数</a></li>
+        <li><a href="#c-ref-out">C# ref out</a></li>
+        <li><a href="#c中能否继承string类">C#中能否继承String类？</a></li>
+        <li><a href="#c中systemstring与systemtextstringbuilder有何区别">C#中System.String与System.Text.StringBuilder有何区别？</a></li>
+        <li><a href="#c-装箱和拆箱">C# 装箱和拆箱</a></li>
+        <li><a href="#c-string-format">C# String Format</a></li>
+        <li><a href="#c中type类">C#中Type类</a></li>
+        <li><a href="#c中哪种容器用的最多">C#中哪种容器用的最多？</a></li>
+        <li><a href="#filestream-与-streamwriter">FileStream 与 StreamWriter</a></li>
+        <li><a href="#c-迭代器">C# 迭代器</a></li>
+        <li><a href="#c-在foreach中可以删除list元素吗">C# 在foreach中可以删除list元素吗？</a></li>
+        <li><a href="#short-s1--1-s1--s1--1-有错吗-short-s1--1-s1--1-有错吗">short s1 = 1; s1 = s1 + 1; 有错吗？ short s1 = 1; s1 += 1; 有错吗？</a></li>
+        <li><a href="#c-扩展方法">C# 扩展方法</a></li>
+        <li><a href="#c-垃圾回收和内存泄漏">C# 垃圾回收和内存泄漏</a></li>
+        <li><a href="#c-弱引用">C# 弱引用</a></li>
+        <li><a href="#c-字典中hash值冲突解决办法">C# 字典中hash值冲突解决办法</a></li>
+        <li><a href="#c-委托与事件">C# 委托与事件</a></li>
+        <li><a href="#c中的funcactionpredicate">C#中的Func、Action、Predicate</a></li>
+        <li><a href="#partial">partial</a></li>
+        <li><a href="#c-编程规范">C# 编程规范</a></li>
+        <li><a href="#c相关题目">C#相关题目</a>
+          <ul>
+            <li><a href="#c中stringreplace方法如何实现">C#中String.Replace方法如何实现？</a></li>
+            <li><a href="#c报错返回类型的可访问性低于方法">C#报错:返回类型的可访问性低于方法</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="c-继承结构">C# 继承结构</h2>
+<p>通过继承一个现有的类，新创建的类可以不需要写任何代码，
+就可以按照继承来的父类中的合适的访问权限直接拥有所继承的类的功能，
+同时还可以创建自己的专门功能，这使得代码可以重用。方法表是幕后的最大功臣。
+在创建子类对象时，子类的方法表包括了父类的虚方法和指向父类方法表的指针，使得子类可以调用父类的方法。
+另外，如果存在方法的重写，则会用子类的方法替代掉父类的方法。
+C# 中类型只能继承自一个类型，但可以再继承多个接口。这样的情况，那么方法表中会增加两项：
+(1) 指向方法表中“接口虚表”的指针；
+(2) “接口虚表”包括了一组指针，每个指针都指向该类型实现的一个接口的方法表。
+如果父类实现了某个接口，子类当然能继承实现的方法；如果是显示实现，只能先转型为接口类型才能调用，这里也看出了显示接口实现的缺点。
+子类型的实例对象中含有父类型的实例字段成员，因此，子类型可以轻易的访问父类型的字段。
+对于静态成员，子类型不能访问父类型的静态成员，这是因为静态成员是属于类型的。
+子类型的方法表含有父类型的虚方法，所以虚方法的调用没问题，但是普通方法呢？
+子类型不含有父类型的非虚方法，那么，子类型该去哪里寻找父类型的普通方法？
+实际上，子类型的方法表根本不需要再加入父类型的普通方法，它们已经存在于父类型的方法表之中，没必要重复。
+所以，为了让子类型可以调用到父类型的方法，子类型的方法表包括一个指向父类型方法表的指针。
+而父类型的虚方法不在方法槽表中，是因为它们有被重写的可能。</p>
+<h2 id="c方法的-重载-重写-隐藏">C#方法的 重载 重写 隐藏</h2>
+<p>方法的重载指的是同一个类型中，允许有同名的方法，但是，这些方法的输入参数必须不同。
+注意：在编译器眼中，由 ref或out 修饰的是一样的，无法重载，但是加了 ref/out 和不加的可以构成函数重载。
+如果牵扯到可变数量的参数 params，和普通方法，C# 会优先调用普通方法。
+方法的重写和隐藏涉及一对父子类型。如果父类型有一个虚方法，那么，子类型可以使用 override 显式地重写该方法，或者使用 new 隐藏该方法。
+方法的重写会使得派生类型的方法表中，重写的成员抹掉基类的虚方法，自己取而代之。
+在方法重写时，子类方法的可访问性必须和父类相同，不可以收紧也不可以放宽，这是因为，
+CLR 承诺子类总可以转型为父类，如果子类的方法访问和父类条件不同，那么这个转型就会岀问题。不过，方法的隐藏没有这个限制。</p>
+<h2 id="c-重载--和-">C# 重载 == 和 !=</h2>
+<p>需要重载==时，也必须重载!=运算符，并且要注意和null比较：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public static bool operator ==(IntVector2 iv1, IntVector2 iv2)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    if (object.Equals (iv1, null) || object.Equals (iv2, null)) {
+</span></span><span class="line"><span class="cl">        return object.Equals (iv1, iv2);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    return (iv1.X == iv2.X) &amp;&amp; (iv1.Y == iv2.Y);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">public static bool operator !=(IntVector2 iv1, IntVector2 iv2)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    if (object.Equals (iv1, null) || object.Equals (iv2, null)) {
+</span></span><span class="line"><span class="cl">        return !object.Equals (iv1, iv2);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    return (iv1.X != iv2.X) || (iv1.Y != iv2.Y);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><!-- more --> 
+<h2 id="c--和-defaultt">C# ? 和 default(T)</h2>
+<p>?:可空类型修饰符，使得值类型可以为空。
+??:空合并运算符，如果左操作数不为 null，则返回左操作数；否则返回右操作数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// Set y to the value of x if x is NOT null; otherwise, set y to -1.
+</span></span><span class="line"><span class="cl">int? x = null;
+</span></span><span class="line"><span class="cl">int y = x ?? -1;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>default(T)，值类型初始化为0，引用类型初始化为null。</p>
+<h2 id="c-闭包">C# 闭包</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">Action</span><span class="o">&gt;</span> <span class="n">actionList</span> <span class="o">=</span> <span class="n">new</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Action</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">actionList</span><span class="o">.</span><span class="n">Add</span><span class="p">(()</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="o">++</span><span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">foreach</span><span class="p">(</span><span class="k">var</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actionList</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">action</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的代码输出什么？注意闭包的是变量本身，不是值。闭包也不会立刻执行。</p>
+<h2 id="c-不定长参数">C# 不定长参数</h2>
+<p>参数个数不确定时，可以在参数前加 params 关键字，紧跟一个数组类型，形成一个不定长的数组参数。参数也可以为空，此时列表长度为0。</p>
+<p>常见的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public static void WriteLine(string FormatString, params object[] values); 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Console.WriteLine(&#34;宽：{0}，高：{1}&#34;, this.Width, this.Height);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="c-二维数组和交叉数组">C# 二维数组和交叉数组</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//二维数组，例如，3行2列的结构
+</span></span><span class="line"><span class="cl">int[,] str1 = new int[3, 2] {{ 1, 1 },{ 2, 2 }, { 3, 3 }};  
+</span></span><span class="line"><span class="cl">//获取数组行数  
+</span></span><span class="line"><span class="cl">Console.WriteLine(str1.GetLength(0));  
+</span></span><span class="line"><span class="cl">//获取数组列数  
+</span></span><span class="line"><span class="cl">Console.WriteLine(str1.GetLength(1));  
+</span></span><span class="line"><span class="cl">//获取数组元素个数  
+</span></span><span class="line"><span class="cl">Console.WriteLine(str1.Length);
+</span></span><span class="line"><span class="cl">//交叉数组，例如下面的，表示有2个元素；
+</span></span><span class="line"><span class="cl">//每个元素是一个数组，但每个数组元素的长度可以不一样
+</span></span><span class="line"><span class="cl">int[][] str2 = new int[][] { new int[] { 1, 2, 3 }, new int[] { 1 } };
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="c-访问修饰符">C# 访问修饰符</h2>
+<p>访问修饰符是一些关键字，用于指定声明的成员或类型的可访问性。
+public：公有访问，不受限制。
+private：私有访问，只限于本类成员访问，子类、实例都不能访问。
+protected：保护访问，只限于本类和子类访问，实例不能访问。
+internal：内部访问，只限于当前程序集(项目)内访问。
+protected internal：内部保护访问，只限于当前程序集(项目)或是子类访问。</p>
+<p>程序集构成了基于 .NET 的应用程序的部署、版本控制、重用、激活范围和安全权限的基本单元。程序集以可执行 (.exe) 文件或动态链接库 (.dll) 文件的形式出现，是 .NET Framework 的生成块。</p>
+<p>命名空间上不允许使用访问修饰符。命名空间没有访问限制。
+不嵌套在其他类型中的顶级类型的可访问性只能是 internal 或 public。这些类型的默认可访问性是 internal。
+C#类默认访问级别 : internal。
+类的成员默认访问修饰符为private。
+结构成员默认为private修饰符。
+嵌套类型的默认访问修饰符为private。
+接口成员访问修饰符默认为public，且不能显示使用访问修饰符。
+枚举类型成员默认为public访问修饰符，且不能显示使用修饰符。</p>
+<h2 id="c-多态">C# 多态</h2>
+<p>子类对父类中虚方法的处理有重写（override）和覆盖（new）。
+有父类ParentClass和子类ChildClass、以及父类的虚方法VirtualMethod。有如下程序段：
+ParentClass pc = new ChildClass();
+pc.VirtualMethod(&hellip;);
+如果子类是重写（override）父类的VirtualMethod，则上面的第二行语句将调用子类的该方法。
+如果子类是覆盖（new）父类的VirtualMethod，则上面的第二行语句将调用父类的该方法。
+使用new关键字在方法前，主要是为了去掉警告信息。</p>
+<p>特别的，在构造函数中调用虚函数也可以实现多态，即会执行其子类的虚方法。
+注意：应该避免在构造函数中调用虚函数，因为实例化对象时，会先调用父类构造函数进行初始化，
+此时子类还没初始化，但调用虚函数却会调到子类的函数，在未初始化完成时调用函数很可能会出现问题。</p>
+<h2 id="c-抽象类和接口">C# 抽象类和接口</h2>
+<p>在C#中使用关键字 abstract 来定义抽象类和抽象方法，用interface表示接口。
+抽象类是特殊的类，只是不能被实例化；除此以外，具有类的其他特性；重要的是抽象类可以包括抽象方法，这是普通类所不能的。抽象方法只能声明于抽象类中，且不包含任何实现，派生类必须覆盖它们。
+另外，抽象类可以派生自一个抽象类，可以覆盖基类的抽象方法也可以不覆盖，如果不覆盖，则其派生类必须覆盖它们。
+一个抽象类可以包含抽象和非抽象方法，当一个类继承于抽象类，那么这个派生类必须实现所有的的基类抽象方法。
+一个抽象类能够继承另一个非抽象类，另外，继承了基类的方法，添加新的抽象和非抽象方法是可行的。</p>
+<p>类是对对象的抽象，而接口只是一个行为的规范或规定，抽象类更多的是定义在一系列紧密相关的类间，而接口大多数是关系疏松但都实现某一功能的类中。
+接口基本上不具备继承的任何具体特点，它仅仅承诺了能够调用的方法。
+接口可以用于支持回调,而继承并不具备这个特点。
+避免使用继承来实现组建功能，而是使用黑箱复用，即对象组合。继承的层次增多，后果就是当你调用这个类群中某一类，就必须把他们全部加载到栈中。
+如果抽象类实现接口，则可以把接口中方法映射到抽象类中作为抽象方法而不必实现，而在抽象类的子类中实现接口中方法。
+我们不能把关键字abstract 和 sealed 一起用在C#中，因为一个密封类不能够被抽象。
+在C++中，一个包含一个或多个纯虚函数的类叫抽象类，抽象类不能被实例化，进一步一个抽象类只能通过接口和作为其它类的基类使用。</p>
+<h2 id="c-static和const不能一起使用">C# static和const不能一起使用</h2>
+<p>Static定义的是静态变量，而C#中的const默认是静态的，因此可以直接通过类访问const字段。</p>
+<h2 id="c-readonly-const">C# readonly const</h2>
+<p>readonly只能在声明初始化或构造器初始化的过程中赋值，其他地方不能进行对只读域的赋值操作。可以是实例域也可以是静态域。
+const修饰的常量必须在声明的同时赋值，而且要求编译器能够在编译时期计算出这个确定的值.const修饰的常量为静态变量，不能够为对象所获取。
+const修饰的值的类型也有限制，它只能为基础数据类型，而对于引用类型的常数，可能的值只能是 string 和 null。
+const常量的值必定在编译时就已明确并且恒定的；而readonly的值可以在运行时编译，当然，它也必须遵守作为常量的约束，那就是值必须恒定不变。
+readonly常量则可以根据情况选择在声明的同时对其赋予一个编译时确定并恒定的值，或者将其值的初始化工作交给实例构造函数完成。</p>
+<h2 id="c-struct与class的区别">C# Struct与Class的区别</h2>
+<p>class 是引用类型，struct是值类型。
+当你实例化一个class，它将创建在堆上。而你实例化一个struct，它将创建在栈上。
+当我们将class作为参数传给一个方法，我们传递的是一个引用。struct传递的是值而非引用。</p>
+<p>既然class是引用类型，class可以设为null，但是我们不能将struct设为null，因为它是值类型。
+struct不能对字段赋初值，而class可以。
+struct不能包含默认的无参构造函数，有参构造函数必须初始化全部字段，只有用new才能调用struct的有参构造函数。
+class使用前必须用new实例化，struct也可以用new，如果不用new，使用前也必须挨个初始化全部字段。
+class支持继承和多态，struct不支持，但是Struct可以和类一样实现接口。
+既然struct不支持继承，其成员不能以protected 或Protected Internal 修饰。
+class可以定义析构器，但是struct不可以。
+class比较适合大的和复杂的数据，struct适用于作为经常使用的一些数据组合成的新类型。</p>
+<h2 id="c-构造函数和析构函数">C# 构造函数和析构函数</h2>
+<p>struct和class都有构造函数，但只有class含有析构函数。
+私有构造函数，通常用于包含静态成员的类中，不允许外部类来创建实例，比如单例模式和工厂模式。
+默认构造函数，如果没有为类指定任何构造函数，编译器会自动为类创建一个无参构造函数，用以初始化类的字段；如果为类编写了构造函数，那么编译器就不会再自动生成无参构造函数了。不允许用户为结构定义无参构造函数。
+静态构造函数，不能访问实例成员，只能用来初始化一些静态字段或者属性，仅在第一次调用类的任何成员时自动执行，不带访问修饰符，不带任何参数。</p>
+<p>一个类只能有一个析构函数，析构函数不能手动调用，不使用修饰符和参数，析构函数会隐式调用对象基类上的 Finalize 方法。空的析构函数会导致性能损失。析构函数由垃圾收集器决定何时调用。如果使用非托管资源，如文件和网络链接，应该使用析构函数释放资源。也可以通过实现IDispose接口的Dispose方法来显示释放资源。Finalize的目的是用于释放非托管的资源，而Dispose是用于释放所有资源，包括托管的和非托管的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">class Car {
+</span></span><span class="line"><span class="cl">    ~Car() {
+</span></span><span class="line"><span class="cl">        // cleanup statements...
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="c-ref-out">C# ref out</h2>
+<p>ref可以把参数的数值传递进函数，但out会把参数清空，就是说无法把一个数值从out传递进去，所以你必须在函数内部赋初值。
+传递到 ref 参数的参数必须先初始化，这与out不同，out参数在传递之前不需要显式初始化。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int val = 0; 
+</span></span><span class="line"><span class="cl">Method(ref val);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>尽管 ref 和 out 在运行时的处理方式不同，但在编译时的处理方式相同，所以不能同时使用ref和out来重载。但是，如果一个方法采用 ref 或 out 参数，而另一个方法不采用这两个参数，则可以进行重载。
+out 关键字会导致参数通过引用来传递，这与 ref 关键字类似，不同之处在于 ref 要求变量必须在传递之前进行初始化。
+若要使用 out 参数，方法定义和调用方法都必须显式使用 out 关键字。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int value; 
+</span></span><span class="line"><span class="cl">Method(out value);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当参数类型为值类型，传递参数时会把值复制一份，加ref表示传递引用，即可用于修改原对象的值或者把原变量指向一个新对象。
+如果参数类型为引用类型，传递参数时会复制一个引用，修改引用的对象会改变原来的对象，
+如果把一个新对象赋给这个副本引用，原来的引用是不会改变的。此时，若要改变原来的引用，加ref即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public class Test : MonoBehaviour {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	void Start () {
+</span></span><span class="line"><span class="cl">        Person p = new Person(&#34;张三&#34;);
+</span></span><span class="line"><span class="cl">        Change(p);
+</span></span><span class="line"><span class="cl">        Debug.Log(p.Name); //输出的是张三 并不是李四
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        Change(p, &#34;李四&#34;);
+</span></span><span class="line"><span class="cl">        Debug.Log(p.Name);//输出的是李四
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        Change(ref p);
+</span></span><span class="line"><span class="cl">        Debug.Log(p.Name); //输出的是王五 
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    class Person
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        public Person(string name)
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            Name = name;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        public string Name;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    static void Change(Person p)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        p = new Person(&#34;李四&#34;);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    static void Change(Person p, string name)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        p.Name = name;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    static void Change(ref Person p)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        p = new Person(&#34;王五&#34;);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="c中能否继承string类">C#中能否继承String类？</h2>
+<p>String类是sealed类故不可以继承，string是System.String的别名。</p>
+<h2 id="c中systemstring与systemtextstringbuilder有何区别">C#中System.String与System.Text.StringBuilder有何区别？</h2>
+<p>String对象是不可变的，每次使用其中的方法都需要新建一个对象。如果要修改字符串，而不是新建对象，可以使用StringBuilder来创建一个动态字符串。和String一样不能被继承。如果需要大量拼接字符串，使用 StringBuilder 更好，因为拼接时是在对同一个字符串对象做操作，而不需要像 String 一样生成大量的新字符串。
+String 的特别之处在于，虽然是引用类型，但是赋值的时候像值类型，用 == 比较的时候像值类型。还要注意如下情况，编译时常量的string，如果内容相同，那么只有一份。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">void Start () {
+</span></span><span class="line"><span class="cl">    int i = 1;
+</span></span><span class="line"><span class="cl">    int j = 1;
+</span></span><span class="line"><span class="cl">    Debug.Log(object.ReferenceEquals(i, j)); // false
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    // 编译时常量，同时被多个变量引用
+</span></span><span class="line"><span class="cl">    string s1 = &#34;m&#34;;
+</span></span><span class="line"><span class="cl">    string s2 = &#34;m&#34;;
+</span></span><span class="line"><span class="cl">    Debug.Log(object.ReferenceEquals(s1, s2)); // true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    // 动态生成的字符串与静态的不是同一个对象
+</span></span><span class="line"><span class="cl">    char[] arr = { &#39;1&#39;, &#39;2&#39; };
+</span></span><span class="line"><span class="cl">    string x = &#34;12&#34;;
+</span></span><span class="line"><span class="cl">    string x1 = new string(arr);
+</span></span><span class="line"><span class="cl">    Debug.Log(object.ReferenceEquals(x, x1)); // false
+</span></span><span class="line"><span class="cl">    string x2 = new string(arr);
+</span></span><span class="line"><span class="cl">    Debug.Log(object.ReferenceEquals(x1, x2)); // false
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="c-装箱和拆箱">C# 装箱和拆箱</h2>
+<p>C#类型体系包含下列几种类别：值类型、引用类型、指针类型。
+引用类型的变量存储对其数据的引用，而值类型的变量直接包含其数据。对于引用类型，两种变量可引用同一对象；因此，对一个变量执行的操作会影响另一个变量所引用的对象。
+对于值类型，每个变量都具有其自己的数据副本，对一个变量执行的操作不会影响另一个变量（ref 和 out 参数变量除外）。
+将一个值类型变量赋给另一个值类型变量时，将复制包含的值。引用类型变量的赋值只复制对对象的引用，而不复制对象本身。
+引用类型的基类是System.Object，值类型的基类是System.ValueType。
+值类型有：结构、枚举。结构分为以下几类：整形、浮点型、decimal、bool、用户定义的结构。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">object objValue = 4;
+</span></span><span class="line"><span class="cl">int value = (int)objValue;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如上所示，装箱在值类型向引用类型转换时发生，拆箱在引用类型向值类型转换时发生。</p>
+<p>string类型表示Unicode字符System.Char组成的序列，是System.String类型的别名，是引用类型。语法上看似可以修改，其实是不可变的。StringBuilder是可修改的。string类型用引号括起来时，可以包含转义字符。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">string a = &#34;\\\u0066\n&#34;; (字符串包含一个反斜杠、字母 f 和一个新行)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>string类型用@打头，加上双引号，转义字符不被处理。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@&#34;c:\Docs\Source\a.txt&#34;  // rather than &#34;c:\\Docs\\Source\\a.txt&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：把一个字符串用=赋值给另一个字符串时，会得到对内存中同一个字符串的两个引用，但是当修改其中一个字符串时，会创建一个新的string，所以另一个字符串不会因为引用被改变。string用==只是比较了值，和string.Equals一样，这点像是值类型比较。若要比较地址，使用object.ReferenceEquals方法，object也是别名。</p>
+<h2 id="c-string-format">C# String Format</h2>
+<p>使用 Format 函数时，要包含引号，必须在前面加斜杠，使用@后就不需要了。并且，用 {0},{1} 这些表示参数，所以不能包含 { } 这两个字符。</p>
+<h2 id="c中type类">C#中Type类</h2>
+<p>表示类型声明：类类型、接口类型、数组类型、值类型、枚举类型、类型参数、泛型类型定义，以及开放或封闭构造的泛型类型。
+Type为System.Reflection功能的根，也是访问元数据的主要方式。使用Type的成员获取关于类型声明的信息，如构造函数、方法、字段、属性 和类的事件，以及在其中部署该类的模块和程序集。</p>
+<h2 id="c中哪种容器用的最多">C#中哪种容器用的最多？</h2>
+<p>List，Dictionary，Stack，LinkedList。</p>
+<p>字典提供了key-value的存储和查找功能，可选的实现方式如下</p>
+<ul>
+<li><code>Dictionary&lt;TKey, TValue&gt;</code> 基于 hashTable 实现，如同C++中的 unordered_map。</li>
+<li><code>SortedDictionary&lt;TKey, TValue&gt;</code> 基于红黑树，如同C++中的 map，是有序的。</li>
+<li><code>SortedList&lt;TKey, TValue&gt;</code> 可以同时按key和索引访问。内部是两个数组，分别存储key和value序列。有序的，使用了二分查找，存在容量扩充问题。</li>
+</ul>
+<p>hash表实现，主要采用哈希函数，任何对象要有一个唯一的key。在C#中GetHashCode()用于得到key，默认的哈希函数可以用数据内存地址转为int类型得到一个数表示。int类型数据的key一般是自身，string类型的数据可逐个取char字符转换得到int类型的key，其它类型可以自定义。得到了唯一的key之后，一般采用除留取余方法，把数据放到一个桶数组中。数据元素有一个next指针，链地址法用于解决冲突。</p>
+<h2 id="filestream-与-streamwriter">FileStream 与 StreamWriter</h2>
+<ul>
+<li>File，提供用于创建、复制、删除、移动和打开文件的静态方法，并协助创建FileStream对象。</li>
+<li>FileStream，公开以文件为主的Stream，既支持同步读写操作，也支持异步读写操作。FileStream 对象支持使用Seek方法对文件进行随机访问。Seek允许将读取/写入位置移动到文件中的任意位置。这是通过字节偏移参考点参数完成的。请确保对所有 FileStream 对象调用 Dispose 方法，特别是在磁盘空间有限的环境中。</li>
+<li>StreamWriter，实现一个 TextWriter，使其以一种特定的编码向流中写入字符。</li>
+<li>StreamReader，实现一个 TextReader，使其以一种特定的编码从字节流中读取字符。</li>
+</ul>
+<h2 id="c-迭代器">C# 迭代器</h2>
+<p>创建迭代器最常用的方法是对IEnumerable接口实现GetEnumerator方法。GetEnumerator方法的存在使得类型成为可枚举的类型，并允许使用foreach语句。
+IEnumerable是一个声明式的接口，但并没用说明如何实现迭代器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public interface IEnumerable
+</span></span><span class="line"><span class="cl">{ 
+</span></span><span class="line"><span class="cl">    IEnumerator GetEnumerator();
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而IEnumerator接口是实现式接口，它声明实现该接口的类就可以作为一个迭代器iterator。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public interface IEnumerator
+</span></span><span class="line"><span class="cl">{ 
+</span></span><span class="line"><span class="cl">    object Current { get; }
+</span></span><span class="line"><span class="cl">    bool MoveNext();
+</span></span><span class="line"><span class="cl">    void Reset();
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当IEnumerator作为GetEnumerator()的返回值时，即C#接口作为返回值类型时，实际上可以返回一个类的实例，这个类只要实现了IEnumerator接口即可。</p>
+<p>foreach语句用于循环访问集合，但不能用于在源集合中添加或移除项，否则可能产生不可预知的副作用。如果需要在源集合中添加或移除项，请使用for循环。在foreach中也不能修改item的值，因为Current属性只有get访问器。</p>
+<p>自己去实现IEnumerator接口还是有些许麻烦，如果使用yield语句就简单多了，因为yield语句自动实现了继承IEnumerator接口的类，yield return 其实是返回了实现该接口的类的对象。yield return 表示在迭代中下一个迭代时返回的数据，除此之外还有yield break，其表示跳出迭代。每一句 yield return，最终都在自动实现的类的 MoveNext() 方法中通过 switch case 来体现。所以，只有不断调用 MoveNext() 方法才能执行下一句 yield return 语句。</p>
+<h2 id="c-在foreach中可以删除list元素吗">C# 在foreach中可以删除list元素吗？</h2>
+<p>删除list中元素时，索引会改变，为了防止迭代器失效，可采用倒序查找方式。或者，把符合要求的数据交换到末尾，然后一次性全部删除掉。foreach中不能对集合数量进行增减，所以这里不能用。</p>
+<h2 id="short-s1--1-s1--s1--1-有错吗-short-s1--1-s1--1-有错吗">short s1 = 1; s1 = s1 + 1; 有错吗？ short s1 = 1; s1 += 1; 有错吗？</h2>
+<p>一般的回答是：s1 = s1 + 1; 中的s1 + 1 为int类型，所以不能隐式转换成short类型，所以出错。
+解决方案：将s1 + 1 显示转成short类型即可，如：s1 = (short)(s1 + 1);
+后面一句是正确的，因为前面的s1 + 1为简单赋值运算，而s1 += 1 为复合赋值运算，复合赋值运算与简单赋值运算的区别在于复合赋值运算会将运算结果隐式转化成运算符左边的类型。</p>
+<h2 id="c-扩展方法">C# 扩展方法</h2>
+<p>扩展方法使你能够向现有类型“添加”方法，而无需创建新的派生类型、重新编译或以其他方式修改原始类型。扩展方法是一种特殊的静态方法，但可以像扩展类型上的实例方法一样进行调用。扩展方法被定义为静态方法，但它们是通过实例方法语法进行调用的。它们的第一个参数指定该方法作用于哪个类型，并且该参数以 this 修饰符为前缀。仅当你使用 using 指令将命名空间显式导入到源代码中之后，扩展方法才位于范围中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">namespace ExtensionMethods
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    public static class MyExtensions
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        public static int WordCount(this String str)
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            return str.Split(new char[] { &#39; &#39;, &#39;.&#39;, &#39;?&#39; }, 
+</span></span><span class="line"><span class="cl">                             StringSplitOptions.RemoveEmptyEntries).Length;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可使用此 using 指令将 WordCount 扩展方法置于范围中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">using ExtensionMethods;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而且，可以使用以下语法从应用程序中调用该扩展方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">string s = &#34;Hello Extension Methods&#34;;
+</span></span><span class="line"><span class="cl">int i = s.WordCount();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在代码中，可以使用实例方法语法调用该扩展方法。但是，编译器生成的中间语言 (IL) 会将代码转换为对静态方法的调用。因此，并未真正违反封装原则。实际上，扩展方法无法访问它们所扩展的类型中的私有变量。可以使用扩展方法来扩展类或接口，但不能重写扩展方法。与接口或类方法具有相同名称和签名的扩展方法永远不会被调用。编译时，扩展方法的优先级总是比类型本身中定义的实例方法低。通常，建议你只在不得已的情况下才实现扩展方法，并谨慎地实现。只要有可能，必须扩展现有类型的客户端代码都应该通过创建从现有类型派生的新类型来达到这一目的。在使用扩展方法来扩展你无法更改其源代码的类型时，你需要承受该类型实现中的更改会导致扩展方法失效的风险。</p>
+<p>C#扩展方法，必须写在静态类里面。
+静态类是无法实例化对象的，所有成员必须是静态的，主要用来共享。
+静态类可以有静态构造函数，静态构造函数无法继承。
+静态构造函数可用于静态类，也可用于非静态类。
+静态构造函数无访问修饰符、无参数，只有static标志。
+静态构造函数无法被直接调用，当创建类实例或引用任何静态成员之前会自动执行，并且只执行一次。</p>
+<h2 id="c-垃圾回收和内存泄漏">C# 垃圾回收和内存泄漏</h2>
+<p>对象销毁和垃圾回收的区别在于：对象销毁通常是明确的策动；而垃圾回收完全是自动地。
+程序员负责释放文件资源，锁，操作系统句柄等非托管对象；而CLR负责释放内存。
+对象销毁，它通过IDisposal接口来实现，配合using语句使用可自动调用Dispose方法。也可使用try finally语句，确保Dispose方法的调用。C#其实是把using语句转换成了try finally块。</p>
+<p>垃圾回收用于自动释放不再被引用的对象所占用的内存；并且垃圾回收什么时候执行时不可预计的。
+C#中内存泄漏原因：</p>
+<ul>
+<li>未退订事件，可以通过实现IDisposable，然后使用using和Dispose方法来手动注销事件。</li>
+<li>你的对象被一个永远不释放的对象引用着，这个对象或许不是static的。</li>
+<li>非托管资源未手动释放。</li>
+</ul>
+<h2 id="c-弱引用">C# 弱引用</h2>
+<p>弱引用可以让您保持对对象的引用，同时允许GC在必要时释放对象，回收内存。对于那些创建便宜但耗费大量内存的对象，即希望保持该对象，又要在应用程序需要时使用，同时希望GC必要时回收时，可以考虑使用弱引用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// obj 是对象的强引用
+</span></span><span class="line"><span class="cl">Object obj = new Object();
+</span></span><span class="line"><span class="cl">// 新建一个弱引用
+</span></span><span class="line"><span class="cl">WeakReference wref = new WeakReference(obj);
+</span></span><span class="line"><span class="cl">// 释放强引用
+</span></span><span class="line"><span class="cl">obj = null;
+</span></span><span class="line"><span class="cl">Object target = wref.Target;
+</span></span><span class="line"><span class="cl">// 如果对象还没有被回收
+</span></span><span class="line"><span class="cl">if (target != null)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    Debug.Log(target);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="c-字典中hash值冲突解决办法">C# 字典中hash值冲突解决办法</h2>
+<ul>
+<li>链地址法，发生碰撞的所有数据形成一个链表。</li>
+<li>开放定址法，如果地址为H(Key)存储单元已被占用，则继续查看地址为H(Key)+d2的单元，直至遇到空单元。</li>
+</ul>
+<h2 id="c-委托与事件">C# 委托与事件</h2>
+<p>委托是一个类，在编译时确实会编译成类，它定义了方法的类型，使得可以将方法当作另一个方法的参数来进行传递。使用委托可以将多个方法绑定到同一个委托变量，当调用此变量时，可以依次调用所有绑定的方法。
+第一种定义方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public delegate void GreetingDelegate(string name);
+</span></span><span class="line"><span class="cl">GreetingDelegate delegate1;
+</span></span><span class="line"><span class="cl">delegate1 = EnglishGreeting;  //必须先给委托类型的变量赋值，此处不能用+=来绑定
+</span></span><span class="line"><span class="cl">delegate1 += ChineseGreeting; //给此委托变量再绑定一个方法
+</span></span><span class="line"><span class="cl">delegate1 (&#34;Jimmy Zhang&#34;);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第二种定义方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GreetingDelegate delegate1 = new GreetingDelegate(EnglishGreeting);
+</span></span><span class="line"><span class="cl">delegate1 += ChineseGreeting; 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面的定义是错误的，构造函数必须要有一个方法作为参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GreetingDelegate delegate1 = new GreetingDelegate();
+</span></span><span class="line"><span class="cl">delegate1 += EnglishGreeting;
+</span></span><span class="line"><span class="cl">delegate1 += ChineseGreeting;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对委托变量取消绑定方法如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">delegate1 -= EnglishGreeting;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>声明一个事件类似于声明一个进行了封装的委托类型的变量而已。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public event GreetingDelegate MakeGreet;
+</span></span><span class="line"><span class="cl">MakeGreet = EnglishGreeting; //编译错误，这里只能使用+=或者-=
+</span></span><span class="line"><span class="cl">MakeGreet += ChineseGreeting;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此处编译错误，event产生的代码大概如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">private GreetingDelegate MakeGreet;
+</span></span><span class="line"><span class="cl">public void add_MakeGreet(GreetingDelegate value){...}
+</span></span><span class="line"><span class="cl">public void remove_MakeGreet(GreetingDelegate value){...}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看出，MakeGreet事件确实是一个GreetingDelegate类型的委托，只不过不管是不是声明为public，它总是被声明为private。另外，它还有两个方法，分别是add_MakeGreet和remove_MakeGreet，这两个方法分别用于注册委托类型的方法和取消注册。使用委托变量时，客户端可以对它随意赋值，破换了对象的封装性，而使用事件向外部提供注册方法就不会这样。</p>
+<p>还有一点，事件表示的是，事件应该由事件发布者在满足某个条件后触发。但当使用委托变量时，客户端却可直接调用，这会影响到所有订阅者。C#中一个事件访问器用来封装一个委托变量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">private GeneralEventHandler numberChanged;
+</span></span><span class="line"><span class="cl">public event GeneralEventHandler NumberChanged {
+</span></span><span class="line"><span class="cl">    add {
+</span></span><span class="line"><span class="cl">        numberChanged = value;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    remove {
+</span></span><span class="line"><span class="cl">        numberChanged -= value;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用了事件访问器以后，在内部只能通过numberChanged变量来触发事件，不能通过NumberChanged触发。</p>
+<p>委托定义在编译时会生成一个继承自MulticastDelegate的类，而这个MulticastDelegate又继承自Delegate，在Delegate内部，维护了一个委托链表，链表上的每一个元素，为一个只包含一个目标方法的委托对象。通过Delegate基类的GetInvocationList()静态方法，可以获得这个委托链表。随后我们遍历这个链表，通过链表中的每个委托对象来调用方法，这样就可以分别获得每个方法的返回值。</p>
+<h2 id="c中的funcactionpredicate">C#中的Func、Action、Predicate</h2>
+<p>Action 是无返回值的泛型委托；<code>Action&lt;int,string&gt;</code> 表示有传入参数 int,string 无返回值的委托。
+<code>Func&lt;T&gt;</code> 是有一个返回值的泛型委托；<code>Func&lt;int&gt;</code> 表示无参，返回值为int的委托；<code>Func&lt;object,string,int&gt;</code> 表示传入参数为object, string 返回值为int的委托。
+<code>Predicate&lt;T&gt;</code> 是返回值为bool类型的委托。</p>
+<h2 id="partial">partial</h2>
+<p>partial 局部类型允许我们将一个类、结构或接口分成几个部分，分别实现在几个不同的.cs文件中。局部类型只适用于类、接口、结构，不支持委托和枚举。使用局部类型时，一个类型的各个部分必须位于相同的命名空间中。</p>
+<h2 id="c-编程规范">C# 编程规范</h2>
+<p>(1)如果类型、属性、事件、方法、方法参数的名称已经是自解释了，则不需要加注释；否则必须添加注释
+(2)命名，优先考虑英文，如果英文没有合适的单词描述，可以使用拼音
+(3)所有类型、方法、参数、变量的命名不得使用缩写，包括大家熟知的缩写，例如msg
+(4)使用Tab作为缩进，并设置缩进大小为4
+(5)不能在一个文件中出现两个不相关的类型定义，类型名称和源文件名称必须一致
+(6)所有命名空间、类型名称使用Pascal风格，单词首字母大写
+(7)本地变量、方法参数名称使用Camel风格，首字母小写，其后每个单词的首字母大写
+(8)私有方法、受保护方法，仍使用Pascal风格命名
+(9)如果if语句内容只有一行，可以不加花括号，但是必须和if语句位于同一行
+(10)调用类型内部其他成员，需加this；调用父类成员，需加base
+(11)类型内部的私有和受保护字段，使用Camel风格命名，但加“_”前缀
+(12)不能出现公有字段，如果需要公有字段，使用属性进行包装
+(13)委托和事件的命名，委托以EventHandler作为后缀命名。事件以其对应的委托类型，去掉EventHandler后缀，并加上On前缀构成
+(14)返回bool类型的方法、属性的命名，其前缀为Is、Can或者 Try
+(15)常见集合类型后缀命名：Array、List、Table、Dictionary、Set</p>
+<h2 id="c相关题目">C#相关题目</h2>
+<h3 id="c中stringreplace方法如何实现">C#中String.Replace方法如何实现？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public static string Replace(string originalString, string strToBeReplaced, string strToReplace)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    string resultString = null;
+</span></span><span class="line"><span class="cl">    char[] originalCharArray = originalString.ToCharArray();
+</span></span><span class="line"><span class="cl">    char[] strToBeCharArray = strToBeReplaced.ToCharArray();
+</span></span><span class="line"><span class="cl">    char[] strToCharArray = strToReplace.ToCharArray();
+</span></span><span class="line"><span class="cl">    List&lt;Char&gt; newCharList = new List&lt;Char&gt;();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    for (int i = 0; i &lt; originalCharArray.Count(); i++)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        if (originalCharArray[i] == strToBeCharArray[0])
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            bool IsReplace = false;
+</span></span><span class="line"><span class="cl">            for (int j = 0; j &lt; strToBeCharArray.Count(); j++)
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                if (((i + j) &lt; originalCharArray.Count())
+</span></span><span class="line"><span class="cl">                    &amp;&amp; (originalCharArray[i + j] == strToBeCharArray[j]))
+</span></span><span class="line"><span class="cl">                {
+</span></span><span class="line"><span class="cl">                    IsReplace = true;
+</span></span><span class="line"><span class="cl">                }
+</span></span><span class="line"><span class="cl">                else
+</span></span><span class="line"><span class="cl">                {
+</span></span><span class="line"><span class="cl">                    IsReplace = false;
+</span></span><span class="line"><span class="cl">                    break;
+</span></span><span class="line"><span class="cl">                }
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">            if (IsReplace)
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                i += strToBeCharArray.Count() - 1;
+</span></span><span class="line"><span class="cl">                for (int k = 0; k &lt; strToCharArray.Count(); k++)
+</span></span><span class="line"><span class="cl">                {
+</span></span><span class="line"><span class="cl">                    newCharList.Add(strToCharArray[k]);
+</span></span><span class="line"><span class="cl">                }
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">            else
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                newCharList.Add(originalCharArray[i]);
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        else
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            newCharList.Add(originalCharArray[i]);
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    resultString = string.Join(&#34;&#34;, newCharList);
+</span></span><span class="line"><span class="cl">    return resultString;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">public class Replace
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    /// &lt;summary&gt;
+</span></span><span class="line"><span class="cl">    /// Replace 方法
+</span></span><span class="line"><span class="cl">    /// &lt;/summary&gt;
+</span></span><span class="line"><span class="cl">    /// &lt;param name=&#34;source&#34;&gt;原字符串&lt;/param&gt;
+</span></span><span class="line"><span class="cl">    /// &lt;param name=&#34;find&#34;&gt;需要查找的字符串&lt;/param&gt;
+</span></span><span class="line"><span class="cl">    /// &lt;param name=&#34;replace&#34;&gt;替换的字符串&lt;/param&gt;
+</span></span><span class="line"><span class="cl">    /// &lt;returns&gt;最终替换成功的字符串&lt;/returns&gt;
+</span></span><span class="line"><span class="cl">    public string Replace(string source, string find, string replace)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        // 要查找的字符串大于原来字符串,则不处理，返回原来字符
+</span></span><span class="line"><span class="cl">        if (find.Length &gt; source.Length)
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            return source;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        // 记录找到多少次
+</span></span><span class="line"><span class="cl">        int findCount = 0;
+</span></span><span class="line"><span class="cl">        // 仅用于标记，辅助记录多少次
+</span></span><span class="line"><span class="cl">        bool flag = true;
+</span></span><span class="line"><span class="cl">        // n：source字符串遍历的数值；j：find字符串遍历的数值
+</span></span><span class="line"><span class="cl">        int n = 0, j = 0;
+</span></span><span class="line"><span class="cl">        // s：查找到字符串的开始索引，e：查找到字符串的结束索引
+</span></span><span class="line"><span class="cl">        int s = 0, e = 0;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        while (true)
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            // 判断字符是否相等
+</span></span><span class="line"><span class="cl">            if (source[n] == find[j])
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                // Source 序列+1
+</span></span><span class="line"><span class="cl">                n++;
+</span></span><span class="line"><span class="cl">                // 判断是否为第一位相匹配
+</span></span><span class="line"><span class="cl">                if (j == 0)
+</span></span><span class="line"><span class="cl">                {
+</span></span><span class="line"><span class="cl">                    // 赋值给s，查找到头的索引
+</span></span><span class="line"><span class="cl">                    s = n;
+</span></span><span class="line"><span class="cl">                }
+</span></span><span class="line"><span class="cl">                // 查找到后下一次比较find的下一位
+</span></span><span class="line"><span class="cl">                j++;
+</span></span><span class="line"><span class="cl">                // 标记暂时找到前面相同的字符
+</span></span><span class="line"><span class="cl">                flag = true;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">            else
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                // 记录不完全匹配
+</span></span><span class="line"><span class="cl">                flag = false;
+</span></span><span class="line"><span class="cl">                // find的索引归零
+</span></span><span class="line"><span class="cl">                j = 0;
+</span></span><span class="line"><span class="cl">                // Source的索引继续想加
+</span></span><span class="line"><span class="cl">                n++;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            // 已经查找完毕
+</span></span><span class="line"><span class="cl">            if (j == find.Length)
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                // 完全匹配
+</span></span><span class="line"><span class="cl">                if (flag)
+</span></span><span class="line"><span class="cl">                {
+</span></span><span class="line"><span class="cl">                    // 查找的字符数量+1
+</span></span><span class="line"><span class="cl">                    findCount++;
+</span></span><span class="line"><span class="cl">                }
+</span></span><span class="line"><span class="cl">                // 记录查找的数组结尾索引
+</span></span><span class="line"><span class="cl">                e = n;
+</span></span><span class="line"><span class="cl">                // source 索引继续+1
+</span></span><span class="line"><span class="cl">                n++;
+</span></span><span class="line"><span class="cl">                // find的索引归零
+</span></span><span class="line"><span class="cl">                j = 0;
+</span></span><span class="line"><span class="cl">                // 计算生成新字符串，之后继续循环，直到替换所有字符串
+</span></span><span class="line"><span class="cl">                source = GetNewString(source, find, replace, s, e);
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">            // Source遍历完毕，则退出循环
+</span></span><span class="line"><span class="cl">            if (n &gt;= source.Length)
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                break;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        // 最终字符串
+</span></span><span class="line"><span class="cl">        return source;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    /// &lt;summary&gt;
+</span></span><span class="line"><span class="cl">    /// 获得新的字符串
+</span></span><span class="line"><span class="cl">    /// &lt;/summary&gt;
+</span></span><span class="line"><span class="cl">    /// &lt;param name=&#34;source&#34;&gt;源字符串&lt;/param&gt;
+</span></span><span class="line"><span class="cl">    /// &lt;param name=&#34;find&#34;&gt;需要查找的字符&lt;/param&gt;
+</span></span><span class="line"><span class="cl">    /// &lt;param name=&#34;replace&#34;&gt;需要替换的字符&lt;/param&gt;
+</span></span><span class="line"><span class="cl">    /// &lt;param name=&#34;startIndex&#34;&gt;查找到的字符开始索引&lt;/param&gt;
+</span></span><span class="line"><span class="cl">    /// &lt;param name=&#34;endIndex&#34;&gt;查找到的字符结束索引&lt;/param&gt;
+</span></span><span class="line"><span class="cl">    /// &lt;returns&gt;返回替换后的字符串&lt;/returns&gt;
+</span></span><span class="line"><span class="cl">    public string GetNewString(string source, string find, string replace, int startIndex, int endIndex)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        // 新字符串的长度
+</span></span><span class="line"><span class="cl">        int newArrayLength = source.Length + endIndex - startIndex;
+</span></span><span class="line"><span class="cl">        // 新字符数组
+</span></span><span class="line"><span class="cl">        char[] newStringArray = new char[newArrayLength];
+</span></span><span class="line"><span class="cl">        // 将前半部分复制给新字符串
+</span></span><span class="line"><span class="cl">        for (int i = 0; i &lt; startIndex - 1; i++)
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            newStringArray[i] = source[i];
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        // 当前临时开始索引
+</span></span><span class="line"><span class="cl">        int tempCurrentStartLength = startIndex - 1;
+</span></span><span class="line"><span class="cl">        // 将需要替换的赋值给新的字符数组
+</span></span><span class="line"><span class="cl">        for (int i = tempCurrentStartLength; i &lt; tempCurrentStartLength + replace.Length; i++)
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            newStringArray[i] = replace[i - tempCurrentStartLength];
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        // 将之后剩余的字符赋值给新的数组
+</span></span><span class="line"><span class="cl">        for (int i = endIndex + 1; i &lt; newArrayLength; i++)
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            newStringArray[i] = source[i - 1];
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        // 返回转换后的字符串
+</span></span><span class="line"><span class="cl">        return string.Concat(newStringArray);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="c报错返回类型的可访问性低于方法">C#报错:返回类型的可访问性低于方法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public class TestClass
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    class A
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        public string name;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    private A a;
+</span></span><span class="line"><span class="cl">    public A GetA()
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        return a;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所以上面的代码有错，要么全改为public，要么改为private。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-08-14
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/csharp/">csharp</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/common_tips/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">常见基础知识</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/algorithm_common/">
+            <span class="next-text nav-default">常见算法汇总</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/csharp_tips/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

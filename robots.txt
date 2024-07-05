@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://huijian142857.gitee.io/sitemap.xml

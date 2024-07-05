@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>重构-改善既有代码的设计 笔记 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="重构 改善既有代码的设计（Refactoring Improving the Design of Existing Code） 笔记 重构（refactoring）可以定义为，在不改变代码外在行为的前提下" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/refactoring_improving_the_design/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/refactoring_improving_the_design/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="重构-改善既有代码的设计 笔记">
+  <meta property="og:description" content="重构 改善既有代码的设计（Refactoring Improving the Design of Existing Code） 笔记 重构（refactoring）可以定义为，在不改变代码外在行为的前提下">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-08-22T10:00:00+00:00">
+    <meta property="article:modified_time" content="2021-08-22T10:00:00+00:00">
+    <meta property="article:tag" content="Design">
+
+  <meta itemprop="name" content="重构-改善既有代码的设计 笔记">
+  <meta itemprop="description" content="重构 改善既有代码的设计（Refactoring Improving the Design of Existing Code） 笔记 重构（refactoring）可以定义为，在不改变代码外在行为的前提下">
+  <meta itemprop="datePublished" content="2021-08-22T10:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-08-22T10:00:00+00:00">
+  <meta itemprop="wordCount" content="4726">
+  <meta itemprop="keywords" content="Design">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="重构-改善既有代码的设计 笔记">
+  <meta name="twitter:description" content="重构 改善既有代码的设计（Refactoring Improving the Design of Existing Code） 笔记 重构（refactoring）可以定义为，在不改变代码外在行为的前提下">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">重构-改善既有代码的设计 笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-08-22 </span>
+        <div class="post-category">
+            <a href="/categories/design/"> design </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#第1章-例子">第1章 例子</a></li>
+    <li><a href="#第2章-重构原则">第2章 重构原则</a></li>
+    <li><a href="#第3章-代码的坏味道">第3章 代码的坏味道</a></li>
+    <li><a href="#第4章-构筑测试体系">第4章 构筑测试体系</a></li>
+    <li><a href="#第5章-重构列表">第5章 重构列表</a></li>
+    <li><a href="#第6章-重新组织函数">第6章 重新组织函数</a></li>
+    <li><a href="#第7章-在对象之间搬移特性">第7章 在对象之间搬移特性</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>重构 改善既有代码的设计（Refactoring Improving the Design of Existing Code） 笔记</p>
+<!-- more -->
+<p>重构（refactoring）可以定义为，在不改变代码外在行为的前提下，对代码做出修改，以改进程序的内部结构。也可以简单的说，重构是在代码写好后改进它的设计。</p>
+<h1 id="第1章-例子">第1章 例子</h1>
+<p>如果要添加一个特性，而代码结构使你没法简单的做到，就先重构那个程序，再添加特性。</p>
+<p>测试之前，先要有一套测试机制，这些测试必须有自我检验的能力。</p>
+<p>第一步，找出代码的逻辑泥团，并运用 Extract Method，比如把 switch/if 等语句中的代码提炼到独立的函数中。</p>
+<p>PS: 只是添加新的函数，这种重构有何意义？除非一个函数长度超过了屏幕，或者逻辑明显不同，或者能代码共享，否则就算函数稍微长一点，只要逻辑缜密，放在一起可能会更好，尤其是那种有顺序的步骤。要知道，新函数就像新线程导致状态切换一样，函数过多会增加复杂度，阅读代码还会不停的看来看去。</p>
+<p>先从代码中找出函数的局部变量和参数。不被修改的变量可以直接作为参数，会被修改的变量，需要注意，一般要作为返回值。</p>
+<p>(PS: 其实直接把要分出的代码复制粘贴到新函数即可，借助IDE提示，一眼就能看到需要什么参数，确实要注意会被修改的值)</p>
+<p>然后，某些意思不清楚的变量名和函数名也需要修改。完成每一步，都要记得运行测试。</p>
+<p>分出新函数后，可能发现函数没有用到自身类的成员，而是用到了参数类的成员。多数情况下，函数应该放到它所使用的数据的所属类中。这里需要用到 Move Method。</p>
+<p>PS: 这里体现了一些 Extract Method 的作用。</p>
+<p>然后，可能需要删除多余的变量，就是那些只声明了一次，但后面没修改过的。这里用 Replace Temp with Query 的思路。尽量去掉这些临时变量，它们会导致变量被传来传去，阅读时容易跟丢，还使得代码冗长。</p>
+<p>PS: 注意函数中对某一个变量的计算，这种计算很可能需要用 Extract Method 分到一个新函数中。为了去掉这种临时变量，或者为了共享一部分代码，也可以用这种方法。</p>
+<p>PS: 之前写角色技能时，代码中充斥这很多 if 条件判断，最后的重构方法就是使用角色状态机，分出多个角色状态类，每个状态处理自身的逻辑，就去掉了状态判断，也使得新逻辑添加更简单。</p>
+<p>最好不要在别的对象的属性上运用 switch 语句，应该是在对象自己的数据上使用。如果 Move Method 时发现需要传递自身参数，即一个方法需要多个类的成员，应该把方法放到哪个类中？我觉得可以看方法属于哪个类，书上说应该放到可能会修改的类中。</p>
+<p>如果某一个类要分多种情况，比如一部影片有普通价格、儿童价格、新版价格，原来的代码使用 switch 在 Movie 类中来获取不同的价格。
+考虑分出三个 Movie 的子类，缺点是这些个子类对象无法在生命周期中修改自己所属的类，所以这里用 State/Strategy 模式比较合适。即抽象出一个价格 Price 类，然后实现它的三个子类用于计算不同的价格，原来在 Movie 持有的价格字段改为一个价格对象。首先可以用 Replace Type Code with State/Strategy 把类型相关的行为搬到 State 模式内，即新建几个类专门用于不同的价格计算，然后用 Move Method 将 Switch 语句移到一个 Price 基类中，最后用 Replace Conditional with Polymorphism 去掉 switch 语句。</p>
+<p>PS：一部Movie有个Price属性，当然不是简单的通过这个属性分类为不同的子类，如果这样做，那么再多一个2D电影或3D电影属性，那又要继续分类吗？这些Movie的属性，如果比较复杂需要拆分，就只能去拆分这个属性本身，所以就多一个Price组件，通过Price基类来统一代码逻辑，让子类实现具体的计算。如果属性比较简单，switch语句根本不需要去掉。</p>
+<h1 id="第2章-重构原则">第2章 重构原则</h1>
+<p>重构，通过调整代码内部结构，在不改变外部可观察行为的基础上，提升代码的可理解性，降低修改成本。</p>
+<p>消除重复代码，是优秀设计的根本。</p>
+<p>程序设计就是告诉计算机做什么，计算机精确的执行每一行代码。在重构上花一点时间，让代码很好地表达自己的用途，核心就是“准确说出我所要的”。</p>
+<p>我是个懒惰的程序员: 总是记不住自己写过的代码。事实上，对于任何能够立刻查阅的东西，我都不故意去记住它。我总是把该记住的东西写进程序里，这样就不必记住它了。</p>
+<p>重构开始总是趋于一些细枝末节，等代码变得简洁后，可以容易的看到之前看不到的设计层面的东西。</p>
+<p>重构不但可以改善代码质量，还能提升开发速度，良好的设计使添加和修改变得容易。</p>
+<p>重构的时机，你可以随时随地的重构，让代码更容易理解。最常见的时机就是添加新功能时，为了帮助理解要修改的代码进行重构。重构的原动力是，代码的设计使我无法简单的添加新特性。</p>
+<p>遇到bug修补错误时，也要考虑是否重构，能否很容易看出bug。</p>
+<p>难以阅读的程序，难以修改
+逻辑重复的程序， 所有逻辑在唯一的地方指定
+添加新行为需要修改已有代码的程序
+带复杂条件逻辑的程序，难以修改</p>
+<p>通过增加 间接层 来解决设计，但是会多出很多东西，增加了复杂度，需要综合权衡，好处:</p>
+<p>允许逻辑共享，比如分出一个子类
+分开解释意图和实现
+隔离变化，比如怕影响原来的，新建子类
+封装条件逻辑</p>
+<p>过早发布接口，常常带来维护接口的烦恼，尤其是你权限不足，无法修改接口的时候。</p>
+<p>PS: 上面一个固定的主英雄列表，下面一个滚动的副英雄列表。点击英雄图片，之前选中的可以与当前点击的互换位置。已经知道当前点击的是主还是副，现在要知道前一个选中的是主或副。原来我是添加一个英雄变量记录选中的英雄，然后在主英雄列表中查询，这样就知道是否为主英雄。我感觉不如直接在记录选中英雄的同时，增加一个维度变量，记录它属于主或副就行了，这样可以避免稍复杂的查询。在涉及到前后变量记录时，如果信息不够，添加变量即可，注意当前记录的就是下一次调用时之前的。最后我发现，查询操作很简单，就没有做这种修改了。
+现在项目的问题是，写功能前一定要先写接口，几乎每个组件类都要关联一个接口，再加上一堆注释，给人感觉很繁琐，而且还要先有服务端的接口，客户端的接口再继承接口，这样就搞出了一堆相似功能的东西，看着非常繁琐。这些所谓的组件按理说是为了复用，定义这么多接口是为了啥？这些组件目前也没有被复用，项目一开始就这样写，不清楚是为了啥。</p>
+<p>如果现有代码根本不能运作，不应该重构，应该重写，这样反而简单。</p>
+<p>如果项目已经到了最后期限，重构就没必要了。</p>
+<p>编程前首先要进行设计，得到一个合理的解决方案，然后再进行实际编码，完成后再重构。预先设计是非常有必要的。这种预先设计，再重构的办法，使得编程得到了简化，即不必花费大量时间为了灵活性进行复杂设计，毕竟如果这些灵活性后面没有用就真的是浪费精力。当下只需要构建可运行的最简化系统就行了。</p>
+<h1 id="第3章-代码的坏味道">第3章 代码的坏味道</h1>
+<p>(1)重复代码，必要的时候可以独立出一个类，需要用时持有一个类的对象即可。</p>
+<p>(2)过长的函数，给小函数一个好名字，这样就不用看具体写了什么。不再于函数的长度，在于函数做什么和如何做之间的语义距离。寻找注释，注意代码用途和实现手法之间的语义距离。除了注释的地方，条件，循环常常也是需要提炼代码的地方。</p>
+<p>PS: 做什么和如何做常常作为分割代码要考虑的地方。框架中，Task 要管理很多东西，所以要尽量简单，很多时候只需要表明做什么，如何做的部分常常要交给 Controller 去做。</p>
+<p>(3)过大的类，相关变量和方法可以分到一个新类中来做。</p>
+<p>(4)过长的参数列，用传递对象来替代</p>
+<p>(5)发散式变化，修改只应该在单一的类中，如果做不到这一点，应该提炼出一个新的类。</p>
+<p>(6)散弹式修改，要修改的地方很多，这种情况应该用 Move Method 或 Move Field 把要修改的集中在一起。</p>
+<p>(7)依恋情节，函数对某个类的兴趣高于对自身类的兴趣。这种情况，直接把函数放到它所属的类即可。函数应该放到它所使用的数据最多的类中，这样大部分数据都不必公开。根本原则是，将总是一起变化的东西放在一块儿。</p>
+<p>(8)数据泥团，总是在一起的数据项或者函数参数应该拥有它们自己的对象。</p>
+<p>(9)基本类型偏执，小任务上也可以运用小对象</p>
+<p>(10)switch语句，使用 replace type code with subclass 去掉它，或者用 replace parameter with explicit methods 替代。条件判断的问题在于重复，常常发现很多地方存在相同的判断，添加新功能时要修改所有这些地方。如果只在单个地方做判断，就没有这个问题。</p>
+<p>(11)平行继承体系，每当为一个类增加一个子类，也需要为另一个类增加子类。</p>
+<p>(12)冗赘类，如果一个类不值其身价，就让它消失吧。维护每个类都是有成本的。</p>
+<p>(13)夸夸其谈未来性，和上面类似。目前用不到的抽象类，不必要的委托，没用的函数的参数， 过于抽象的函数名等。</p>
+<p>(14)令人迷惑的暂时字段。某些字段只在某个算法中像参数一样使用，此时可以把变量和函数提炼到一个独立的类中。</p>
+<p>(15)过度耦合的消息链，一旦任何函数发生修改，很多地方都需要修改。可以在适当的地方增加函数来缩短消息链。或者可以观察对最终获得的对象做了什么，然后提炼出一个独立函数，然后直接使用这个独立函数。</p>
+<p>(16)中间人，某个类接口有一般的函数都委托给其他类，这就是过度运用委托，可以去掉中间人，直接和负责的对象打交道。</p>
+<p>(17)狎昵关系，两个类过于亲密，探究彼此的私有成员。应该采用移动方法或者字段让他们划清关系，或者把相同部分提炼出新的类。</p>
+<p>(18)异曲同工的类，做的事相同，却有不同的签名。</p>
+<p>(19)不完美的库类</p>
+<p>(20)纯粹的数据类，如果是外部在操作这些数据，就应该把操作部分提炼到数据类中</p>
+<p>(21)被拒绝的遗赠，子类只想用继承来的少数方法怎么办</p>
+<p>(22)过多的注释。当你感觉需要注释时，先重构，让注释变得多余。</p>
+<h1 id="第4章-构筑测试体系">第4章 构筑测试体系</h1>
+<p>在写代码之前，先写测试，使得你更注重接口而非实现，这永远是一个好事。</p>
+<p>单元测试是高度局部化的，测试某一个接口是否工作正常</p>
+<p>功能测试是完全面向用户的，把系统当成一个黑箱，只要保证功能正常即可</p>
+<p>容易出现的 bug，应该编写单元测试来暴露这些 bug，这类似常见的错误 Log</p>
+<p>测试无法捕捉所有 bug，也不用费太多时间写出所有测试，发现大多数 bug 就够了</p>
+<h1 id="第5章-重构列表">第5章 重构列表</h1>
+<h1 id="第6章-重新组织函数">第6章 重新组织函数</h1>
+<p>要么使用 Extract Method 提炼出新函数，要么用 Inline Method 去掉没用的函数。</p>
+<p>遇到过长的函数，或者一段需要注释才好理解的代码，可以用 Extract Method 提炼函数。简短而命名良好的好处: 函数的粒度变小，复用的几率更大，高层函数读起来就像注释，不必仔细看具体的小函数。函数的长短不重要，在于函数的语义和名称之间的距离。</p>
+<p>(1) 提炼函数：根据函数意图来命名，以它 “做什么”来命名，而不是“怎样做”。
+如果遇到对局部变量赋值，如果该变量只在这个函数中使用，把变量声明移动到新函数即可; 如果修改了变量，可以新建一个有返回值的函数，遇到需要返回多个参数的情况可以分出多个函数。</p>
+<p>(2) 内联函数：在调用点插入本体，移除原函数。如果某些简短的函数，内部逻辑很清晰易读，可以考虑去掉这些间接函数;</p>
+<p>(3) 内联临时变量。如果临时变量妨碍了重构，就去掉它。</p>
+<p>(4) Replace Temp with Query，以查询取代临时变量。将表达式放到一个独立的函数中，用新的函数替换表达式。把临时变量替换为查询，方便共享逻辑。</p>
+<p>(5) 引入解释性变量
+用临时变量来分解一些复杂的计算过程。这里还可以使用 Extract Method 的方法。</p>
+<p>(6)分解临时变量
+某个临时变量被赋值超过一次，既不是循环变量，也不被用于收集计算结果。
+针对每次赋值，创造一个独立、对应的临时变量。
+PS：因为这其实应该是多个独立变量，没必要用相同变量名。</p>
+<p>(7)移除对参数的赋值
+在函数中，可以修改传递进来的参数的状态，但是最好不要修改参数指向的对象，在C#中一般用in参数来做。这样做不好的地方在于，混用了按值传递和按引用传递，容易出错。较好的办法是，把要修改的参数赋值给一个临时变量，然后修改临时变量，最终把临时变量的值返回或者赋值给要修改的参数。</p>
+<p>(8)以函数对象取代函数
+存在一个大型函数，其中的局部变量让你无法 Extract Method。可以将这个函数放入一个单独的对象中，其中局部变量成为字段，然后可以在这个对象中把大型函数分解为多个小型函数。这样改动的原因在于，小型函数更加具有可读性。</p>
+<p>(9)替换复杂的算法为简单的算法</p>
+<h1 id="第7章-在对象之间搬移特性">第7章 在对象之间搬移特性</h1>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-08-22
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/design/">design</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unity3d_editor_find_reference/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Unity3D Find Reference in Scene</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/csharp_regular/">
+            <span class="next-text nav-default">C# 正则表达式</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/refactoring_improving_the_design/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Unity3D 粒子工具 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="用于统计粒子特效信息，比如粒子个数、三角面数 一般粒子需要统计的信息有 1 2 3 4 5 public int triangles; public bool prewarm = false; public int distortion; public int particleCount; public int materialCount; 粒子中可能包含一些模型，所以" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/unity3d_particle_tool/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/unity3d_particle_tool/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="Unity3D 粒子工具">
+  <meta property="og:description" content="用于统计粒子特效信息，比如粒子个数、三角面数 一般粒子需要统计的信息有 1 2 3 4 5 public int triangles; public bool prewarm = false; public int distortion; public int particleCount; public int materialCount; 粒子中可能包含一些模型，所以">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2019-01-30T15:10:00+00:00">
+    <meta property="article:modified_time" content="2019-01-30T15:10:00+00:00">
+    <meta property="article:tag" content="Unity3d">
+
+  <meta itemprop="name" content="Unity3D 粒子工具">
+  <meta itemprop="description" content="用于统计粒子特效信息，比如粒子个数、三角面数 一般粒子需要统计的信息有 1 2 3 4 5 public int triangles; public bool prewarm = false; public int distortion; public int particleCount; public int materialCount; 粒子中可能包含一些模型，所以">
+  <meta itemprop="datePublished" content="2019-01-30T15:10:00+00:00">
+  <meta itemprop="dateModified" content="2019-01-30T15:10:00+00:00">
+  <meta itemprop="wordCount" content="636">
+  <meta itemprop="keywords" content="Unity3d">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Unity3D 粒子工具">
+  <meta name="twitter:description" content="用于统计粒子特效信息，比如粒子个数、三角面数 一般粒子需要统计的信息有 1 2 3 4 5 public int triangles; public bool prewarm = false; public int distortion; public int particleCount; public int materialCount; 粒子中可能包含一些模型，所以">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Unity3D 粒子工具</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-30 </span>
+        <div class="post-category">
+            <a href="/categories/unity3d/"> unity3d </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>用于统计粒子特效信息，比如粒子个数、三角面数</p>
+<!-- more --> 
+<p>一般粒子需要统计的信息有</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public int triangles;
+</span></span><span class="line"><span class="cl">public bool prewarm = false;
+</span></span><span class="line"><span class="cl">public int distortion;
+</span></span><span class="line"><span class="cl">public int particleCount;
+</span></span><span class="line"><span class="cl">public int materialCount;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>粒子中可能包含一些模型，所以先要获取所有的 MeshFilter, MeshRenderer, SkinnedMeshRenderer，从里面得到 mesh 和 material。然后得到所有的 ParticleSystem ，以及它的 Renderer 模块 ParticleSystemRenderer，从中获取剩余的 sharedMaterials。最后用 CurveUtil 计算出 ParticleSystem 的 particleCount 和剩余的 trianglesCount。一般 mesh 的 triangleCount 计算方法为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">triangles += mesh.triangles.Length / 3;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意判断 renderer 和 emission 模块是否开启，否则粒子信息无效。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">using</span> <span class="n">System</span><span class="o">.</span><span class="n">Collections</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">using</span> <span class="n">System</span><span class="o">.</span><span class="n">Collections</span><span class="o">.</span><span class="n">Generic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">using</span> <span class="n">UnityEngine</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">public</span> <span class="k">static</span> <span class="k">class</span> <span class="n">CurveUtil</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">static</span> <span class="ne">int</span> <span class="n">GetForecastParticleCount</span><span class="p">(</span><span class="n">this</span> <span class="n">ParticleSystem</span> <span class="n">particleSystem</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="ne">float</span> <span class="n">rateOverTime</span> <span class="o">=</span> <span class="n">particleSystem</span><span class="o">.</span><span class="n">GetRateOverTimeMax</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Mathf</span><span class="o">.</span><span class="n">CeilToInt</span><span class="p">(</span><span class="n">Mathf</span><span class="o">.</span><span class="n">Min</span><span class="p">(</span><span class="n">particleSystem</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">startLifetime</span><span class="o">.</span><span class="n">GetMaxVal</span><span class="p">()</span> <span class="o">*</span> <span class="n">rateOverTime</span><span class="p">,</span> <span class="n">particleSystem</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">maxParticles</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">static</span> <span class="ne">int</span> <span class="n">GetForecastTrianglesCount</span><span class="p">(</span><span class="n">this</span> <span class="n">ParticleSystem</span> <span class="n">particleSystem</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="ne">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">particleSystem</span><span class="o">.</span><span class="n">GetForecastParticleCount</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ParticleSystemRenderer</span> <span class="n">renderer</span> <span class="o">=</span> <span class="n">particleSystem</span><span class="o">.</span><span class="n">GetComponent</span><span class="o">&lt;</span><span class="n">ParticleSystemRenderer</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">renderer</span><span class="o">.</span><span class="n">renderMode</span> <span class="o">==</span> <span class="n">ParticleSystemRenderMode</span><span class="o">.</span><span class="n">Mesh</span> <span class="o">&amp;&amp;</span> <span class="n">renderer</span><span class="o">.</span><span class="n">mesh</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">count</span> <span class="o">*</span> <span class="n">renderer</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangles</span><span class="o">.</span><span class="n">Length</span> <span class="o">/</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">count</span> <span class="o">*</span>  <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">static</span> <span class="n">ParticleSystemRenderMode</span> <span class="n">GetRenderMode</span><span class="p">(</span><span class="n">this</span> <span class="n">ParticleSystem</span> <span class="n">particleSystem</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ParticleSystemRenderer</span> <span class="n">renderer</span> <span class="o">=</span> <span class="n">particleSystem</span><span class="o">.</span><span class="n">GetComponent</span><span class="o">&lt;</span><span class="n">ParticleSystemRenderer</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">renderer</span><span class="o">.</span><span class="n">renderMode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">static</span> <span class="n">string</span> <span class="n">GetMeshName</span><span class="p">(</span><span class="n">this</span> <span class="n">ParticleSystem</span> <span class="n">particleSystem</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ParticleSystemRenderer</span> <span class="n">renderer</span> <span class="o">=</span> <span class="n">particleSystem</span><span class="o">.</span><span class="n">GetComponent</span><span class="o">&lt;</span><span class="n">ParticleSystemRenderer</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">renderer</span><span class="o">.</span><span class="n">renderMode</span> <span class="o">==</span> <span class="n">ParticleSystemRenderMode</span><span class="o">.</span><span class="n">Mesh</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#if UNITY_EDITOR</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">UnityEditor</span><span class="o">.</span><span class="n">AssetDatabase</span><span class="o">.</span><span class="n">GetAssetPath</span><span class="p">(</span><span class="n">renderer</span><span class="o">.</span><span class="n">mesh</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#endif</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">renderer</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">renderer</span><span class="o">.</span><span class="n">renderMode</span><span class="o">.</span><span class="n">ToString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">static</span> <span class="ne">float</span> <span class="n">GetRateOverTimeMax</span><span class="p">(</span><span class="n">this</span> <span class="n">ParticleSystem</span> <span class="n">particleSystem</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="ne">float</span> <span class="n">rateOverTime</span> <span class="o">=</span> <span class="n">particleSystem</span><span class="o">.</span><span class="n">emission</span><span class="o">.</span><span class="n">rateOverTime</span><span class="o">.</span><span class="n">GetMaxVal</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Mathf</span><span class="o">.</span><span class="n">Max</span><span class="p">(</span><span class="n">rateOverTime</span><span class="p">,</span> <span class="n">particleSystem</span><span class="o">.</span><span class="n">GetBurstMax</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">static</span> <span class="ne">int</span> <span class="n">GetBurstMax</span><span class="p">(</span><span class="n">this</span> <span class="n">ParticleSystem</span> <span class="n">particleSystem</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="ne">int</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ParticleSystem</span><span class="o">.</span><span class="n">Burst</span><span class="p">[]</span>  <span class="n">bursts</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ParticleSystem</span><span class="o">.</span><span class="n">Burst</span><span class="p">[</span><span class="n">particleSystem</span><span class="o">.</span><span class="n">emission</span><span class="o">.</span><span class="n">burstCount</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">particleSystem</span><span class="o">.</span><span class="n">emission</span><span class="o">.</span><span class="n">GetBursts</span><span class="p">(</span><span class="n">bursts</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">foreach</span> <span class="p">(</span><span class="n">ParticleSystem</span><span class="o">.</span><span class="n">Burst</span> <span class="n">burst</span> <span class="ow">in</span> <span class="n">bursts</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">val</span> <span class="o">=</span> <span class="n">Mathf</span><span class="o">.</span><span class="n">Max</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">burst</span><span class="o">.</span><span class="n">maxCount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">val</span> <span class="o">=</span> <span class="n">Mathf</span><span class="o">.</span><span class="n">Max</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">burst</span><span class="o">.</span><span class="n">minCount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">burst</span><span class="o">.</span><span class="n">cycleCount</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">burst</span><span class="o">.</span><span class="n">repeatInterval</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">val</span> <span class="o">=</span> <span class="n">Mathf</span><span class="o">.</span><span class="n">Max</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">Mathf</span><span class="o">.</span><span class="n">CeilToInt</span><span class="p">(</span><span class="mi">1</span><span class="n">f</span> <span class="o">/</span> <span class="n">burst</span><span class="o">.</span><span class="n">repeatInterval</span><span class="p">)</span> <span class="o">*</span> <span class="n">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">static</span> <span class="ne">float</span> <span class="n">GetMaxVal</span><span class="p">(</span><span class="n">this</span> <span class="n">ParticleSystem</span><span class="o">.</span><span class="n">MinMaxCurve</span> <span class="n">minMaxCurve</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">switch</span> <span class="p">(</span><span class="n">minMaxCurve</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="n">ParticleSystemCurveMode</span><span class="o">.</span><span class="n">TwoConstants</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">Mathf</span><span class="o">.</span><span class="n">Max</span><span class="p">(</span><span class="n">minMaxCurve</span><span class="o">.</span><span class="n">constantMax</span><span class="p">,</span> <span class="n">minMaxCurve</span><span class="o">.</span><span class="n">constantMin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="n">ParticleSystemCurveMode</span><span class="o">.</span><span class="n">Curve</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">minMaxCurve</span><span class="o">.</span><span class="n">curve</span><span class="o">.</span><span class="n">GetMaxVal</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="n">ParticleSystemCurveMode</span><span class="o">.</span><span class="n">TwoCurves</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">Mathf</span><span class="o">.</span><span class="n">Max</span><span class="p">(</span> <span class="n">minMaxCurve</span><span class="o">.</span><span class="n">curveMax</span><span class="o">.</span><span class="n">GetMaxVal</span><span class="p">(),</span> <span class="n">minMaxCurve</span><span class="o">.</span><span class="n">curveMax</span><span class="o">.</span><span class="n">GetMaxVal</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="n">ParticleSystemCurveMode</span><span class="o">.</span><span class="n">Constant</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">minMaxCurve</span><span class="o">.</span><span class="n">constant</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">static</span> <span class="ne">float</span> <span class="n">GetMaxVal</span><span class="p">(</span><span class="n">this</span> <span class="n">AnimationCurve</span> <span class="n">animationCurve</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="ne">float</span> <span class="n">maxVal</span> <span class="o">=</span> <span class="ne">int</span><span class="o">.</span><span class="n">MinValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">foreach</span> <span class="p">(</span><span class="n">Keyframe</span> <span class="n">keyframe</span> <span class="ow">in</span> <span class="n">animationCurve</span><span class="o">.</span><span class="n">keys</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">maxVal</span> <span class="o">&lt;</span> <span class="n">keyframe</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">maxVal</span> <span class="o">=</span> <span class="n">keyframe</span><span class="o">.</span><span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">maxVal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">static</span> <span class="ne">float</span> <span class="n">GetMinVal</span><span class="p">(</span><span class="n">this</span> <span class="n">AnimationCurve</span> <span class="n">animationCurve</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="ne">float</span> <span class="n">minVal</span> <span class="o">=</span> <span class="ne">int</span><span class="o">.</span><span class="n">MaxValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">foreach</span> <span class="p">(</span><span class="n">Keyframe</span> <span class="n">keyframe</span> <span class="ow">in</span> <span class="n">animationCurve</span><span class="o">.</span><span class="n">keys</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">minVal</span> <span class="o">&gt;</span> <span class="n">keyframe</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">minVal</span> <span class="o">=</span> <span class="n">keyframe</span><span class="o">.</span><span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">minVal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-01-30
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/unity3d/">unity3d</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unity3d_project/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Unity3D 项目规范</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/cmd_common/">
+            <span class="next-text nav-default">常用 CMD 命令</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/unity3d_particle_tool/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

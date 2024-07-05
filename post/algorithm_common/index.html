@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>常见算法汇总 - 挥剑对风尘</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huijian142857" /><meta name="description" content="一些常见算法的汇总 概率计算 1 2 3 4 static bool GetProbability(int percentage) { return Random.Range(0, 100) &amp;lt; percentage; } 判断两个时间段是否相交或重叠 1 bool overlap = a.start &amp;lt; b.end &amp;amp;&amp;amp; b.start &amp;lt; a.end; 通过相交判断，可以求得相交最多的片" /><meta name="keywords" content="Hugo, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://huijian142857.gitee.io/post/algorithm_common/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="https://huijian142857.gitee.io/post/algorithm_common/">
+  <meta property="og:site_name" content="挥剑对风尘">
+  <meta property="og:title" content="常见算法汇总">
+  <meta property="og:description" content="一些常见算法的汇总 概率计算 1 2 3 4 static bool GetProbability(int percentage) { return Random.Range(0, 100) &lt; percentage; } 判断两个时间段是否相交或重叠 1 bool overlap = a.start &lt; b.end &amp;&amp; b.start &lt; a.end; 通过相交判断，可以求得相交最多的片">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2016-07-08T18:19:00+00:00">
+    <meta property="article:modified_time" content="2016-07-08T18:19:00+00:00">
+    <meta property="article:tag" content="Algorithm">
+
+  <meta itemprop="name" content="常见算法汇总">
+  <meta itemprop="description" content="一些常见算法的汇总 概率计算 1 2 3 4 static bool GetProbability(int percentage) { return Random.Range(0, 100) &lt; percentage; } 判断两个时间段是否相交或重叠 1 bool overlap = a.start &lt; b.end &amp;&amp; b.start &lt; a.end; 通过相交判断，可以求得相交最多的片">
+  <meta itemprop="datePublished" content="2016-07-08T18:19:00+00:00">
+  <meta itemprop="dateModified" content="2016-07-08T18:19:00+00:00">
+  <meta itemprop="wordCount" content="2912">
+  <meta itemprop="keywords" content="Algorithm">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="常见算法汇总">
+  <meta name="twitter:description" content="一些常见算法的汇总 概率计算 1 2 3 4 static bool GetProbability(int percentage) { return Random.Range(0, 100) &lt; percentage; } 判断两个时间段是否相交或重叠 1 bool overlap = a.start &lt; b.end &amp;&amp; b.start &lt; a.end; 通过相交判断，可以求得相交最多的片">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">挥剑对风尘</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">挥剑对风尘</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">常见算法汇总</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-07-08 </span>
+        <div class="post-category">
+            <a href="/categories/algorithm/"> algorithm </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#概率计算">概率计算</a></li>
+        <li><a href="#判断两个时间段是否相交或重叠">判断两个时间段是否相交或重叠</a></li>
+        <li><a href="#夹逼定理">夹逼定理</a></li>
+      </ul>
+    </li>
+    <li><a href="#引用计数">引用计数</a>
+      <ul>
+        <li><a href="#加权平均法">加权平均法</a></li>
+        <li><a href="#随机选择">随机选择</a></li>
+        <li><a href="#一次产生多个不同的随机数">一次产生多个不同的随机数</a></li>
+        <li><a href="#汉诺塔问题">汉诺塔问题</a></li>
+        <li><a href="#判断是否为回文数">判断是否为回文数</a></li>
+        <li><a href="#判断一个数是否是2的幂次方">判断一个数是否是2的幂次方</a></li>
+        <li><a href="#求一个数的二进制中1的个数">求一个数的二进制中1的个数</a></li>
+        <li><a href="#二维数组按列转为一维数组">二维数组按列转为一维数组</a></li>
+        <li><a href="#全排列">全排列</a></li>
+        <li><a href="#求最大连续子数组">求最大连续子数组</a></li>
+        <li><a href="#字符串循环右移">字符串循环右移</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>一些常见算法的汇总</p>
+<!-- more --> 
+<h2 id="概率计算">概率计算</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">static bool GetProbability(int percentage)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">	return Random.Range(0, 100) &lt; percentage;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="判断两个时间段是否相交或重叠">判断两个时间段是否相交或重叠</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bool overlap = a.start &lt; b.end &amp;&amp; b.start &lt; a.end;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过相交判断，可以求得相交最多的片段集合，用两层 for 循环即可</p>
+<h2 id="夹逼定理">夹逼定理</h2>
+<p>夹逼定理，时间到了动画自动播放判断</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">preTime = curTime;
+</span></span><span class="line"><span class="cl">curTime += deltaTime;
+</span></span><span class="line"><span class="cl">bool canPlay() {
+</span></span><span class="line"><span class="cl">	return preTime &lt;= fireTime &amp;&amp; curTime &gt; fireTime；
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="引用计数">引用计数</h1>
+<p>常用于成对出现的，比如一进一出，这个过程中，如果时序不确定，则可以使用引用计数来解决这个问题。</p>
+<h2 id="加权平均法">加权平均法</h2>
+<p>加权平均法，即将各数值乘以相应的单位数，然后加总求和得到总体值，再除以总的单位数。平均数的大小不仅取决于总体中各单位的值的大小，而且取决于各标志值出现的次数，由于各标志值出现的次数对其在平均数中的影响起着权衡轻重的作用，因此叫做权数。</p>
+<p>举例说明，下面是一个同学的某一科的考试成绩：平时测验 80， 期中 90， 期末 95</p>
+<p>学校规定的科目成绩的计算方式是：</p>
+<p>平时测验占 20%；
+期中成绩占 30%；
+期末成绩占 50%；</p>
+<p>这里，每个成绩所占的比重叫做权数或权重。那么，</p>
+<p>加权平均值 = 80<em>20% + 90</em>30% + 95*50% = 90.5
+算数平均值 = (80 + 90 + 95)/3 = 88.3</p>
+<h2 id="随机选择">随机选择</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">//</span> <span class="err">等概率的选取一个集合中的一个元素</span>
+</span></span><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">random_number</span><span class="p">(</span><span class="ne">int</span> <span class="nb">max</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="nb">max</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">random_select</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="ne">int</span><span class="o">&gt;&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v</span><span class="p">[</span><span class="n">random_number</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">size</span><span class="p">())];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的C++代码并不是绝对等概率的，因为使用了rand()取余来获取随机数，这个函数产生的随机数通常是不均匀分布的。
+现在考虑另外一种情况，如果不知道集合的长度，只能使用迭代器，那么random_select该如何实现了？我刚好看到一篇博客对这个问题做了说明，C#的解决方法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">using</span> <span class="n">System</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">using</span> <span class="n">System</span><span class="o">.</span><span class="n">Collections</span><span class="o">.</span><span class="n">Generic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">namespace</span> <span class="n">RandomSelect</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">class</span> <span class="n">Program</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="k">static</span> <span class="n">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Random</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">public</span> <span class="k">static</span> <span class="n">T</span> <span class="n">RandomSelect</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">enumerable</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="ne">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="n">T</span> <span class="n">selected</span> <span class="o">=</span> <span class="n">default</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="k">var</span> <span class="n">enumerator</span> <span class="o">=</span> <span class="n">enumerable</span><span class="o">.</span><span class="n">GetEnumerator</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">			<span class="k">while</span> <span class="p">(</span><span class="n">enumerator</span><span class="o">.</span><span class="n">MoveNext</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span> <span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">Next</span><span class="p">(</span><span class="o">++</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">					<span class="n">selected</span> <span class="o">=</span> <span class="n">enumerator</span><span class="o">.</span><span class="n">Current</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="n">selected</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">public</span> <span class="k">static</span> <span class="n">void</span> <span class="n">Main</span><span class="p">(</span><span class="n">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">var</span> <span class="n">list</span> <span class="o">=</span> <span class="n">new</span> <span class="n">List</span><span class="o">&lt;</span><span class="ne">int</span><span class="o">&gt;</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">			<span class="ne">int</span> <span class="n">testCount</span> <span class="o">=</span> <span class="mi">32</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">testCount</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Console</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="n">RandomSelect</span><span class="p">(</span><span class="n">list</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Console</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="s2">&#34; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">					<span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="n">Console</span><span class="o">.</span><span class="n">WriteLine</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="n">Console</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="s2">&#34;Press any key to continue . . .&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="n">Console</span><span class="o">.</span><span class="n">ReadKey</span><span class="p">(</span><span class="bp">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="一次产生多个不同的随机数">一次产生多个不同的随机数</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//generate many different random num
+</span></span><span class="line"><span class="cl">int *resultNums = new int[totalEnergyNum];
+</span></span><span class="line"><span class="cl">for (int i = 0; i &lt; totalEnergyNum; i++)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    resultNums[i] = IwRandMinMax(0, validBubbleNum);
+</span></span><span class="line"><span class="cl">    for (int j = 0; j &lt; i; j++)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        if (resultNums[j] == resultNums[i])
+</span></span><span class="line"><span class="cl">            i--;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">delete []resultNums;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="汉诺塔问题">汉诺塔问题</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//汉诺塔问题
+</span></span><span class="line"><span class="cl">void move(char getone,char putone)//将一个盘子从一根针移到另一根上
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    cout&lt;&lt;getone&lt;&lt;&#34;--&gt;&#34;&lt;&lt;putone&lt;&lt;endl;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">void hanoi(int n,char one,char two,char three)//将多个盘子从一根针移到另一根上
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    if(n==1)
+</span></span><span class="line"><span class="cl">        move(one,three);
+</span></span><span class="line"><span class="cl">    else
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        hanoi(n-1,one,three,two);//将A上n-1个盘子移动到B上（借助C）
+</span></span><span class="line"><span class="cl">        move(one,three);//把A上剩下的一个盘子移动到C上
+</span></span><span class="line"><span class="cl">        hanoi(n-1,two,one,three);//将n-1个盘子从B移到C上（借助A）
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="判断是否为回文数">判断是否为回文数</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//判断是否为回文数，如121,676
+</span></span><span class="line"><span class="cl">bool isHuiwen(long n)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    long p,m;
+</span></span><span class="line"><span class="cl">    p=n;
+</span></span><span class="line"><span class="cl">    m=0;
+</span></span><span class="line"><span class="cl">    while(p)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        m = m*10 + p%10;
+</span></span><span class="line"><span class="cl">        p = p/10;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    return (m==n);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>判断数字回文的方法很简单，比如121，要进行判断，先对121求余运算得到末尾数字1；接下来要得到数字2，可以接着对121进行除以10的运算变成12，继续求余可以得到2；循环使用上述方法，最终可以得到新的m，判断m与n是否相等即可。</p>
+<h2 id="判断一个数是否是2的幂次方">判断一个数是否是2的幂次方</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// 判断一个数是否是2的幂次方
+</span></span><span class="line"><span class="cl">bool IsPowerOfTwo(int num) {
+</span></span><span class="line"><span class="cl">    return ((num - 1) &amp; num) == 0;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="求一个数的二进制中1的个数">求一个数的二进制中1的个数</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// 求一个数的二进制中1的个数
+</span></span><span class="line"><span class="cl">int GetNumberOfOne(int num) {
+</span></span><span class="line"><span class="cl">    int count = 0;
+</span></span><span class="line"><span class="cl">    while (num) {
+</span></span><span class="line"><span class="cl">        num = (num - 1) &amp; num;
+</span></span><span class="line"><span class="cl">        count++;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    return count;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="二维数组按列转为一维数组">二维数组按列转为一维数组</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// 把下列二维数组按列转为一维数组，输出：12 56 34 78
+</span></span><span class="line"><span class="cl">string[,] arr = new string[2, 4] { {&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34; },{&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34; } };
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">string[] ss = new string[arr.Length];
+</span></span><span class="line"><span class="cl">int index = 0;
+</span></span><span class="line"><span class="cl">for (int j = 0; j &lt; arr.GetLength(1); j++)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    int jj = j;
+</span></span><span class="line"><span class="cl">    for (int i = 0; i &lt; arr.GetLength(0); i++)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        j = jj;
+</span></span><span class="line"><span class="cl">        ss[index++] = arr[i, j];
+</span></span><span class="line"><span class="cl">        if (j &lt; arr.GetLength(1) - 1)
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            j++;
+</span></span><span class="line"><span class="cl">            ss[index++] = arr[i, j];
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="全排列">全排列</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">void FullPermutation(int a[], int len, int i)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    // 全排列，比如数组{1,2,3}，一共3个数字，那么全排列有6个，阶乘。
+</span></span><span class="line"><span class="cl">    // i默认为0，len为数组长度。
+</span></span><span class="line"><span class="cl">    if (i == len-1) {
+</span></span><span class="line"><span class="cl">        // 递归的出口，输出全排列的数据
+</span></span><span class="line"><span class="cl">        for_each(a, a+len, [](int n) { cout &lt;&lt; n &lt;&lt; &#34; &#34;;});
+</span></span><span class="line"><span class="cl">        cout &lt;&lt; endl;
+</span></span><span class="line"><span class="cl">        return;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    if (i &lt; len) {
+</span></span><span class="line"><span class="cl">        for (int j = i; j &lt; len; j++) {
+</span></span><span class="line"><span class="cl">            // 如果i开始为0，那么就是第一个数不断与后面的数字互换
+</span></span><span class="line"><span class="cl">            swap(a[i], a[j]);
+</span></span><span class="line"><span class="cl">            // 然后i开始递增，第i个数不断与后面的数互换，意味着范围不断减小，直至为一个数
+</span></span><span class="line"><span class="cl">            // n个元素的全排列 = （一个元素作为前缀）+（n-1个元素的全排列），和阶乘一样
+</span></span><span class="line"><span class="cl">            FullPermutation(a, len, i+1);
+</span></span><span class="line"><span class="cl">            swap(a[i], a[j]);
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="求最大连续子数组">求最大连续子数组</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//寻找整型数组的最大连续子数组，并输出起止位
+</span></span><span class="line"><span class="cl">//加上一个数使子数组变大，减去一个数使子数组变小
+</span></span><span class="line"><span class="cl">//遍历过程中，如果中间变量tmp为负时，则丢弃已经遍历的和
+</span></span><span class="line"><span class="cl">int MaxSubArray(int data[], int size, size_t &amp;beg, size_t &amp;end)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    int tmp = 0;
+</span></span><span class="line"><span class="cl">    int maxvalue = 0;
+</span></span><span class="line"><span class="cl">    size_t tmp_beg = 0;
+</span></span><span class="line"><span class="cl">    for(size_t i=0; i&lt;size; i++)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        tmp += data[i];
+</span></span><span class="line"><span class="cl">        if (tmp &lt; 0)//如果小于0，则起始位变为i+1,负数情况暂且不考虑
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            tmp = 0;
+</span></span><span class="line"><span class="cl">            tmp_beg = i + 1;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        if (tmp &gt; maxvalue)//如果更新后的值变大，则更新maxvalue与终止位end与起始位beg
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            maxvalue = tmp;
+</span></span><span class="line"><span class="cl">            end = i;
+</span></span><span class="line"><span class="cl">            if (tmp_beg &lt;= end)
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                beg = tmp_beg;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    //全负数的情况
+</span></span><span class="line"><span class="cl">    if (maxvalue == 0)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        maxvalue = data[0];
+</span></span><span class="line"><span class="cl">        for (size_t j = 0; j &lt; size; j++)
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            if (data[j] &gt; maxvalue)
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                maxvalue = data[j];
+</span></span><span class="line"><span class="cl">                beg = end = j;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    return maxvalue;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// 测试函数
+</span></span><span class="line"><span class="cl">void testMaxSubArray()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    //求数组中连续的最大数，并输出起止位
+</span></span><span class="line"><span class="cl">    int data[] = {-1, 98, 8, 76, -23, -988, 22, 12, 32, 48, 23, 23 ,23, -8 -987};
+</span></span><span class="line"><span class="cl">    int data1[] = {1, 2, -2, 1};
+</span></span><span class="line"><span class="cl">    size_t beg = 0;
+</span></span><span class="line"><span class="cl">    size_t end = 0;
+</span></span><span class="line"><span class="cl">    cout &lt;&lt; MaxSubArray(data1, sizeof(data1)/sizeof(data1[0]), beg, end) &lt;&lt; endl;
+</span></span><span class="line"><span class="cl">    if (beg == end)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        cout &lt;&lt; beg &lt;&lt; endl;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    else
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        cout &lt;&lt; beg &lt;&lt; &#34; &#34; &lt;&lt; end &lt;&lt; endl;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="字符串循环右移">字符串循环右移</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">//</span><span class="err">把一个</span><span class="n">char字符串循环右移n位</span>
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">loopMove</span><span class="p">(</span><span class="n">char</span> <span class="o">*</span><span class="n">pStr</span><span class="p">,</span> <span class="ne">int</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">NULL</span><span class="o">==</span><span class="n">pStr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="ne">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">pStr</span><span class="p">);</span><span class="o">//</span><span class="err">数组长度</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">%</span> <span class="n">len</span><span class="p">;</span><span class="o">//</span><span class="err">实际要移动的位数</span>
+</span></span><span class="line"><span class="cl">    <span class="n">char</span> <span class="o">*</span><span class="n">tmp</span> <span class="o">=</span> <span class="n">new</span> <span class="n">char</span><span class="p">[</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span><span class="o">//</span><span class="err">临时数组</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span> <span class="o">-</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="o">//</span><span class="err">把数组的一半移动到临时数组的右侧</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tmp</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">pStr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">k</span><span class="p">)</span><span class="o">//</span><span class="err">把数组的另一半移动到临时数组的左侧</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="ne">int</span> <span class="n">p</span> <span class="o">=</span> <span class="n">len</span> <span class="o">-</span> <span class="n">n</span> <span class="o">+</span> <span class="n">k</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tmp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">pStr</span><span class="p">[</span><span class="n">p</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tmp</span><span class="p">[</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\0</span><span class="s1">&#39;</span><span class="p">;</span><span class="o">//</span><span class="err">填充数组最后一位</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">m</span> <span class="o">&lt;=</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="n">pStr</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="n">m</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">delete</span> <span class="p">[]</span><span class="n">tmp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">//</span><span class="err">字符串循环右移的</span><span class="n">strcpy版本</span>
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">loopMove1</span><span class="p">(</span><span class="n">char</span><span class="o">*</span> <span class="n">pStr</span><span class="p">,</span> <span class="ne">int</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span><span class="mi">0</span> <span class="o">||</span> <span class="n">NULL</span> <span class="o">==</span> <span class="n">pStr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="ne">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">pStr</span><span class="p">);</span><span class="o">//</span><span class="err">数组长度</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">%</span> <span class="n">len</span><span class="p">;</span><span class="o">//</span><span class="err">实际要移动的位数</span>
+</span></span><span class="line"><span class="cl">    <span class="n">char</span> <span class="o">*</span><span class="n">tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">((</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">char</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">原字符串</span><span class="n">pStr复制到tmp</span><span class="err">，</span><span class="n">tmp的下标从n处开始</span><span class="p">,</span><span class="n">pStr下标从0开始</span>
+</span></span><span class="line"><span class="cl">    <span class="n">strncpy</span><span class="p">(</span><span class="n">tmp</span> <span class="o">+</span> <span class="n">n</span><span class="p">,</span> <span class="n">pStr</span><span class="p">,</span> <span class="n">len</span> <span class="o">-</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">原字符串</span><span class="n">pStr复制到tmp</span><span class="err">，</span><span class="n">tmp的下标从0处开始</span><span class="p">,</span><span class="n">pStr下标从len</span><span class="o">-</span><span class="n">n开始</span>
+</span></span><span class="line"><span class="cl">    <span class="n">strncpy</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">pStr</span> <span class="o">+</span> <span class="n">len</span> <span class="o">-</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tmp</span><span class="p">[</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\0</span><span class="s1">&#39;</span><span class="p">;</span><span class="o">//</span><span class="err">填充最后一位</span>
+</span></span><span class="line"><span class="cl">    <span class="n">strcpy</span><span class="p">(</span><span class="n">pStr</span><span class="p">,</span> <span class="n">tmp</span><span class="p">);</span><span class="o">//</span><span class="err">把结果填充到原字符串中</span>
+</span></span><span class="line"><span class="cl">    <span class="n">free</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span><span class="o">//</span><span class="err">释放资源</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">//</span><span class="err">字符串循环右移的翻转版本</span>
+</span></span><span class="line"><span class="cl"><span class="o">/*</span><span class="err">例如字符串</span><span class="n">hello</span><span class="err">，右移</span><span class="mi">2</span><span class="err">位，则</span><span class="n">lo将被移出</span><span class="err">，我们分别翻转前后两部分，得到</span><span class="n">leh</span> <span class="n">ol</span><span class="err">，</span>
+</span></span><span class="line"><span class="cl"><span class="err">然后全部翻转得到</span><span class="n">lohel</span><span class="p">,</span><span class="err">这就是想要的结果。</span>
+</span></span><span class="line"><span class="cl"><span class="o">*/</span>
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">reverseStr</span><span class="p">(</span><span class="n">char</span><span class="o">*</span> <span class="nb">str</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">begin</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">end</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">不断从两头交换字符来进行翻转</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">str</span> <span class="o">!=</span> <span class="n">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">strlen</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">char</span> <span class="n">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="n">begin</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">temp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">[</span><span class="n">begin</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">str</span><span class="p">[</span><span class="n">begin</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">[</span><span class="n">end</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">str</span><span class="p">[</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">begin</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">end</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">loopMove2</span><span class="p">(</span><span class="n">char</span><span class="o">*</span> <span class="n">pStr</span><span class="p">,</span> <span class="ne">int</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span><span class="mi">0</span> <span class="o">||</span> <span class="n">NULL</span> <span class="o">==</span> <span class="n">pStr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="ne">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">pStr</span><span class="p">);</span><span class="o">//</span><span class="err">数组长度</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">%</span> <span class="n">len</span><span class="p">;</span><span class="o">//</span><span class="err">实际要移动的位数</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reverseStr</span><span class="p">(</span><span class="n">pStr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">len</span> <span class="o">-</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span><span class="o">//</span><span class="err">先翻转左边部分</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reverseStr</span><span class="p">(</span><span class="n">pStr</span><span class="p">,</span> <span class="n">len</span> <span class="o">-</span> <span class="n">n</span><span class="p">,</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span><span class="o">//</span><span class="err">后翻转右边部分</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reverseStr</span><span class="p">(</span><span class="n">pStr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span><span class="o">//</span><span class="err">翻转整个字符串</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huijian142857</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-07-08
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/algorithm/">algorithm</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/csharp_tips/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">C#知识点</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/android_virtual_keyboard/">
+            <span class="next-text nav-default">在Scaleform输入框中弹出Android键盘</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://gitee.com/huijian142857" class="iconfont icon-github" title="github"></a>
+  <a href="https://huijian142857.gitee.io/post/algorithm_common/" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>huijian142857</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

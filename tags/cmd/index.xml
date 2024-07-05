@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cmd on 挥剑对风尘</title>
+    <link>https://huijian142857.gitee.io/tags/cmd/</link>
+    <description>Recent content in Cmd on 挥剑对风尘</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 20 May 2019 15:00:00 +0000</lastBuildDate>
+    <atom:link href="https://huijian142857.gitee.io/tags/cmd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PowerShell 导出 Excel 为 Txt</title>
+      <link>https://huijian142857.gitee.io/post/powershell_export_excel/</link>
+      <pubDate>Mon, 20 May 2019 15:00:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/powershell_export_excel/</guid>
+      <description>使用 PowerShell 脚本导出 Excel 文件为文本文件 Txt 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 # export excel file to txt file $files = &amp;#34;aura&amp;#34;, &amp;#34;spell&amp;#34;, &amp;#34;missile&amp;#34; $excel = New-Object -ComObject Excel.Application $excel.Visible</description>
+    </item>
+    <item>
+      <title>常用 CMD 命令</title>
+      <link>https://huijian142857.gitee.io/post/cmd_common/</link>
+      <pubDate>Thu, 20 Dec 2018 21:00:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/cmd_common/</guid>
+      <description>常用 CMD 命令 计划任务.bat 1 2 schtasks /delete /tn MyTask /f schtasks /create /tn MyTask /tr D:\Build10\start.bat /sc once /f /st 00:10:00 /sd 2019/01/04 start.bat 1 2 cd /d D:\Build11 GameConsole ip=118.25.123.57 port=8503 注意 cd 命令，否则需要手动在计划任务中设置 起始于 (start in) 选项才</description>
+    </item>
+    <item>
+      <title>自动生成 Protocol 的 CSharp 文件</title>
+      <link>https://huijian142857.gitee.io/post/cmd_protocol_gen/</link>
+      <pubDate>Mon, 10 Dec 2018 22:13:00 +0000</pubDate>
+      <guid>https://huijian142857.gitee.io/post/cmd_protocol_gen/</guid>
+      <description>通过 Protocol Buffer 配置文件自动生成 CSharp 文件的 PowerShell 程序 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51</description>
+    </item>
+  </channel>
+</rss>
